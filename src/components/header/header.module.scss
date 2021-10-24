@@ -1,0 +1,9 @@
+.header {
+  align-items: center;
+  display: flex;
+
+  > * {
+    color: blue;
+    display: flex;
+  }
+}

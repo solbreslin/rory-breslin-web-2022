@@ -6,10 +6,9 @@ import Gallery from "../../components/gallery/gallery";
 import Seo from "../../components/seo";
 
 const WorkPage = ({ data }) => {
-  console.log("work page data", data);
   return (
     <Layout>
-      <Seo title="Page two" />
+      <Seo title="Work" />
       <Gallery data={data.allMarkdownRemark.nodes} />
       <Link to="/">Go back to the homepage</Link>
     </Layout>
