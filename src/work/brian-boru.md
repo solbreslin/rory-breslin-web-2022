@@ -3,7 +3,7 @@ templateKey: project-page
 draft: false
 title: Brian Boru
 category: public
-material: "Bronze, Limestone "
+material: Bronze, Limestone
 year: 2015
 location: '{"type":"Point","coordinates":[-366.6555423,54.3474178]}'
 images:

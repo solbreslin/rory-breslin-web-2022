@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: true
-title: " Count John McCormack"
+title: Count John McCormack
 category: public
 material: Bronze, Limestone
 year: 2014

@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Erne"
+title: Mask of the Erne
 category: masks
 material: Bronze
 images:

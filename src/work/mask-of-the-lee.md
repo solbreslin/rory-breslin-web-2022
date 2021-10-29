@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Lee"
+title: Mask of the Lee
 category: masks
 material: Bronze
 images:

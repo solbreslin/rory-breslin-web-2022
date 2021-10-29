@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " James Fintan Lawlor"
+title: James Fintan Lawlor
 category: public
 material: Bronze, Limestone
 year: 2007

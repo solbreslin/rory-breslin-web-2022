@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " La Petite Mort"
+title: La Petite Mort
 category: exhibition
 material: Bronze
 images:

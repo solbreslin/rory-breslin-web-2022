@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Michael Davitt"
+title: Michael Davitt
 category: public
 material: Bronze, Limestone
 location: '{"type":"Point","coordinates":[-9.1299391,53.9215997]}'

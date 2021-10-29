@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Blackwater"
+title: Mask of the Blackwater
 category: masks
 material: Bronze
 images:

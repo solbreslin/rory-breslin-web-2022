@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Suir"
+title: Mask of the Suir
 category: masks
 material: Bronze
 images:

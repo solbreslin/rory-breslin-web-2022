@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Michael Harnett"
+title: Michael Harnett
 category: public
 material: Bronze, Limestone
 year: 2011

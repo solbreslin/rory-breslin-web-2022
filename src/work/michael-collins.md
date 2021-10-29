@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Michael Collins"
+title: Michael Collins
 category: portrait
 material: Bronze
 year: 2010

@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Foyle"
+title: Mask of the Foyle
 category: masks
 material: Bronze
 images:

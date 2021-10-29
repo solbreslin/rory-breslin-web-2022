@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Shannon"
+title: Mask of the Shannon
 category: masks
 material: Bronze
 images:

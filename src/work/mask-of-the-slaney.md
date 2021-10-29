@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Slaney"
+title: Mask of the Slaney
 category: masks
 material: Bronze
 images:

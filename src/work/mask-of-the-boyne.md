@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Boyne"
+title: Mask of the Boyne
 category: masks
 material: Bronze
 images:

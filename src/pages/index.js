@@ -1,29 +1,48 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import * as React from "react";
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from "../components/layout";
+import Seo from "../components/seo";
+import Carousel from "../components/carousel/carousel";
+import { Link } from "gatsby";
+
+const images = [
+  {
+    url: "https://res.cloudinary.com/r-breslin/image/upload/v1588380563/r-breslin-cloudinary/HOMEPAGE/Boxes/public_k6unkl.jpg",
+    title: "Public art",
+    category: "public",
+  },
+  {
+    url: "https://res.cloudinary.com/r-breslin/image/upload/v1588380529/r-breslin-cloudinary/HOMEPAGE/Boxes/portrait_zlgiad.jpg",
+    title: "Portrait",
+    category: "portrait",
+  },
+  {
+    url: "https://res.cloudinary.com/r-breslin/image/upload/v1588380436/r-breslin-cloudinary/HOMEPAGE/Boxes/masks_xo0ojk.jpg",
+    title: "Masks",
+    category: "masks",
+  },
+  {
+    url: "https://res.cloudinary.com/r-breslin/image/upload/v1588380274/r-breslin-cloudinary/HOMEPAGE/Boxes/exhibition_tnz3lz.jpg",
+    title: "Exhibition",
+    category: "exhibition",
+  },
+];
 
 const IndexPage = () => (
   <Layout>
     <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["auto", "webp", "avif"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    </p>
+    <Carousel />
+    <section>
+      {images.map(image => (
+        <Link to="work" key={image.title}>
+          <figure>
+            <img src={image.url} alt={image.title} />
+          </figure>
+          <h3>{image.title}</h3>
+        </Link>
+      ))}
+    </section>
   </Layout>
-)
+);
 
-export default IndexPage
+export default IndexPage;

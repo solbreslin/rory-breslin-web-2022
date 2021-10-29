@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Barrow"
+title: Mask of the Barrow
 category: masks
 material: Bronze
 images:

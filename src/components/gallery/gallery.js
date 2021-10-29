@@ -1,6 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "gatsby";
 
+// Filter out drafts and alphabetise on page load, not every render
+let galleryData;
+
+const filterDraftProjects = data => {
+  return data.filter(item => !item.frontmatter.draft);
+};
+
+const sortAlphabetically = data => {
+  return data.sort((a, b) =>
+    a.frontmatter.title.localeCompare(b.frontmatter.title)
+  );
+};
+
+const mapData = data => {
+  if (galleryData) return galleryData;
+
+  galleryData = filterDraftProjects(data);
+  galleryData = sortAlphabetically(galleryData);
+
+  return galleryData;
+};
+
 const generateGalleryImagePath = path => {
   // Eg: https://res.cloudinary.com/r-breslin/image/upload/v1584241866/r-breslin-cloudinary/WORK/MASKS/the-foyle/the-foyle_the-foyle-01_wekais.png
   if (!path) {
@@ -18,7 +40,8 @@ const filters = ["all", "portrait", "public", "masks", "exhibition"];
 const Gallery = ({ data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  console.log("gallery data", data);
+  const galleryData = mapData(data);
+
   return (
     <div className="gallery">
       <div className="gallery-filters">
@@ -42,13 +65,11 @@ const Gallery = ({ data }) => {
           </ul>
         }
       </div>
-      {data
-        .filter(({ frontmatter: item }) => !item.draft)
+      {galleryData
         .filter(
-          ({ frontmatter: item }) =>
-            item.category === activeFilter || activeFilter === "all"
+          item =>
+            item.frontmatter.category === activeFilter || activeFilter === "all"
         )
-        // TODO: Sort alphabetically
         .map(({ frontmatter: item, path }) => (
           <Link key={item.title} to={path}>
             <figure>

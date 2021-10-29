@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Emigrant Monument"
+title: Emigrant Monument
 category: public
 material: Bronze, Limestone
 year: 2012

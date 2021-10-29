@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Nore"
+title: Mask of the Nore
 category: masks
 material: Bronze
 images:

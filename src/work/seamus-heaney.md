@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Seamus Heaney"
+title: Seamus Heaney
 category: portrait
 material: Bronze
 year: 2012

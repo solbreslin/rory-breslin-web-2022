@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Box Variation III"
+title: Box Variation III
 category: exhibition
 material: Bronze
 images:

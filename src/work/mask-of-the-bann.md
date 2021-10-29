@@ -1,7 +1,7 @@
 ---
 templateKey: project-page
 draft: false
-title: " Mask of the Bann"
+title: Mask of the Bann
 category: masks
 material: Bronze
 images:
