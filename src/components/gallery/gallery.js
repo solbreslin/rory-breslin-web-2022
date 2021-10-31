@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
+import CustomMap from "./../map/map";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -23,6 +24,28 @@ const mapData = data => {
   return galleryData;
 };
 
+const mapLocationData = (data, filter) => {
+  console.log("set", filter);
+  const locationData = data
+    .filter(d => d.frontmatter.location)
+
+    .map(d => {
+      let locationObject = JSON.parse(d.frontmatter.location);
+
+      return {
+        category: d.frontmatter.category,
+        title: d.frontmatter.title,
+        coords: locationObject.coordinates.reverse(),
+        image: d.frontmatter.images[0],
+      };
+    })
+    .filter(d => {
+      return d.category === filter || filter === "all" || !filter;
+    });
+
+  return locationData;
+};
+
 const generateGalleryImagePath = path => {
   // Eg: https://res.cloudinary.com/r-breslin/image/upload/v1584241866/r-breslin-cloudinary/WORK/MASKS/the-foyle/the-foyle_the-foyle-01_wekais.png
   if (!path) {
@@ -36,17 +59,30 @@ const generateGalleryImagePath = path => {
 };
 
 const filters = ["all", "portrait", "public", "masks", "exhibition"];
+const layouts = ["grid", "list", "map"];
 
-const Gallery = ({ category, data }) => {
+const Gallery = ({ category, layout, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
-
-  const galleryData = mapData(data);
+  const [activeLayout, setActiveLayout] = useState("grid");
+  const [locationData, setLocationData] = useState([]);
 
   useEffect(() => {
     if (category) {
       setActiveFilter(category);
     }
-  }, []);
+
+    if (layout) {
+      setActiveLayout(layout);
+    }
+  }, [category, layout]);
+
+  useEffect(() => {
+    const galleryData = mapData(data);
+
+    if (galleryData) {
+      setLocationData(mapLocationData(galleryData, activeFilter));
+    }
+  }, [data, activeFilter]);
 
   return (
     <div className="gallery">
@@ -71,22 +107,59 @@ const Gallery = ({ category, data }) => {
           </ul>
         }
       </div>
-      {galleryData
-        .filter(
-          item =>
-            item.frontmatter.category === activeFilter || activeFilter === "all"
-        )
-        .map(({ frontmatter: item, path }) => (
-          <Link key={item.title} to={path}>
-            <figure>
-              <img
-                src={generateGalleryImagePath(item.images[0])}
-                alt={item.title}
-              />
-            </figure>
-            <h3>{item.title}</h3>
-          </Link>
-        ))}
+      <div>
+        {
+          <ul>
+            {layouts.map(layout => (
+              <li
+                key={layout}
+                className={`${activeLayout === layout ? "is-active" : ""}`}
+              >
+                <input
+                  className="input-hidden"
+                  id={layout}
+                  name="layouts"
+                  type="radio"
+                  onChange={() => setActiveLayout(layout)}
+                />
+                <label htmlFor={layout}>{layout}</label>
+              </li>
+            ))}
+          </ul>
+        }
+      </div>
+      {activeLayout === "map" ? (
+        <CustomMap data={locationData} />
+      ) : (
+        <div
+          className={
+            activeLayout === "grid"
+              ? "is-grid"
+              : activeLayout === "list"
+              ? "is-list"
+              : "is-map"
+          }
+        >
+          {galleryData &&
+            galleryData
+              .filter(
+                item =>
+                  item.frontmatter.category === activeFilter ||
+                  activeFilter === "all"
+              )
+              .map(({ frontmatter: item, path }) => (
+                <Link key={item.title} to={path}>
+                  <figure>
+                    <img
+                      src={generateGalleryImagePath(item.images[0])}
+                      alt={item.title}
+                    />
+                  </figure>
+                  <h3>{item.title}</h3>
+                </Link>
+              ))}
+        </div>
+      )}
     </div>
   );
 };
