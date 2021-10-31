@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 
 // Filter out drafts and alphabetise on page load, not every render
@@ -37,10 +37,16 @@ const generateGalleryImagePath = path => {
 
 const filters = ["all", "portrait", "public", "masks", "exhibition"];
 
-const Gallery = ({ data }) => {
+const Gallery = ({ category, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
 
   const galleryData = mapData(data);
+
+  useEffect(() => {
+    if (category) {
+      setActiveFilter(category);
+    }
+  }, []);
 
   return (
     <div className="gallery">

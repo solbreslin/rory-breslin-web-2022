@@ -34,7 +34,7 @@ const IndexPage = () => (
     <Carousel />
     <section>
       {images.map(image => (
-        <Link to="work" key={image.title}>
+        <Link to="work" key={image.title} state={{ category: image.category }}>
           <figure>
             <img src={image.url} alt={image.title} />
           </figure>
