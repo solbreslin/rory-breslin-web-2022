@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import * as headerStyles from "./header.module.scss";
 
 const Header = ({ siteTitle }) => {
   const [navOpen, setNavOpen] = useState(false);
+  const headerEl = useRef(null);
 
   useEffect(() => {
     if (navOpen) {
@@ -13,8 +14,19 @@ const Header = ({ siteTitle }) => {
     }
   }, [navOpen]);
 
+  useEffect(() => {
+    if (document !== undefined) {
+      const height = headerEl.current.clientHeight;
+
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${height}px`
+      );
+    }
+  }, []);
+
   return (
-    <header className={headerStyles.header}>
+    <header className={headerStyles.header} ref={headerEl}>
       <h1>
         <Link to="/">{siteTitle}</Link>
       </h1>

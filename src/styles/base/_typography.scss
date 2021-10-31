@@ -1,0 +1,41 @@
+html {
+  font-size: 112.5%;
+}
+
+:root {
+  --font-size-s2: 0.64rem;
+  --font-size-s1: 0.8rem;
+  --font-size-1: 1rem;
+  --font-size-2: 1.25rem;
+  --font-size-3: 1.563rem;
+  --font-size-4: 1.953rem;
+  --font-size-5: 2.441rem;
+}
+
+body {
+  color: var(--color-body);
+  font-family: Akkurat-Reg, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  font-style: normal;
+  line-height: var(--line-height);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Akkurat-Bold, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+b,
+strong {
+  font-weight: 500;
+}
+
+p {
+  margin-bottom: 1rem;
+}

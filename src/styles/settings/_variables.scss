@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $breakpoints: (
   "mobile-l": 480px,
   "tablet": 769px,
@@ -5,3 +7,26 @@ $breakpoints: (
   "widescreen": 1152px,
   "full-hd": 1344px,
 );
+
+$ratio: 1.414;
+
+$scale: $ratio;
+$scale-m: $scale * $ratio;
+$scale-l: $scale-m * $ratio;
+$scale-s: math.div($scale, $ratio);
+$scale-xs: math.div($scale-s, $ratio);
+$scale-xxs: math.div($scale-xs, $ratio);
+
+$spacing-xxs: $scale-xxs * 1rem;
+$spacing-xs: $scale-xs * 1rem;
+$spacing-s: $scale-s * 1rem;
+$spacing: $scale * 1rem;
+$spacing-m: $scale-m * 1rem;
+$spacing-l: $scale-l * 1rem;
+
+$line-height: $ratio;
+
+$base-font-size-mobile: 20;
+$base-font-size: 16;
+
+$nav-breakpoint: tablet;

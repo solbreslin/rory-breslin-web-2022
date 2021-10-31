@@ -1,5 +1,5 @@
 .carousel {
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
   overflow: hidden;
   position: relative;
 

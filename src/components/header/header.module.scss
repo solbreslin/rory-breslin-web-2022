@@ -1,9 +1,16 @@
-@import "./../../styles/global.scss";
+@import "./../../styles/settings/all.scss";
 
 .header {
   align-items: center;
   display: flex;
+  justify-content: space-between;
+  padding: $spacing-xs $spacing;
   position: relative;
+
+  h1 {
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
 
   button {
     z-index: 2;
