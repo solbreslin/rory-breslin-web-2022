@@ -4,16 +4,33 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: $spacing-xs $spacing;
   position: relative;
 
   h1 {
+    display: flex;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+
+    a {
+      padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
+    }
   }
 
   button {
+    box-sizing: content-box;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20px;
+    padding: $spacing-s;
+    width: 20px;
     z-index: 2;
+
+    span {
+      background: black;
+      height: calc(100% / 10);
+    }
   }
 
   nav {
@@ -31,16 +48,32 @@
     }
   }
 
-  @include respond-to(mobile-l) {
+  @include respond-to(tablet) {
     button {
       display: none;
     }
 
     nav {
-      display: flex;
-      max-width: auto;
+      background: inherit;
+      max-width: initial;
       position: static;
       transform: none;
+    }
+
+    ul {
+      display: flex;
+    }
+
+    li {
+      display: flex;
+      line-height: 1;
+
+      a {
+        font-size: 0.875rem;
+        letter-spacing: 0.075em;
+        padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
+        text-transform: uppercase;
+      }
     }
   }
 }

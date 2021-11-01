@@ -39,7 +39,11 @@ const Header = ({ siteTitle }) => {
         aria-labelledby="menu-label"
         aria-expanded={navOpen}
       >
-        ☰
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
       <nav
         aria-labelledby="menu-label"
