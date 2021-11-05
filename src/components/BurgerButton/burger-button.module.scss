@@ -1,0 +1,120 @@
+@import "./../../styles/settings/all.scss";
+
+$w: 24px;
+$h: $w;
+$o: 12px;
+
+.button {
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+  display: block;
+  height: $h;
+  perspective: $w * 2;
+  width: $w;
+  z-index: 4;
+}
+
+.cube {
+  cursor: pointer;
+  display: block;
+  font-size: 2px;
+  height: $h;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease-out;
+  width: $w;
+
+  > span {
+    background: black;
+    display: flex;
+    height: $h;
+    opacity: 1;
+    position: absolute;
+    transition: transform 0.125s ease-out;
+    width: $w;
+  }
+}
+
+.rotated {
+  transform: rotate3d(0, 1, 0, 180deg);
+}
+
+.front {
+  align-items: center;
+  justify-content: center;
+  padding: 2em 3em calc(2em + (100% / 12));
+  transform: translateZ($o);
+
+  span {
+    background-image: repeating-linear-gradient(
+      black,
+      black calc(100% / 6),
+      white calc(100% / 6),
+      white calc(100% / 3)
+    );
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.back {
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  transform: translateZ(-$o) rotateY(180deg);
+
+  span {
+    height: 50%;
+    width: 50%;
+    position: absolute;
+
+    &:nth-of-type(1) {
+      background-image: linear-gradient(
+        to right,
+        transparent,
+        transparent 40%,
+        white 40%,
+        white 60%,
+        transparent 60%,
+        transparent 100%
+      );
+      transform: rotate(45deg);
+    }
+
+    &:nth-of-type(2) {
+      background-image: linear-gradient(
+        to bottom,
+        transparent,
+        transparent 40%,
+        white 40%,
+        white 60%,
+        transparent 60%,
+        transparent 100%
+      );
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.left {
+  transform: translateX(-$o) rotateY(-90deg);
+}
+
+.right {
+  transform: translateX($o) rotateY(90deg);
+}
+
+.top {
+  transform: translateY(-$o) rotateX(90deg);
+}
+
+.bottom {
+  transform: translateY($o) rotateX(-90deg);
+}
+
+@include respond-to(tablet) {
+  .button {
+    display: none;
+  }
+}

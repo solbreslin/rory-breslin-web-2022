@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import * as headerStyles from "./header.module.scss";
+import BurgerButton from "../BurgerButton/burger-button";
 
 const Header = ({ siteTitle }) => {
   const [navOpen, setNavOpen] = useState(false);
@@ -25,30 +26,23 @@ const Header = ({ siteTitle }) => {
     }
   }, []);
 
+  const updateParent = () => {
+    setNavOpen(!navOpen);
+  };
+
   return (
-    <header className={headerStyles.header} ref={headerEl}>
+    <header
+      className={`${headerStyles.header} ${navOpen ? headerStyles.active : ""}`}
+      ref={headerEl}
+    >
       <h1>
         <Link to="/">{siteTitle}</Link>
       </h1>
       <span hidden id="menu-label">
         Main menu
       </span>
-      <button
-        onClick={() => setNavOpen(!navOpen)}
-        className="menu-toggle"
-        aria-labelledby="menu-label"
-        aria-expanded={navOpen}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav
-        aria-labelledby="menu-label"
-        className={navOpen ? headerStyles.active : ""}
-      >
+      <BurgerButton rotated={navOpen} updateParent={updateParent} />
+      <nav aria-labelledby="menu-label">
         <ul id="menu" className={navOpen ? "is-open" : ""}>
           <li>
             <Link to="/work">Work</Link>
