@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
+import * as styles from "./gallery.module.scss";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -25,7 +26,6 @@ const mapData = data => {
 };
 
 const mapLocationData = (data, filter) => {
-  console.log("set", filter);
   const locationData = data
     .filter(d => d.frontmatter.location)
 
@@ -85,48 +85,54 @@ const Gallery = ({ category, layout, data }) => {
   }, [data, activeFilter]);
 
   return (
-    <div className="gallery">
-      <div className="gallery-filters">
-        {
-          <ul>
-            {filters.map(filter => (
-              <li
-                key={filter}
-                className={`${activeFilter === filter ? "is-active" : ""}`}
-              >
-                <input
-                  className="input-hidden"
-                  id={filter}
-                  name="filters"
-                  type="radio"
-                  onChange={() => setActiveFilter(filter)}
-                />
-                <label htmlFor={filter}>{filter}</label>
-              </li>
-            ))}
-          </ul>
-        }
-      </div>
-      <div>
-        {
-          <ul>
-            {layouts.map(layout => (
-              <li
-                key={layout}
-                className={`${activeLayout === layout ? "is-active" : ""}`}
-              >
-                <input
-                  className="input-hidden"
-                  id={layout}
-                  name="layouts"
-                  type="radio"
-                  onChange={() => setActiveLayout(layout)}
-                />
-                <label htmlFor={layout}>{layout}</label>
-              </li>
-            ))}
-          </ul>
-        }
+    <div className={styles.container}>
+      <div className={styles.toolbar}>
+        <div className={styles.filters}>
+          {
+            <ul className={styles.filterList}>
+              {filters.map(filter => (
+                <li
+                  key={filter}
+                  className={`${
+                    activeFilter === filter ? styles.activeFilter : ""
+                  } ${styles.filterItem}`}
+                >
+                  <input
+                    className="input-hidden"
+                    id={filter}
+                    name="filters"
+                    type="radio"
+                    onChange={() => setActiveFilter(filter)}
+                  />
+                  <label htmlFor={filter}>{filter}</label>
+                </li>
+              ))}
+            </ul>
+          }
+        </div>
+        <div className={styles.layouts}>
+          {
+            <ul className={styles.layoutList}>
+              {layouts.map(layout => (
+                <li
+                  key={layout}
+                  className={`${
+                    activeLayout === layout ? styles.activeLayout : ""
+                  } ${styles.layoutItem}`}
+                >
+                  <input
+                    className="input-hidden"
+                    id={layout}
+                    name="layouts"
+                    type="radio"
+                    onChange={() => setActiveLayout(layout)}
+                  />
+                  <label htmlFor={layout}>{layout}</label>
+                </li>
+              ))}
+            </ul>
+          }
+        </div>
       </div>
       {activeLayout === "map" ? (
         <CustomMap data={locationData} />
@@ -134,10 +140,10 @@ const Gallery = ({ category, layout, data }) => {
         <div
           className={
             activeLayout === "grid"
-              ? "is-grid"
+              ? styles.grid
               : activeLayout === "list"
-              ? "is-list"
-              : "is-map"
+              ? styles.list
+              : styles.map
           }
         >
           {galleryData &&

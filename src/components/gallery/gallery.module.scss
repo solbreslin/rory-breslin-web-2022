@@ -1,0 +1,76 @@
+.container,
+.toolbar,
+.filters,
+.filterList,
+.filterItem,
+.layouts,
+.layoutList,
+.layoutItem {
+  display: grid;
+}
+
+.container {
+  padding: 1rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.filterList,
+.layoutList {
+  display: flex;
+}
+
+.filterItem,
+.layoutItem {
+  background: hsl(0, 0%, 95%);
+  display: flex;
+
+  &:hover,
+  &:focus {
+    &:not(.activeFilter) {
+      background: hsl(0, 0%, 90%);
+    }
+  }
+
+  input {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  label {
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+    text-transform: capitalize;
+  }
+
+  + * {
+    margin-left: 0.5rem;
+  }
+}
+
+.activeFilter,
+.activeLayout {
+  background: black;
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-auto-columns: dense;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  figure {
+    display: none;
+  }
+}
