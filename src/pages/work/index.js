@@ -13,7 +13,6 @@ const WorkPage = ({ location, data }) => {
     <Layout>
       <Seo title="Work" />
       <Gallery category={activeCategory} data={data.allMarkdownRemark.nodes} />
-      <Link to="/">Go back to the homepage</Link>
     </Layout>
   );
 };

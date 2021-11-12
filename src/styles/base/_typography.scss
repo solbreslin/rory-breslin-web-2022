@@ -10,10 +10,11 @@ html {
   --font-size-3: 1.563rem;
   --font-size-4: 1.953rem;
   --font-size-5: 2.441rem;
+
+  --bold: "Akkurat-Bold";
 }
 
 body {
-  color: var(--color-body);
   font-family: Akkurat-Reg, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1em;
   font-style: normal;

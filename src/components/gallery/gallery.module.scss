@@ -1,3 +1,7 @@
+@import "./../../styles/settings/all.scss";
+
+$breakpoint: tablet;
+
 .container,
 .toolbar,
 .filters,
@@ -11,28 +15,57 @@
 
 .container {
   padding: 1rem;
+
+  @include respond-to($breakpoint) {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    height: calc(100vh - var(--header-height));
+    overflow: auto;
+    position: relative;
+  }
 }
 
 .toolbar {
   display: flex;
-  justify-content: space-between;
   margin-bottom: 1rem;
+  flex-direction: column;
+
+  @include respond-to($breakpoint) {
+    height: 0; // ?
+    position: sticky;
+    top: 0;
+  }
+}
+
+.layouts {
+  margin-top: 2rem;
+}
+
+.filters,
+.layouts {
+  h4 {
+    color: hsl(0, 0%, 50%);
+    font-size: var(--font-size-s2);
+    letter-spacing: 0.075em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+  }
 }
 
 .filterList,
 .layoutList {
-  display: flex;
+  justify-content: start;
 }
 
 .filterItem,
 .layoutItem {
-  background: hsl(0, 0%, 95%);
   display: flex;
+  transition: 50ms ease-in-out;
 
   &:hover,
   &:focus {
-    &:not(.activeFilter) {
-      background: hsl(0, 0%, 90%);
+    &:not(.activeFilter):not(.activeLayout) {
+      color: white;
     }
   }
 
@@ -44,26 +77,34 @@
 
   label {
     cursor: pointer;
-    padding: 0.25em 0.5em;
+    line-height: 1.75;
     text-transform: capitalize;
-  }
-
-  + * {
-    margin-left: 0.5rem;
   }
 }
 
 .activeFilter,
 .activeLayout {
-  background: black;
-  color: white;
+  label {
+    color: $primary;
+  }
 }
 
 .grid {
   display: grid;
-  grid-auto-columns: dense;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-gap: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  padding: 0 1rem 4rem;
+
+  figure {
+    height: 300px;
+    margin-bottom: 1rem;
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
 }
 
 .list {
@@ -73,4 +114,8 @@
   figure {
     display: none;
   }
+}
+
+.map {
+  display: block;
 }

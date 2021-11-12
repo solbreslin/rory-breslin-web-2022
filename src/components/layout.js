@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       <div>
         <main>{children}</main>
-        <footer>© {new Date().getFullYear()} Rory Breslin</footer>
+        {/* <footer>© {new Date().getFullYear()} Rory Breslin</footer> */}
       </div>
     </>
   );

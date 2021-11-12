@@ -88,50 +88,48 @@ const Gallery = ({ category, layout, data }) => {
     <div className={styles.container}>
       <div className={styles.toolbar}>
         <div className={styles.filters}>
-          {
-            <ul className={styles.filterList}>
-              {filters.map(filter => (
-                <li
-                  key={filter}
-                  className={`${
-                    activeFilter === filter ? styles.activeFilter : ""
-                  } ${styles.filterItem}`}
-                >
-                  <input
-                    className="input-hidden"
-                    id={filter}
-                    name="filters"
-                    type="radio"
-                    onChange={() => setActiveFilter(filter)}
-                  />
-                  <label htmlFor={filter}>{filter}</label>
-                </li>
-              ))}
-            </ul>
-          }
+          <h4>Category</h4>
+          <ul className={styles.filterList}>
+            {filters.map(filter => (
+              <li
+                key={filter}
+                className={`${
+                  activeFilter === filter ? styles.activeFilter : ""
+                } ${styles.filterItem}`}
+              >
+                <input
+                  className="input-hidden"
+                  id={filter}
+                  name="filters"
+                  type="radio"
+                  onChange={() => setActiveFilter(filter)}
+                />
+                <label htmlFor={filter}>{filter}</label>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className={styles.layouts}>
-          {
-            <ul className={styles.layoutList}>
-              {layouts.map(layout => (
-                <li
-                  key={layout}
-                  className={`${
-                    activeLayout === layout ? styles.activeLayout : ""
-                  } ${styles.layoutItem}`}
-                >
-                  <input
-                    className="input-hidden"
-                    id={layout}
-                    name="layouts"
-                    type="radio"
-                    onChange={() => setActiveLayout(layout)}
-                  />
-                  <label htmlFor={layout}>{layout}</label>
-                </li>
-              ))}
-            </ul>
-          }
+          <h4>Layout</h4>
+          <ul className={styles.layoutList}>
+            {layouts.map(layout => (
+              <li
+                key={layout}
+                className={`${
+                  activeLayout === layout ? styles.activeLayout : ""
+                } ${styles.layoutItem}`}
+              >
+                <input
+                  className="input-hidden"
+                  id={layout}
+                  name="layouts"
+                  type="radio"
+                  onChange={() => setActiveLayout(layout)}
+                />
+                <label htmlFor={layout}>{layout}</label>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       {activeLayout === "map" ? (
