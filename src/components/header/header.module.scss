@@ -2,6 +2,7 @@
 
 .header {
   align-items: center;
+  box-shadow: 0 0 0 1px hsl(0, 0%, 100%, 0.1);
   display: flex;
   justify-content: space-between;
   padding-right: calc(1rem + 8px);
@@ -47,12 +48,13 @@
   h1 {
     display: flex;
     font-family: Akkurat-Bold, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.15em;
     position: relative;
     text-transform: uppercase;
     z-index: 4;
 
     a {
+      letter-spacing: inherit;
       padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
     }
   }
@@ -118,10 +120,19 @@
       line-height: 1;
 
       a {
+        color: hsl(0, 0%, 50%);
         font-size: 0.875rem;
         letter-spacing: 0.075em;
         padding: calc(#{$spacing-s} + 5px) $spacing-s $spacing-s;
         text-transform: uppercase;
+
+        &:hover {
+          color: hsl(0, 0%, 100%);
+        }
+
+        &.current {
+          color: hsl(0, 0%, 100%);
+        }
       }
     }
   }

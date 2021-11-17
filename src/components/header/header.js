@@ -45,13 +45,19 @@ const Header = ({ siteTitle }) => {
       <nav aria-labelledby="menu-label">
         <ul id="menu" className={navOpen ? "is-open" : ""}>
           <li>
-            <Link to="/work">Work</Link>
+            <Link to="/work" activeClassName={headerStyles.current}>
+              Work
+            </Link>
           </li>
           <li>
-            <Link to="/work">About</Link>
+            <Link to="/about" activeClassName={headerStyles.current}>
+              About
+            </Link>
           </li>
           <li>
-            <Link to="/work">Contact</Link>
+            <Link to="/contact" activeClassName={headerStyles.current}>
+              Contact
+            </Link>
           </li>
         </ul>
       </nav>

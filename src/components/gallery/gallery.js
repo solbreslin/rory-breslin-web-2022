@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
+import arrowIcon from "../arrow-icon";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -65,6 +66,7 @@ const Gallery = ({ category, layout, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
+  const scrollContainer = useRef();
 
   useEffect(() => {
     if (category) {
@@ -84,8 +86,20 @@ const Gallery = ({ category, layout, data }) => {
     }
   }, [data, activeFilter]);
 
+  useEffect(() => {
+    const el = scrollContainer.current;
+
+    if (el) {
+      el.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [activeFilter, activeLayout]);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={scrollContainer}>
       <div className={styles.toolbar}>
         <div className={styles.filters}>
           <h4>Category</h4>
@@ -153,13 +167,18 @@ const Gallery = ({ category, layout, data }) => {
               )
               .map(({ frontmatter: item, path }) => (
                 <Link key={item.title} to={path}>
-                  <figure>
-                    <img
-                      src={generateGalleryImagePath(item.images[0])}
-                      alt={item.title}
-                    />
-                  </figure>
-                  <h3>{item.title}</h3>
+                  {activeLayout === "grid" && (
+                    <figure>
+                      <img
+                        src={generateGalleryImagePath(item.images[0])}
+                        alt={item.title}
+                      />
+                    </figure>
+                  )}
+                  <h3>
+                    {item.title} {activeLayout === "grid" && arrowIcon()}
+                  </h3>
+                  {activeLayout === "list" && <span>{item.year}</span>}
                 </Link>
               ))}
         </div>

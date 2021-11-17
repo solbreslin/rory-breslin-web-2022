@@ -44,10 +44,10 @@ $breakpoint: tablet;
 .filters,
 .layouts {
   h4 {
-    color: hsl(0, 0%, 50%);
+    color: hsl(0, 0%, 40%);
     font-size: var(--font-size-s2);
     letter-spacing: 0.075em;
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
     text-transform: uppercase;
   }
 }
@@ -85,24 +85,54 @@ $breakpoint: tablet;
 .activeFilter,
 .activeLayout {
   label {
-    color: $primary;
+    color: white;
+  }
+}
+
+.grid,
+.list {
+  a {
+    &:hover,
+    &:focus {
+      color: white;
+
+      img {
+        transform: scale(1.2);
+        transition: transform 12s linear;
+      }
+
+      h3 span {
+        opacity: 1;
+      }
+    }
+  }
+
+  h3 {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      opacity: 0;
+    }
   }
 }
 
 .grid {
   display: grid;
-  grid-gap: 4rem;
+  grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   padding: 0 1rem 4rem;
 
   figure {
     height: 300px;
     margin-bottom: 1rem;
+    overflow: hidden;
   }
 
   img {
     height: 100%;
     object-fit: cover;
+    transition: transform 4s;
     width: 100%;
   }
 }
@@ -111,8 +141,14 @@ $breakpoint: tablet;
   display: flex;
   flex-direction: column;
 
-  figure {
-    display: none;
+  a {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+
+    + a {
+      border-top: 1px solid hsl(0, 0%, 10%);
+    }
   }
 }
 
