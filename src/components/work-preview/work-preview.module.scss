@@ -4,39 +4,49 @@ $p: 2.5rem;
 
 .section {
   display: grid;
-}
-
-.article {
-  display: grid;
-  grid-template-columns: 1.5fr 3fr;
-  padding: $p;
-}
-
-.titleLink {
-  position: relative;
-
-  > * {
-    font-size: var(--font-size-5);
-    letter-spacing: -0.05em;
-    line-height: 1;
-    margin: 0;
-    position: sticky;
-    top: math.div($p, 2);
-  }
+  grid-template-columns: 1fr 1fr;
+  grid-gap: $p * 2 $p;
+  padding: $p * 2 $p;
 }
 
 .imageLink {
-  height: calc(100vh - #{$p});
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+
+    span {
+      opacity: 0;
+    }
+  }
 
   figure {
-    height: 100%;
-    margin: 0;
+    height: 50vh;
+    margin: 0 0 1rem;
+    overflow: hidden;
     padding: 0;
   }
 
   img {
     height: 100%;
     object-fit: cover;
+    transition: transform 4s linear;
     width: 100%;
+  }
+
+  &:hover {
+    h2 {
+      color: white;
+
+      span {
+        opacity: 1;
+      }
+    }
+
+    img {
+      transform: scale(1.2);
+      transition: transform 12s linear;
+    }
   }
 }

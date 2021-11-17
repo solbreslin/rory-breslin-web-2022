@@ -1,0 +1,9 @@
+@import "./../../styles/settings/all.scss";
+
+.section {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 120px minmax(40ch, 60ch);
+  grid-gap: 2.5rem;
+  padding: 2.5rem;
+}

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Link } from "gatsby";
 import * as previewStyles from "./work-preview.module.scss";
+import arrowIcon from "../arrow-icon";
 
 const categories = [
   {
@@ -33,14 +34,7 @@ const categories = [
 const WorkPreview = () => (
   <section className={previewStyles.section}>
     {categories.map(category => (
-      <article className={previewStyles.article} key={category.path}>
-        <Link
-          to="work"
-          state={{ category: category.path }}
-          className={previewStyles.titleLink}
-        >
-          <h2>{category.name}</h2>
-        </Link>
+      <article key={category.path}>
         <Link
           to="work"
           state={{ category: category.path }}
@@ -49,6 +43,9 @@ const WorkPreview = () => (
           <figure>
             <img src={category.image_url} alt={category.name} />
           </figure>
+          <h2>
+            {category.name} {arrowIcon()}
+          </h2>
         </Link>
       </article>
     ))}
