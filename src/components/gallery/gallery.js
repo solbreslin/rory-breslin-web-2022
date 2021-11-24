@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
 import arrowIcon from "../arrow-icon";
+import { isBrowser } from "./../../utils/index";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -26,6 +27,10 @@ const mapData = data => {
   return galleryData;
 };
 
+const mapImagesLoadedData = data => {
+  return data.map(d => ({ isLoaded: false }));
+};
+
 const mapLocationData = (data, filter) => {
   const locationData = data
     .filter(d => d.frontmatter.location)
@@ -47,16 +52,27 @@ const mapLocationData = (data, filter) => {
   return locationData;
 };
 
+const buildImagePath = (path, query) => {
+  const parts = path.split("upload/");
+
+  return `${parts[0]}upload/${query}/${parts[1]}`;
+};
+
 const generateGalleryImagePath = path => {
   // Eg: https://res.cloudinary.com/r-breslin/image/upload/v1584241866/r-breslin-cloudinary/WORK/MASKS/the-foyle/the-foyle_the-foyle-01_wekais.png
   if (!path) {
     console.error("Project has no images");
   }
 
-  const parts = path.split("upload/");
-  const transformationQuery = "w_400,q_auto,f_auto";
+  return buildImagePath(path, "w_400,q_auto,f_auto");
+};
 
-  return `${parts[0]}upload/${transformationQuery}/${parts[1]}`;
+const generatePlaceholderGalleryImagePath = path => {
+  if (!path) {
+    console.error("Project has no images");
+  }
+
+  return buildImagePath(path, "w_10,q_auto,f_auto");
 };
 
 const filters = ["all", "portrait", "public", "masks", "exhibition"];
@@ -66,7 +82,7 @@ const Gallery = ({ category, layout, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
-  const scrollContainer = useRef();
+  const [imagesLoaded, setImagesLoaded] = useState([]);
 
   useEffect(() => {
     if (category) {
@@ -83,15 +99,26 @@ const Gallery = ({ category, layout, data }) => {
 
     if (galleryData) {
       setLocationData(mapLocationData(galleryData, activeFilter));
+      setImagesLoaded(mapImagesLoadedData(galleryData));
     }
   }, [data, activeFilter]);
 
   useEffect(() => {
-    const el = scrollContainer.current;
+    if (isBrowser()) {
+      const headerHeightOffset = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--header-height");
 
-    if (el) {
-      el.scrollTo({
-        top: 0,
+      let top = 0;
+
+      if (headerHeightOffset) {
+        top = parseInt(headerHeightOffset, 0);
+      }
+
+      if (window.scrollY < top) return;
+
+      window.scrollTo({
+        top,
         left: 0,
         behavior: "smooth",
       });
@@ -99,10 +126,10 @@ const Gallery = ({ category, layout, data }) => {
   }, [activeFilter, activeLayout]);
 
   return (
-    <div className={styles.container} ref={scrollContainer}>
+    <div className={styles.container}>
       <div className={styles.toolbar}>
-        <div className={styles.filters}>
-          <h4>Category</h4>
+        <div>
+          <h4 className="sr-only">Select a category</h4>
           <ul className={styles.filterList}>
             {filters.map(filter => (
               <li
@@ -123,8 +150,8 @@ const Gallery = ({ category, layout, data }) => {
             ))}
           </ul>
         </div>
-        <div className={styles.layouts}>
-          <h4>Layout</h4>
+        <div>
+          <h4 className="sr-only">Select a layout</h4>
           <ul className={styles.layoutList}>
             {layouts.map(layout => (
               <li
@@ -165,14 +192,24 @@ const Gallery = ({ category, layout, data }) => {
                   item.frontmatter.category === activeFilter ||
                   activeFilter === "all"
               )
-              .map(({ frontmatter: item, path }) => (
+              .map(({ frontmatter: item, path }, index) => (
                 <Link key={item.title} to={path}>
                   {activeLayout === "grid" && (
                     <figure>
                       <img
                         src={generateGalleryImagePath(item.images[0])}
                         alt={item.title}
+                        onLoad={() => {}}
                       />
+                      {!item.imageLoaded && (
+                        <img
+                          src={generatePlaceholderGalleryImagePath(
+                            item.images[0]
+                          )}
+                          alt={item.title}
+                          className={styles.placeholder}
+                        />
+                      )}
                     </figure>
                   )}
                   <h3>

@@ -13,3 +13,10 @@ body {
   margin: 0 auto;
   max-width: 1080px;
 }
+
+html,
+body,
+#___gatsby,
+#gatsby-focus-wrapper {
+  height: 100%;
+}

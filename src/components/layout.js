@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
 
 import Header from "./../components/header/header";
+import Footer from "./../components/footer/footer";
 import "./layout.scss";
 
 const Layout = ({ children }) => {
@@ -19,10 +20,8 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div>
-        <main>{children}</main>
-        <footer>© {new Date().getFullYear()} Rory Breslin</footer>
-      </div>
+      <main>{children}</main>
+      <Footer />
     </>
   );
 };

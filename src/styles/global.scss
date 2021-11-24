@@ -1,5 +1,10 @@
+// TODO - this file is not imported anywhere
+// Partials are being imported directly in /components/layout.scss
+
 @import "settings/mixins";
 @import "settings/variables";
 
 @import "base/reset";
 @import "base/base";
+
+@import "utilities/helpers";
