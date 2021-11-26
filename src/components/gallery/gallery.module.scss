@@ -145,4 +145,6 @@ $breakpoint: tablet;
   right: 0;
   top: 0;
   bottom: 0;
+  filter: blur(20px);
+  transition: 0.125s ease-out;
 }

@@ -27,14 +27,21 @@ const mapData = data => {
   return galleryData;
 };
 
-const mapImagesLoadedData = data => {
-  return data.map(d => ({ isLoaded: false }));
+const setInitialImageLoadingState = len => {
+  const images = [];
+
+  for (let i = 0; i < len; i++) {
+    // 0 is 'NOT_LOADED'
+    // 1 is 'LOADED'
+    images.push(0);
+  }
+
+  return images;
 };
 
 const mapLocationData = (data, filter) => {
   const locationData = data
     .filter(d => d.frontmatter.location)
-
     .map(d => {
       let locationObject = JSON.parse(d.frontmatter.location);
 
@@ -84,6 +91,13 @@ const Gallery = ({ category, layout, data }) => {
   const [locationData, setLocationData] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState([]);
 
+  const len = data.length;
+
+  useEffect(() => {
+    // Only do this once!
+    setImagesLoaded(setInitialImageLoadingState(len));
+  }, []);
+
   useEffect(() => {
     if (category) {
       setActiveFilter(category);
@@ -99,7 +113,6 @@ const Gallery = ({ category, layout, data }) => {
 
     if (galleryData) {
       setLocationData(mapLocationData(galleryData, activeFilter));
-      setImagesLoaded(mapImagesLoadedData(galleryData));
     }
   }, [data, activeFilter]);
 
@@ -124,6 +137,14 @@ const Gallery = ({ category, layout, data }) => {
       });
     }
   }, [activeFilter, activeLayout]);
+
+  function onImageLoad(imageIndex) {
+    // All of this to change a value from false to true :0
+    const images = imagesLoaded.map((item, index) =>
+      imageIndex === index ? 1 : item
+    );
+    setImagesLoaded(images);
+  }
 
   return (
     <div className={styles.container}>
@@ -199,9 +220,9 @@ const Gallery = ({ category, layout, data }) => {
                       <img
                         src={generateGalleryImagePath(item.images[0])}
                         alt={item.title}
-                        onLoad={() => {}}
+                        onLoad={() => onImageLoad(index)}
                       />
-                      {!item.imageLoaded && (
+                      {!imagesLoaded[index] && (
                         <img
                           src={generatePlaceholderGalleryImagePath(
                             item.images[0]
