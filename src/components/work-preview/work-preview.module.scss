@@ -1,12 +1,25 @@
-@use "sass:math";
+@import "./../../styles/settings/all.scss";
 
 $p: 2.5rem;
 
 .section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: $p * 2 $p;
-  padding: $p * 2 $p;
+  padding: 4rem 1rem;
+  @include respond-to(tablet) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: $p * 2 $p;
+    padding: $p * 2 $p;
+  }
+
+  > * + * {
+    margin-top: 4rem;
+  }
+
+  @include respond-to(tablet) {
+    > * + * {
+      margin-top: 0;
+    }
+  }
 }
 
 .imageLink {

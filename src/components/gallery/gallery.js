@@ -4,6 +4,7 @@ import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
 import arrowIcon from "../arrow-icon";
 import { isBrowser } from "./../../utils/index";
+import Icons from "./icons";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -188,7 +189,12 @@ const Gallery = ({ category, layout, data }) => {
                   type="radio"
                   onChange={() => setActiveLayout(layout)}
                 />
-                <label htmlFor={layout}>{layout}</label>
+                <label htmlFor={layout}>
+                  <span className="sr-only">{layout}</span>
+                  <span className="icon">
+                    {Icons[layout] && Icons[layout]()}
+                  </span>
+                </label>
               </li>
             ))}
           </ul>

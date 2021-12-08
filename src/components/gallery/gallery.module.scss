@@ -1,11 +1,13 @@
 @import "./../../styles/settings/all.scss";
 
 $breakpoint: tablet;
+$layout-icon-size: 36px;
 
 .container {
   padding: 0 1rem 1rem;
 
   @include respond-to($breakpoint) {
+    padding: 0 2rem 1rem;
     position: relative;
   }
 }
@@ -16,11 +18,12 @@ $breakpoint: tablet;
   flex-direction: column;
 
   @include respond-to($breakpoint) {
+    align-items: center;
     background: $body-bg-color;
     flex-direction: row;
     justify-content: space-between;
     margin: 0;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -39,7 +42,7 @@ $breakpoint: tablet;
   display: flex;
   transition: 50ms ease-in-out;
 
-  &:not(:last-child) {
+  &.filterItem:not(:last-child) {
     margin-right: 1rem;
   }
 
@@ -63,6 +66,34 @@ $breakpoint: tablet;
   }
 }
 
+.layoutItem {
+  &:last-child {
+    label {
+      margin-right: -0.5em;
+    }
+  }
+
+  label {
+    align-items: center;
+    display: flex;
+    height: $layout-icon-size;
+    justify-content: center;
+    padding: 0.5em;
+    width: $layout-icon-size;
+
+    svg {
+      display: block;
+    }
+
+    &[for="map"] {
+      svg {
+        height: 20px; // optical
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
 .activeFilter,
 .activeLayout {
   label {
@@ -79,7 +110,7 @@ $breakpoint: tablet;
 
       img {
         transform: scale(1.2);
-        transition: transform 12s linear;
+        transition: transform 10s linear;
       }
 
       h3 span {
@@ -100,7 +131,7 @@ $breakpoint: tablet;
 
 .grid {
   display: grid;
-  grid-gap: 2rem;
+  grid-gap: 3rem 1rem;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   padding: 0 0 4rem;
 

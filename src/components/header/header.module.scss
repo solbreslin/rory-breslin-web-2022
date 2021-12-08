@@ -5,7 +5,6 @@
   box-shadow: 0 0 0 1px hsl(0, 0%, 100%, 0.1);
   display: flex;
   justify-content: space-between;
-  padding-right: calc(1rem + 8px);
   position: relative;
 
   &.active {
@@ -20,31 +19,6 @@
     }
   }
 
-  &:before {
-    background-color: hsla(0, 0%, 0%, 0.5);
-    content: "";
-    height: 100vh;
-    left: 0;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: opacity 0.1s ease-out;
-    z-index: 1;
-  }
-
-  &:after {
-    background: white;
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 3;
-  }
-
   h1 {
     display: flex;
     font-family: Akkurat-Bold, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -54,47 +28,49 @@
     z-index: 4;
 
     a {
-      color: #edd4a7;
-      letter-spacing: inherit;
+      color: white;
+      letter-spacing: 0.05em;
       padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
     }
   }
 
   nav {
-    background: white;
+    align-items: center;
+    background: $body-bg-color;
+    display: flex;
+    height: calc(100% - var(--header-height));
     left: 0;
     opacity: 0;
-    padding-bottom: 0.5rem;
     pointer-events: none;
     position: fixed;
     right: 0;
     top: var(--header-height);
-    transform: translate3d(0, calc(-0.25 * var(--header-height)), 0);
-    transition: transform 0.125s ease-out, opacity 0.1s ease-out;
-    will-change: transform;
+    transition: opacity 0.1s ease-out;
     z-index: 1;
+  }
+
+  ul {
+    margin-bottom: var(--header-height);
   }
 
   li {
     display: flex;
-  }
 
-  a {
-    flex: 1;
-    letter-spacing: 0.05em;
-    padding: 1rem;
-    text-transform: uppercase;
+    a {
+      color: white;
+      flex: 1;
+      font-size: var(--font-size-5);
+      letter-spacing: 0.05em;
+      line-height: 2;
+      padding: 0 1rem;
+      text-transform: uppercase;
+    }
   }
 
   @include respond-to(tablet) {
     align-items: unset;
-    padding-right: 0;
+    padding: 0 1rem;
     z-index: 2;
-
-    &:before,
-    &:after {
-      content: none;
-    }
 
     button {
       display: none;
@@ -103,6 +79,7 @@
     nav {
       background: inherit;
       display: flex;
+      height: auto;
       max-width: initial;
       opacity: 1;
       padding: 0;
@@ -115,6 +92,7 @@
 
     ul {
       display: flex;
+      margin-bottom: 0;
     }
 
     li {
@@ -125,6 +103,7 @@
         color: hsl(0, 0%, 50%);
         font-size: 0.875rem;
         letter-spacing: 0.075em;
+        line-height: 1;
         padding: calc(#{$spacing-s} + 5px) $spacing-s $spacing-s;
         text-transform: uppercase;
 

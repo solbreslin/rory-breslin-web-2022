@@ -12,23 +12,7 @@ const BurgerButton = ({ rotated, updateParent }) => {
       aria-labelledby="menu-label"
       aria-expanded={rotated}
     >
-      <span
-        className={`${burgerStyles.cube} ${
-          rotated ? burgerStyles.rotated : ""
-        }`}
-      >
-        <span className={burgerStyles.top}></span>
-        <span className={burgerStyles.bottom}></span>
-        <span className={burgerStyles.left}></span>
-        <span className={burgerStyles.right}></span>
-        <span className={burgerStyles.front}>
-          <span></span>
-        </span>
-        <span className={burgerStyles.back}>
-          <span></span>
-          <span></span>
-        </span>
-      </span>
+      {rotated ? "Close" : "Menu"}
     </button>
   );
 };
