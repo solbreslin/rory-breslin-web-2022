@@ -31,7 +31,6 @@ const useKeyPress = (targetKeyCode, callback) => {
 };
 
 const ProjectPage = ({ data }) => {
-  const [carouselIsActive, setCarouselIsActive] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(null);
   const { frontmatter: project } = data.markdownRemark;
 
@@ -45,6 +44,12 @@ const ProjectPage = ({ data }) => {
     isBrowser() && (document.body.style.overflow = "hidden");
   };
 
+  useEffect(() => {
+    return () => {
+      isBrowser() && document.body.style.removeProperty("overflow");
+    };
+  }, []);
+
   useKeyPress(KeyCode.ESCAPE, closeCarousel);
 
   return (
@@ -57,9 +62,7 @@ const ProjectPage = ({ data }) => {
           <div
             key={url}
             onClick={() => onImageClick(i)}
-            onKeyPress={event =>
-              event.key === "Enter" && setCarouselIsActive(true)
-            }
+            onKeyPress={event => event.key === "Enter" && onImageClick(i)}
             role="button"
             tabIndex="0"
           >
@@ -76,7 +79,7 @@ const ProjectPage = ({ data }) => {
             <span className="sr-only">Close</span>
           </button>
           <EmblaCarousel
-            visible={carouselIsActive}
+            visible={carouselIndex != null}
             images={project.images}
             index={carouselIndex}
           />

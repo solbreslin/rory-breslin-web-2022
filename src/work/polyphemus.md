@@ -10,4 +10,5 @@ images:
 tags:
   - polyphemus
 category: "exhibition"
+isHorizontal: false
 ---

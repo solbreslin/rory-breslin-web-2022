@@ -12,4 +12,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554578/r-breslin-cloudinary/WORK/PUBLIC/bellpeal/bellpeal_bellpeal-02_ucvffs.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554568/r-breslin-cloudinary/WORK/PUBLIC/bellpeal/bellpeal_bellpeal-03_tinrtb.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554567/r-breslin-cloudinary/WORK/PUBLIC/bellpeal/bellpeal_bellpeal-05_teyvza.jpg
+isHorizontal: false
 ---

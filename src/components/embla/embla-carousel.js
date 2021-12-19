@@ -19,34 +19,37 @@ const useKeyPress = (targetKeyCode, callback) => {
 };
 
 export const EmblaCarousel = ({ visible, images, index }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
+  const [emblaRef, embla] = useEmblaCarousel({
     loop: false,
+    startIndex: index || 0,
+    speed: 14,
   });
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+  const [scrollSnaps, setScrollSnaps] = useState([]);
 
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
+  const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
+  const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
+  const scrollTo = useCallback(
+    index => embla && embla.scrollTo(index),
+    [embla]
   );
 
   const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-
-    setPrevBtnEnabled(emblaApi.canScrollPrev());
-    setNextBtnEnabled(emblaApi.canScrollNext());
-  }, [emblaApi]);
+    if (!embla) return;
+    setSelectedIndex(embla.selectedScrollSnap());
+    setPrevBtnEnabled(embla.canScrollPrev());
+    setNextBtnEnabled(embla.canScrollNext());
+  }, [embla, setSelectedIndex]);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!embla) return;
+
     onSelect();
-    emblaApi.on("select", onSelect);
-  }, [emblaApi, onSelect]);
+    setScrollSnaps(embla.scrollSnapList());
+    embla.on("select", onSelect);
+  }, [embla, setScrollSnaps, onSelect]);
 
   useKeyPress(37, scrollPrev);
   useKeyPress(39, scrollNext);
@@ -54,7 +57,7 @@ export const EmblaCarousel = ({ visible, images, index }) => {
   return (
     //https://github.com/davidcetinkaya/embla-carousel/issues/210
     <div className="embla" ref={visible ? emblaRef : null}>
-      <div className="embla-container" tabIndex="0">
+      <div className="embla-container">
         {images.map((url, i) => (
           <figure key={url + i}>
             <img crossOrigin="anonymous" src={url} alt="" />

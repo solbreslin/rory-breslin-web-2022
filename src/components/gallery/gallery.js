@@ -72,7 +72,7 @@ const generateGalleryImagePath = path => {
     console.error("Project has no images");
   }
 
-  return buildImagePath(path, "w_400,q_auto,f_auto");
+  return buildImagePath(path, "w_800,q_auto,f_auto");
 };
 
 const generatePlaceholderGalleryImagePath = path => {
@@ -97,6 +97,17 @@ const Gallery = ({ category, layout, data }) => {
   useEffect(() => {
     // Only do this once!
     setImagesLoaded(setInitialImageLoadingState(len));
+
+    const filter = localStorage.getItem("rb-filter");
+    const layout = localStorage.getItem("rb-layout");
+
+    if (filter) {
+      setActiveFilter(filter);
+    }
+
+    if (layout) {
+      setActiveLayout(layout);
+    }
   }, []);
 
   useEffect(() => {
@@ -107,6 +118,9 @@ const Gallery = ({ category, layout, data }) => {
     if (layout) {
       setActiveLayout(layout);
     }
+
+    console.log("category change", category);
+    console.log("layout change", layout);
   }, [category, layout]);
 
   useEffect(() => {
@@ -147,6 +161,22 @@ const Gallery = ({ category, layout, data }) => {
     setImagesLoaded(images);
   }
 
+  const onFilterChange = filter => {
+    setActiveFilter(filter);
+
+    try {
+      localStorage.setItem("rb-filter", filter);
+    } catch (error) {}
+  };
+
+  const onLayoutChange = layout => {
+    setActiveLayout(layout);
+
+    try {
+      localStorage.setItem("rb-layout", layout);
+    } catch (error) {}
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.toolbar}>
@@ -165,7 +195,7 @@ const Gallery = ({ category, layout, data }) => {
                   id={filter}
                   name="filters"
                   type="radio"
-                  onChange={() => setActiveFilter(filter)}
+                  onChange={() => onFilterChange(filter)}
                 />
                 <label htmlFor={filter}>{filter}</label>
               </li>
@@ -187,7 +217,7 @@ const Gallery = ({ category, layout, data }) => {
                   id={layout}
                   name="layouts"
                   type="radio"
-                  onChange={() => setActiveLayout(layout)}
+                  onChange={() => onLayoutChange(layout)}
                 />
                 <label htmlFor={layout}>
                   <span className="sr-only">{layout}</span>
@@ -220,7 +250,11 @@ const Gallery = ({ category, layout, data }) => {
                   activeFilter === "all"
               )
               .map(({ frontmatter: item, path }, index) => (
-                <Link key={item.title} to={path}>
+                <Link
+                  key={item.title}
+                  to={path}
+                  className={item.isHorizontal ? styles.span2 : ""}
+                >
                   {activeLayout === "grid" && (
                     <figure>
                       <img

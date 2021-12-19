@@ -132,11 +132,11 @@ $layout-icon-size: 36px;
 .grid {
   display: grid;
   grid-gap: 3rem 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   padding: 0 0 4rem;
 
   figure {
-    height: 300px;
+    height: 480px;
     margin-bottom: 1rem;
     overflow: hidden;
     // For placeholder image
@@ -148,6 +148,7 @@ $layout-icon-size: 36px;
     object-fit: cover;
     transition: transform 4s;
     width: 100%;
+    will-change: transform;
   }
 }
 
@@ -178,4 +179,8 @@ $layout-icon-size: 36px;
   bottom: 0;
   filter: blur(20px);
   transition: 0.125s ease-out;
+}
+
+.span-2 {
+  grid-column: span 2;
 }

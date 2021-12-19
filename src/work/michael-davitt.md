@@ -11,4 +11,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554595/r-breslin-cloudinary/WORK/PUBLIC/michael-davitt/michael-davitt_michael-davitt-01_gomj7q.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554594/r-breslin-cloudinary/WORK/PUBLIC/michael-davitt/michael-davitt_michael-davitt-05_uzymf6.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554595/r-breslin-cloudinary/WORK/PUBLIC/michael-davitt/michael-davitt_michael-davitt-03_ejziig.jpg
+isHorizontal: false
 ---

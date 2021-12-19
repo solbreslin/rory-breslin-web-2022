@@ -10,4 +10,5 @@ images:
 tags:
   - Exhibition
 category: exhibition
+isHorizontal: true
 ---

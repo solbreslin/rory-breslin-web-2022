@@ -11,4 +11,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554580/r-breslin-cloudinary/WORK/PUBLIC/brian-boru/brian-boru_brian-boru-02_d5wg55.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554592/r-breslin-cloudinary/WORK/PUBLIC/brian-boru/brian-boru_brian-boru-04_wfkslk.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554578/r-breslin-cloudinary/WORK/PUBLIC/brian-boru/brian-boru_brian-boru-03_gbusht.jpg
+isHorizontal: true
 ---

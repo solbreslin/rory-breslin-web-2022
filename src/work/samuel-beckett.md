@@ -10,4 +10,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241523/r-breslin-cloudinary/WORK/PORTRAIT/samuel-beckett/samuel-beckett_samuel-beckett-03_retjr8.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241558/r-breslin-cloudinary/WORK/PORTRAIT/samuel-beckett/samuel-beckett_samuel-beckett-04_qzzna6.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241529/r-breslin-cloudinary/WORK/PORTRAIT/samuel-beckett/samuel-beckett_samuel-beckett-02_eisyq2.jpg
+isHorizontal: false
 ---

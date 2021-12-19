@@ -10,4 +10,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241498/r-breslin-cloudinary/WORK/PORTRAIT/james-joyce/james-joyce_james-joyce-01_zw6c6m.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241509/r-breslin-cloudinary/WORK/PORTRAIT/james-joyce/james-joyce_james-joyce-02_apwlpu.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241516/r-breslin-cloudinary/WORK/PORTRAIT/james-joyce/james-joyce_james-joyce-03_pg5mnq.jpg
+isHorizontal: false
 ---

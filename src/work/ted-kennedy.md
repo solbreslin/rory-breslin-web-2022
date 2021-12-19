@@ -11,4 +11,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241542/r-breslin-cloudinary/WORK/PORTRAIT/ted-kennedy/ted-kennedy_ted-kennedy-01_dbx9lp.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241542/r-breslin-cloudinary/WORK/PORTRAIT/ted-kennedy/ted-kennedy_ted-kennedy-03_hvaixq.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241560/r-breslin-cloudinary/WORK/PORTRAIT/ted-kennedy/ted-kennedy_ted-kennedy-04_ghrynw.jpg
+isHorizontal: false
 ---

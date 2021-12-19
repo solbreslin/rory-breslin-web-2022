@@ -15,4 +15,5 @@ tags:
 category: portrait
 description: Some information about the piece
 year: 2010
+isHorizontal: false
 ---

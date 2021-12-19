@@ -11,4 +11,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554591/r-breslin-cloudinary/WORK/PUBLIC/count-john-mccormack/count-john-mccormack_count-john-mccormack-01_kv9a2o.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554585/r-breslin-cloudinary/WORK/PUBLIC/count-john-mccormack/count-john-mccormack_count-john-mccormack-03_fg3css.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554585/r-breslin-cloudinary/WORK/PUBLIC/count-john-mccormack/count-john-mccormack_count-john-mccormack-04_xctvgh.jpg
+isHorizontal: false
 ---

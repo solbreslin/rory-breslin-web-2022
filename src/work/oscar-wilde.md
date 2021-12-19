@@ -10,4 +10,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241521/r-breslin-cloudinary/WORK/PORTRAIT/oscar-wilde/oscar-wilde_oscar-wilde-01_a9p4yh.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241521/r-breslin-cloudinary/WORK/PORTRAIT/oscar-wilde/oscar-wilde_oscar-wilde-03_umxycs.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1584241522/r-breslin-cloudinary/WORK/PORTRAIT/oscar-wilde/oscar-wilde_oscar-wilde-04_nixytm.jpg
+isHorizontal: false
 ---

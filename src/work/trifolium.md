@@ -11,4 +11,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554616/r-breslin-cloudinary/WORK/PUBLIC/trifolium/trifolium_trifolium-03_vrfhz1.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554610/r-breslin-cloudinary/WORK/PUBLIC/trifolium/trifolium_trifolium-02_xkvstc.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1583554605/r-breslin-cloudinary/WORK/PUBLIC/trifolium/trifolium_trifolium-04_fscra0.jpg
+isHorizontal: false
 ---

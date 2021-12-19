@@ -9,4 +9,5 @@ images:
   - https://res.cloudinary.com/r-breslin/image/upload/v1581734959/r-breslin-cloudinary/WORK/EXHIBITION/dance-of-the-graeae/EXHIBITION_dance-of-the-graeae_dance-of-the-graeae-03_iiypfr.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1581734957/r-breslin-cloudinary/WORK/EXHIBITION/dance-of-the-graeae/EXHIBITION_dance-of-the-graeae_dance-of-the-graeae-02_sjbmxg.jpg
   - https://res.cloudinary.com/r-breslin/image/upload/v1581734957/r-breslin-cloudinary/WORK/EXHIBITION/dance-of-the-graeae/EXHIBITION_dance-of-the-graeae_dance-of-the-graeae-04_l1tg3y.jpg
+isHorizontal: true
 ---
