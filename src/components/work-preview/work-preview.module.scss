@@ -4,6 +4,7 @@ $p: 2.5rem;
 
 .section {
   padding: 4rem 1rem;
+
   @include respond-to(tablet) {
     display: grid;
     grid-template-columns: 1fr 1fr;

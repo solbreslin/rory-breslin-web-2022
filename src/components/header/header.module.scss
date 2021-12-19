@@ -21,15 +21,15 @@
 
   h1 {
     display: flex;
-    font-family: Akkurat-Bold, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    // font-family: Akkurat-Bold, "Helvetica Neue", Helvetica, Arial, sans-serif;
     letter-spacing: 0.15em;
     position: relative;
     text-transform: uppercase;
     z-index: 4;
 
     a {
-      color: white;
-      letter-spacing: 0.05em;
+      color: hsl(0, 0%, 70%);
+      letter-spacing: 0.15em;
       padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
     }
   }

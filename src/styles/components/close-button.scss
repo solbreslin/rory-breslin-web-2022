@@ -1,0 +1,30 @@
+.close-button {
+  border: none !important;
+  cursor: pointer;
+  height: 30px;
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  width: 30px;
+  z-index: 1200;
+
+  &:before,
+  &:after {
+    background-color: hsl(0, 0%, 90%);
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform-origin: center;
+    width: 30px;
+  }
+
+  &:before {
+    transform: translateY(12.5px) rotate(45deg);
+  }
+
+  &:after {
+    transform: translateY(12.5px) rotate(-45deg);
+  }
+}

@@ -1,0 +1,28 @@
+@import "./../../styles/settings/all.scss";
+
+.container {
+  padding: 1rem;
+
+  @include respond-to(tablet) {
+    padding: 2rem;
+  }
+
+  h1 {
+    color: white;
+    font-size: var(--font-size-3);
+    line-height: 1;
+    margin-bottom: 1rem;
+
+    @include respond-to(tablet) {
+      font-size: var(--font-size-5);
+    }
+  }
+
+  div {
+    cursor: pointer;
+  }
+
+  div + div {
+    margin-top: 2rem;
+  }
+}

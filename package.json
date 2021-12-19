@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "embla-carousel-react": "^6.0.2",
     "gatsby": "^3.14.2",
     "gatsby-cli": "^3.14.2",
     "gatsby-plugin-image": "^1.14.1",
