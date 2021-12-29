@@ -42,15 +42,8 @@ $layout-icon-size: 36px;
   display: flex;
   transition: 50ms ease-in-out;
 
-  &.filterItem:not(:last-child) {
-    margin-right: 1rem;
-  }
-
-  &:hover,
-  &:focus {
-    &:not(.activeFilter):not(.activeLayout) {
-      color: white;
-    }
+  &:not(:last-child) {
+    margin-right: 0.5rem;
   }
 
   input {
@@ -60,19 +53,21 @@ $layout-icon-size: 36px;
   }
 
   label {
+    background-color: #9cb8a129;
+    border-radius: 2px;
     cursor: pointer;
     line-height: 1;
+    padding: 0.6em 1em 0.5em;
     text-transform: capitalize;
+    transition: $transition-settings;
+
+    &:hover {
+      background-color: #9cb8a15e;
+    }
   }
 }
 
 .layoutItem {
-  &:last-child {
-    label {
-      margin-right: -0.5em;
-    }
-  }
-
   label {
     align-items: center;
     display: flex;
@@ -97,7 +92,12 @@ $layout-icon-size: 36px;
 .activeFilter,
 .activeLayout {
   label {
+    background-color: #435747;
     color: white;
+
+    &:hover {
+      background-color: #435747;
+    }
   }
 }
 
@@ -106,11 +106,11 @@ $layout-icon-size: 36px;
   a {
     &:hover,
     &:focus {
-      color: white;
+      color: grey;
 
       img {
-        transform: scale(1.2);
-        transition: transform 10s linear;
+        transform: scale(1.15);
+        transition: transform 20s linear;
       }
 
       h3 span {
@@ -131,12 +131,12 @@ $layout-icon-size: 36px;
 
 .grid {
   display: grid;
-  grid-gap: 3rem 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-gap: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   padding: 0 0 4rem;
 
   figure {
-    height: 480px;
+    height: 400px;
     margin-bottom: 1rem;
     overflow: hidden;
     // For placeholder image
@@ -165,6 +165,28 @@ $layout-icon-size: 36px;
       border-top: 1px solid hsl(0, 0%, 10%);
     }
   }
+
+  @include respond-to(tablet) {
+    display: grid;
+    grid-gap: 0 1rem;
+    grid-template-columns: 250px 1fr;
+
+    .listimage {
+      display: block;
+      grid-column: 1;
+      grid-row: 1 / -1;
+      position: sticky;
+      top: 59px; // get with JS
+
+      img {
+        position: absolute;
+      }
+    }
+
+    a {
+      grid-column: 2;
+    }
+  }
 }
 
 .map {
@@ -181,6 +203,6 @@ $layout-icon-size: 36px;
   transition: 0.125s ease-out;
 }
 
-.span-2 {
-  grid-column: span 2;
+.listimage {
+  display: none;
 }

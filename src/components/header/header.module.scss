@@ -28,9 +28,14 @@
     z-index: 4;
 
     a {
-      color: hsl(0, 0%, 70%);
       letter-spacing: 0.15em;
+      opacity: 0.7;
       padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
+      transition: opacity $transition-settings;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 
@@ -57,7 +62,6 @@
     display: flex;
 
     a {
-      color: white;
       flex: 1;
       font-size: var(--font-size-5);
       letter-spacing: 0.05em;
@@ -100,19 +104,15 @@
       line-height: 1;
 
       a {
-        color: hsl(0, 0%, 50%);
         font-size: 0.875rem;
         letter-spacing: 0.075em;
         line-height: 1;
         padding: calc(#{$spacing-s} + 5px) $spacing-s $spacing-s;
         text-transform: uppercase;
-
-        &:hover {
-          color: hsl(0, 0%, 100%);
-        }
+        transition: opacity $transition-settings;
 
         &.current {
-          color: hsl(0, 0%, 100%);
+          color: grey;
         }
       }
     }

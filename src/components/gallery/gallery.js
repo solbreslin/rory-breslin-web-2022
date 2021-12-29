@@ -72,7 +72,7 @@ const generateGalleryImagePath = path => {
     console.error("Project has no images");
   }
 
-  return buildImagePath(path, "w_800,q_auto,f_auto");
+  return buildImagePath(path, "q_50,f_auto");
 };
 
 const generatePlaceholderGalleryImagePath = path => {
@@ -83,14 +83,25 @@ const generatePlaceholderGalleryImagePath = path => {
   return buildImagePath(path, "w_10,q_auto,f_auto");
 };
 
+const generateListImage = path => {
+  if (!path) {
+    console.error("Project has no images");
+  }
+
+  return buildImagePath(path, "c_fill,g_face,w_200,h_200,q_auto,f_auto");
+};
+
+const titleCase = str => str.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+
 const filters = ["all", "portrait", "public", "masks", "exhibition"];
-const layouts = ["grid", "list", "map"];
+const layouts = ["grid", "list"];
 
 const Gallery = ({ category, layout, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState([]);
+  const [isHoveringList, setIsHoveringList] = useState([]);
 
   const len = data.length;
 
@@ -118,9 +129,6 @@ const Gallery = ({ category, layout, data }) => {
     if (layout) {
       setActiveLayout(layout);
     }
-
-    console.log("category change", category);
-    console.log("layout change", layout);
   }, [category, layout]);
 
   useEffect(() => {
@@ -133,25 +141,24 @@ const Gallery = ({ category, layout, data }) => {
 
   useEffect(() => {
     if (isBrowser()) {
-      const headerHeightOffset = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--header-height");
-
-      let top = 0;
-
-      if (headerHeightOffset) {
-        top = parseInt(headerHeightOffset, 0);
-      }
-
-      if (window.scrollY < top) return;
-
       window.scrollTo({
-        top,
-        left: 0,
-        behavior: "smooth",
+        top: window.innerHeight,
       });
     }
   }, [activeFilter, activeLayout]);
+
+  useEffect(() => {
+    function handleListHover(e) {
+      console.log("...");
+      console.log("handling", e);
+    }
+
+    if (isHoveringList) {
+      window.addEventListener("mousemove", handleListHover);
+    }
+
+    return window.removeEventListener("mousemove", handleListHover);
+  }, [isHoveringList]);
 
   function onImageLoad(imageIndex) {
     // All of this to change a value from false to true :0
@@ -219,7 +226,7 @@ const Gallery = ({ category, layout, data }) => {
                   type="radio"
                   onChange={() => onLayoutChange(layout)}
                 />
-                <label htmlFor={layout}>
+                <label title={titleCase(layout)} htmlFor={layout}>
                   <span className="sr-only">{layout}</span>
                   <span className="icon">
                     {Icons[layout] && Icons[layout]()}
@@ -241,6 +248,8 @@ const Gallery = ({ category, layout, data }) => {
               ? styles.list
               : styles.map
           }
+          onMouseEnter={() => setIsHoveringList(true)}
+          onMouseLeave={() => setIsHoveringList(false)}
         >
           {galleryData &&
             galleryData
@@ -250,11 +259,7 @@ const Gallery = ({ category, layout, data }) => {
                   activeFilter === "all"
               )
               .map(({ frontmatter: item, path }, index) => (
-                <Link
-                  key={item.title}
-                  to={path}
-                  className={item.isHorizontal ? styles.span2 : ""}
-                >
+                <Link key={item.title} to={path}>
                   {activeLayout === "grid" && (
                     <figure>
                       <img
@@ -279,6 +284,22 @@ const Gallery = ({ category, layout, data }) => {
                   {activeLayout === "list" && <span>{item.year}</span>}
                 </Link>
               ))}
+          <div className={styles.listimage}>
+            {galleryData &&
+              galleryData
+                .filter(
+                  item =>
+                    item.frontmatter.category === activeFilter ||
+                    activeFilter === "all"
+                )
+                .map(({ frontmatter: item }) => (
+                  <img
+                    src={generateListImage(item.images[0])}
+                    alt={item.title}
+                    key={item.title}
+                  />
+                ))}
+          </div>
         </div>
       )}
     </div>
