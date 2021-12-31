@@ -4,17 +4,15 @@
   padding: 1rem;
 
   @include respond-to(tablet) {
-    display: grid;
-    grid-template-columns: 120px minmax(40ch, 60ch);
-    grid-gap: 2.5rem;
-    justify-content: center;
+    padding: 4rem 2rem;
   }
 
-  figure {
-    display: none;
+  p {
+    color: white;
+    max-width: 60ch;
 
     @include respond-to(tablet) {
-      display: block;
+      font-size: var(--font-size-2);
     }
   }
 }

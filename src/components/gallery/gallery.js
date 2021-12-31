@@ -101,7 +101,7 @@ const Gallery = ({ category, layout, data }) => {
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState([]);
-  const [isHoveringList, setIsHoveringList] = useState([]);
+  const [imageHovered, setImageHovered] = useState(0);
 
   const len = data.length;
 
@@ -132,6 +132,10 @@ const Gallery = ({ category, layout, data }) => {
   }, [category, layout]);
 
   useEffect(() => {
+    setImageHovered(imageHovered);
+  }, [imageHovered]);
+
+  useEffect(() => {
     const galleryData = mapData(data);
 
     if (galleryData) {
@@ -141,24 +145,31 @@ const Gallery = ({ category, layout, data }) => {
 
   useEffect(() => {
     if (isBrowser()) {
+      const headerHeightOffset = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--header-height");
+
+      let top = 0;
+
+      if (headerHeightOffset) {
+        top = parseInt(headerHeightOffset, 0);
+      }
+
+      if (window.scrollY < top) return;
+
       window.scrollTo({
-        top: window.innerHeight,
+        top,
+        left: 0,
+        behavior: "smooth",
       });
     }
   }, [activeFilter, activeLayout]);
 
   useEffect(() => {
-    function handleListHover(e) {
-      console.log("...");
-      console.log("handling", e);
-    }
-
-    if (isHoveringList) {
-      window.addEventListener("mousemove", handleListHover);
-    }
+    if (!isBrowser()) return;
 
     return window.removeEventListener("mousemove", handleListHover);
-  }, [isHoveringList]);
+  }, []);
 
   function onImageLoad(imageIndex) {
     // All of this to change a value from false to true :0
@@ -183,6 +194,32 @@ const Gallery = ({ category, layout, data }) => {
       localStorage.setItem("rb-layout", layout);
     } catch (error) {}
   };
+
+  function handleListHover({ target }) {
+    const el = target.closest("a");
+
+    if (!el) return;
+
+    const index = el.dataset.index;
+
+    if (index || index === 0) {
+      setImageHovered(index);
+    }
+  }
+
+  function handleMouseEnter(e) {
+    e.stopPropagation();
+
+    if (activeLayout === "list") {
+      window.addEventListener("mousemove", handleListHover);
+    }
+  }
+
+  function handleMouseLeave(e) {
+    e.stopPropagation();
+
+    window.removeEventListener("mousemove", handleListHover);
+  }
 
   return (
     <div className={styles.container}>
@@ -248,8 +285,8 @@ const Gallery = ({ category, layout, data }) => {
               ? styles.list
               : styles.map
           }
-          onMouseEnter={() => setIsHoveringList(true)}
-          onMouseLeave={() => setIsHoveringList(false)}
+          onMouseEnter={e => handleMouseEnter(e)}
+          onMouseLeave={e => handleMouseLeave(e)}
         >
           {galleryData &&
             galleryData
@@ -259,7 +296,7 @@ const Gallery = ({ category, layout, data }) => {
                   activeFilter === "all"
               )
               .map(({ frontmatter: item, path }, index) => (
-                <Link key={item.title} to={path}>
+                <Link key={item.title} to={path} data-index={index}>
                   {activeLayout === "grid" && (
                     <figure>
                       <img
@@ -292,11 +329,14 @@ const Gallery = ({ category, layout, data }) => {
                     item.frontmatter.category === activeFilter ||
                     activeFilter === "all"
                 )
-                .map(({ frontmatter: item }) => (
+                .map(({ frontmatter: item }, index) => (
                   <img
                     src={generateListImage(item.images[0])}
                     alt={item.title}
                     key={item.title}
+                    style={{
+                      visibility: index == imageHovered ? "visible" : "hidden",
+                    }}
                   />
                 ))}
           </div>

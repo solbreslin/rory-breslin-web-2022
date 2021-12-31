@@ -9,6 +9,12 @@ body {
   }
 }
 
+main {
+  &.is-index {
+    background-color: hsl(0, 0%, 5%);
+  }
+}
+
 .container {
   margin: 0 auto;
   max-width: 1600px;

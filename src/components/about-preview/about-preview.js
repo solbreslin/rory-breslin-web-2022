@@ -15,9 +15,6 @@ const IMAGE_PATH =
 
 const AboutPreview = () => (
   <section className={previewStyles.section}>
-    <figure>
-      <img src={IMAGE_PATH} alt="Rory Breslin" />
-    </figure>
     <p>
       {BLURB_1}
       <br /> <br />

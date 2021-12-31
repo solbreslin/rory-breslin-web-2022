@@ -1,12 +1,19 @@
 @import "./../../styles/settings/all.scss";
 
 .button {
-  color: white;
+  cursor: pointer;
+  letter-spacing: 0.15em;
   padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
+  text-transform: uppercase;
+  z-index: 2;
 }
 
-.rotated {
-  transform: rotate3d(0, 1, 0, 180deg);
+.open {
+  color: white;
+}
+
+.invert {
+  color: white;
 }
 
 @include respond-to(tablet) {

@@ -1,7 +1,13 @@
+@import "./../../styles/settings/all.scss";
+
 .carousel {
-  height: calc(100vh - var(--header-height));
+  height: 85vh;
   overflow: hidden;
   position: relative;
+
+  @include respond-to(tablet) {
+    height: 100vh;
+  }
 
   div {
     bottom: 0;
