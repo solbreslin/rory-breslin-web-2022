@@ -5,6 +5,7 @@ import * as styles from "./gallery.module.scss";
 import arrowIcon from "../arrow-icon";
 import { isBrowser } from "./../../utils/index";
 import Icons from "./icons";
+import ChevronIcon from "./../chevron-icon";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -102,6 +103,7 @@ const Gallery = ({ category, layout, data }) => {
   const [locationData, setLocationData] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState([]);
   const [imageHovered, setImageHovered] = useState(0);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const len = data.length;
 
@@ -181,6 +183,7 @@ const Gallery = ({ category, layout, data }) => {
 
   const onFilterChange = filter => {
     setActiveFilter(filter);
+    setFiltersOpen(false);
 
     try {
       localStorage.setItem("rb-filter", filter);
@@ -224,9 +227,15 @@ const Gallery = ({ category, layout, data }) => {
   return (
     <div className={styles.container}>
       <div className={styles.toolbar}>
-        <div>
+        <div className={styles.filterListWrapper}>
+          <button onClick={() => setFiltersOpen(!filtersOpen)}>
+            Filter: {activeFilter}
+            <ChevronIcon direction={filtersOpen ? "up" : "down"} />
+          </button>
           <h4 className="sr-only">Select a category</h4>
-          <ul className={styles.filterList}>
+          <ul
+            className={`${styles.filterList} ${filtersOpen ? styles.open : ""}`}
+          >
             {filters.map(filter => (
               <li
                 key={filter}

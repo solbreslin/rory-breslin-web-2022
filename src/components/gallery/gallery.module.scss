@@ -30,6 +30,62 @@ $layout-icon-size: 36px;
   }
 }
 
+.filterListWrapper {
+  border: 1px solid grey;
+  border-width: 1px 0 1px 0;
+  padding: 0.5rem 0 0.4rem;
+  position: relative;
+
+  @include respond-to(tablet) {
+    border: none;
+    padding: 0;
+  }
+
+  > button {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: var(--font-size-s1);
+    justify-content: space-between;
+    text-transform: uppercase;
+    width: 100%;
+
+    @include respond-to(tablet) {
+      display: none;
+    }
+  }
+}
+
+.filterList {
+  background: white;
+  display: none;
+  padding: 0 0 0.5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 1;
+
+  &.open {
+    display: block;
+
+    @include respond-to(tablet) {
+      display: flex;
+    }
+  }
+
+  @include respond-to($breakpoint) {
+    background: hsla(0, 0%, 0%, 0);
+    display: flex;
+    padding: 0;
+    position: static;
+  }
+}
+
+.layoutList {
+  display: none;
+}
+
 .filterList,
 .layoutList {
   @include respond-to($breakpoint) {
@@ -53,16 +109,15 @@ $layout-icon-size: 36px;
   }
 
   label {
-    background-color: #9cb8a129;
-    border-radius: 2px;
     cursor: pointer;
     line-height: 1;
-    padding: 0.6em 1em 0.5em;
+    padding: 0.3em 0 0.2em;
     text-transform: capitalize;
-    transition: $transition-settings;
+    width: 100%;
 
-    &:hover {
-      background-color: #9cb8a15e;
+    @include respond-to(tablet) {
+      border-radius: 2px;
+      padding: 0.6em 1em 0.5em;
     }
   }
 }
@@ -92,11 +147,11 @@ $layout-icon-size: 36px;
 .activeFilter,
 .activeLayout {
   label {
-    background-color: #435747;
-    color: white;
+    text-decoration: underline;
 
-    &:hover {
-      background-color: #435747;
+    @include respond-to(tablet) {
+      background-color: #9cb8a129;
+      text-decoration: none;
     }
   }
 }
@@ -131,16 +186,25 @@ $layout-icon-size: 36px;
 
 .grid {
   display: grid;
-  grid-gap: 4rem;
+  grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   padding: 0 0 4rem;
 
+  @include respond-to(tablet) {
+    grid-gap: 4rem;
+  }
+
   figure {
-    height: 400px;
-    margin-bottom: 1rem;
+    height: 240px;
+    margin-bottom: 0.5rem;
     overflow: hidden;
     // For placeholder image
     position: relative;
+
+    @include respond-to(tablet) {
+      height: 400px;
+      margin-bottom: 1rem;
+    }
   }
 
   img {
