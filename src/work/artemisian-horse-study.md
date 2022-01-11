@@ -11,4 +11,5 @@ tags:
   - Exhibition
 category: exhibition
 isHorizontal: true
+material: Bronze
 ---

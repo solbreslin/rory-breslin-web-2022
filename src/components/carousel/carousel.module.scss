@@ -11,12 +11,40 @@
   transform: translate3d(0, calc(var(--scroll-y) * -0.5px), 0);
   will-change: transform;
 
+  &:before {
+    // https://gist.github.com/matthewbeta/0ef11bd907b435f101e09cc6216ad66b
+    background-image: linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.738) 19%,
+      rgba(0, 0, 0, 0.541) 34%,
+      rgba(0, 0, 0, 0.382) 47%,
+      rgba(0, 0, 0, 0.278) 56.5%,
+      rgba(0, 0, 0, 0.194) 65%,
+      rgba(0, 0, 0, 0.126) 73%,
+      rgba(0, 0, 0, 0.075) 80.2%,
+      rgba(0, 0, 0, 0.042) 86.1%,
+      rgba(0, 0, 0, 0.021) 91%,
+      rgba(0, 0, 0, 0.008) 95.2%,
+      rgba(0, 0, 0, 0.002) 98.2%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    content: "";
+    height: calc(2 * var(--header-height));
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
+
   &:after {
     background: black;
     bottom: 0;
     content: "";
     left: 0;
-    opacity: calc(var(--scroll-y) * 0.0015);
+    opacity: calc(var(--scroll-y, 0) * 0.0015);
     position: absolute;
     right: 0;
     top: 0;
@@ -55,6 +83,12 @@
     position: absolute;
     z-index: 1;
 
+    @include respond-to(tablet) {
+      bottom: 2rem;
+      font-size: var(--font-size-3);
+      left: 2rem;
+    }
+
     &.isActive {
       animation: FADE_IN_OUT 6s forwards 1s;
       pointer-events: auto;
@@ -80,6 +114,12 @@
   position: absolute;
   right: 1rem;
   transition: color 1s ease-out;
+
+  @include respond-to(tablet) {
+    bottom: 2rem;
+    font-size: var(--font-size-3);
+    right: 2rem;
+  }
 
   &.isBright {
     color: white;

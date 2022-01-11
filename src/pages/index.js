@@ -23,7 +23,7 @@ const IndexPage = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout invert={true}>
       <Seo title="Home" />
       <Carousel />
       <div className="container">

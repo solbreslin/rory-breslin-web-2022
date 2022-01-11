@@ -1,8 +1,6 @@
 import React from "react";
 
-const arrowIcon = () => {
-  const direction = "right";
-
+const arrowIcon = ({ direction }) => {
   return (
     <span className="arrow-icon">
       <svg

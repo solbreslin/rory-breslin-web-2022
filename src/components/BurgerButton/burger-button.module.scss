@@ -12,13 +12,14 @@
 
   &:before,
   &:after {
-    background: white;
+    background: black;
     content: "";
     left: 2px;
     height: 2px;
     position: absolute;
     right: 2px;
-    transition: transform 0.125s ease-out, bottom 0.125s ease-out 0.125s;
+    transition: background-color 0.125s ease-out, transform 0.125s ease-out,
+      bottom 0.125s ease-out 0.125s;
   }
 
   &:before {
@@ -35,7 +36,9 @@
 
   &:before,
   &:after {
-    transition: transform 0.125s ease-out 0.125s, bottom 0.125s ease-out;
+    background: white;
+    transition: background-color 0.125s ease-out,
+      transform 0.125s ease-out 0.125s, bottom 0.125s ease-out;
   }
 
   &:before {
@@ -50,7 +53,10 @@
 }
 
 .invert {
-  color: white;
+  &:before,
+  &:after {
+    background: white;
+  }
 }
 
 @include respond-to(tablet) {

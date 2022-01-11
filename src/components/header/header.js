@@ -2,11 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import * as headerStyles from "./header.module.scss";
 import BurgerButton from "../BurgerButton/burger-button";
-import { isBrowser } from "./../../utils/index";
 
 const Header = props => {
   const [navOpen, setNavOpen] = useState(false);
-  const [isInvert, setIsInvert] = useState(false);
   const headerEl = useRef(null);
 
   useEffect(() => {
@@ -16,16 +14,6 @@ const Header = props => {
       document.body.classList.remove("o-hidden");
     }
   }, [navOpen]);
-
-  useEffect(() => {
-    if (isBrowser()) {
-      if (window.location.pathname === "/") {
-        setIsInvert(true);
-      } else {
-        setIsInvert(false);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (document !== undefined) {
@@ -46,7 +34,7 @@ const Header = props => {
     <header
       className={`${headerStyles.header} ${
         navOpen ? headerStyles.active : ""
-      } ${isInvert && headerStyles.invert}`}
+      } ${props.invert ? headerStyles.invert : ""}`}
       ref={headerEl}
     >
       <h1>
@@ -58,7 +46,7 @@ const Header = props => {
       <BurgerButton
         navOpen={navOpen}
         updateParent={updateParent}
-        isInvert={isInvert}
+        isInvert={props.invert}
       />
       <nav aria-labelledby="menu-label">
         <ul id="menu" className={navOpen ? "is-open" : ""}>

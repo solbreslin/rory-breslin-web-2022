@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
-import arrowIcon from "../arrow-icon";
 import { isBrowser } from "./../../utils/index";
 import Icons from "./icons";
 import ChevronIcon from "./../chevron-icon";
@@ -324,9 +323,7 @@ const Gallery = ({ category, layout, data }) => {
                       )}
                     </figure>
                   )}
-                  <h3>
-                    {item.title} {activeLayout === "grid" && arrowIcon()}
-                  </h3>
+                  <h3>{item.title}</h3>
                   {activeLayout === "list" && <span>{item.year}</span>}
                 </Link>
               ))}

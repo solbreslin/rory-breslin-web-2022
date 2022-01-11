@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { graphql, Link } from "gatsby";
 import Layout from "../../components/layout";
+import ArrowIcon from "../../components/arrow-icon";
 
 import * as styles from "./work.module.scss";
 import { EmblaCarousel } from "../../components/embla/embla-carousel";
@@ -33,7 +34,7 @@ const useKeyPress = (targetKeyCode, callback) => {
 const ProjectPage = ({ data }) => {
   const [carouselIndex, setCarouselIndex] = useState(null);
   const { frontmatter: project } = data.markdownRemark;
-
+  console.log(data);
   const closeCarousel = () => {
     setCarouselIndex(null);
     isBrowser() && document.body.style.removeProperty("overflow");
@@ -45,19 +46,30 @@ const ProjectPage = ({ data }) => {
   };
 
   useEffect(() => {
+    document.body.classList.add("theme-dark");
+  }, []);
+
+  useEffect(() => {
     return () => {
-      isBrowser() && document.body.style.removeProperty("overflow");
+      if (isBrowser()) {
+        document.body.style.removeProperty("overflow");
+        document.body.classList.remove("theme-dark");
+      }
     };
   }, []);
 
   useKeyPress(KeyCode.ESCAPE, closeCarousel);
 
   return (
-    <Layout>
+    <Layout invert={true}>
       <section className={styles.container}>
         {/* <Link to={"/work"}>Back</Link> */}
         <h1>{project.title}</h1>
-
+        <h4>
+          {project.material}
+          <br />
+          {project.year}
+        </h4>
         {project.images.map((url, i) => (
           <div
             key={url}
@@ -71,6 +83,14 @@ const ProjectPage = ({ data }) => {
             </figure>
           </div>
         ))}
+      </section>
+      <section className={`${styles.container} ${styles.nav}`}>
+        <Link to={"/"}>
+          <ArrowIcon direction="left" /> Prev
+        </Link>
+        <Link to={"/"}>
+          Next <ArrowIcon />
+        </Link>
       </section>
 
       {carouselIndex != null && (

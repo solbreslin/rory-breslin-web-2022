@@ -11,7 +11,7 @@ body {
 
 main {
   &.is-index {
-    padding-top: 115.625vw;
+    padding-top: calc(115.625vw - var(--header-height));
     // background-color: hsl(0, 0%, 5%);
 
     @include respond-to(tablet) {

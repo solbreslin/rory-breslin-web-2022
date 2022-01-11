@@ -7,7 +7,7 @@ import Footer from "./../components/footer/footer";
 import "./layout.scss";
 import { isBrowser } from "../utils";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, invert }) => {
   const [isIndex, setIsIndex] = useState(false);
 
   useEffect(() => {
@@ -32,7 +32,10 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Header
+        siteTitle={data.site.siteMetadata?.title || `Title`}
+        invert={invert}
+      />
       <main className={isIndex ? "is-index" : ""}>{children}</main>
       <Footer />
     </>
