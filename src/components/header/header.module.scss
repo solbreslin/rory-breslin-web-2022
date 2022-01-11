@@ -72,8 +72,8 @@
   }
 
   h1 {
+    @include font-bold;
     display: flex;
-    // font-family: Akkurat-Bold, "Helvetica Neue", Helvetica, Arial, sans-serif;
     letter-spacing: 0.15em;
     position: relative;
     text-transform: uppercase;
@@ -102,7 +102,7 @@
     position: fixed;
     right: 0;
     top: 0;
-    transition: opacity 0.1s ease-out;
+    transition: opacity 0.3s cubic-bezier(0.59, 0.01, 0.28, 1);
     z-index: 2;
   }
 

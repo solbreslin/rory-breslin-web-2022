@@ -11,13 +11,16 @@ body {
 
 main {
   &.is-index {
-    background-color: hsl(0, 0%, 5%);
+    padding-top: 115.625vw;
+    // background-color: hsl(0, 0%, 5%);
   }
 }
 
 .container {
+  background: white;
   margin: 0 auto;
   max-width: 1600px;
+  position: relative;
 }
 
 html,

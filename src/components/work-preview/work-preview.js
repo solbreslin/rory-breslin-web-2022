@@ -32,7 +32,7 @@ const categories = [
 
 const WorkPreview = () => (
   <section className={previewStyles.section}>
-    <h1>Work</h1>
+    <h1>Explore Work</h1>
     {categories.map(category => (
       <article key={category.path}>
         <Link
