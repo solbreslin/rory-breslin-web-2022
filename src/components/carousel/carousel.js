@@ -68,7 +68,7 @@ const Carousel = () => {
             >
               <Link to={"work/" + image.project_link}>{image.title}</Link>
             </h3>
-            <div className={active === index ? isActive : ""} key={image.title}>
+            <div className={active === index ? isActive : ""}>
               <img src={image.url} alt={image.title} />
             </div>
           </React.Fragment>

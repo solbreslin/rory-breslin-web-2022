@@ -15,7 +15,7 @@ const BurgerButton = ({ navOpen, updateParent, isInvert }) => {
       aria-labelledby="menu-label"
       aria-expanded={navOpen}
     >
-      {navOpen ? "Close" : "Menu"}
+      <span className="sr-only">{navOpen ? "Close menu" : "Open menu"}</span>
     </button>
   );
 };

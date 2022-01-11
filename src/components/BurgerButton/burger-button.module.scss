@@ -1,15 +1,52 @@
 @import "./../../styles/settings/all.scss";
 
 .button {
+  align-items: center;
   cursor: pointer;
-  letter-spacing: 0.15em;
-  padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
-  text-transform: uppercase;
+  display: flex;
+  height: 32px;
+  margin-right: 1rem;
+  position: relative;
+  width: 32px;
   z-index: 3;
+
+  &:before,
+  &:after {
+    background: white;
+    content: "";
+    left: 2px;
+    height: 2px;
+    position: absolute;
+    right: 2px;
+    transition: transform 0.125s ease-out, bottom 0.125s ease-out 0.125s;
+  }
+
+  &:before {
+    bottom: 20px;
+  }
+
+  &:after {
+    bottom: 12px;
+  }
 }
 
 .open {
   color: white;
+
+  &:before,
+  &:after {
+    transition: transform 0.125s ease-out 0.125s, bottom 0.125s ease-out;
+  }
+
+  &:before {
+    bottom: 16px;
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    bottom: 16px;
+    transform: rotate(-45deg);
+  }
 }
 
 .invert {

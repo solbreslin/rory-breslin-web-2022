@@ -49,15 +49,17 @@
 .imageLink {
   h2 {
     // color: white;
+    @include font-bold;
     display: flex;
+    font-size: var(--font-size-s1);
     justify-content: space-between;
     letter-spacing: 0.05em;
-    padding: 0.75rem 0;
     text-transform: uppercase;
   }
 
   figure {
     height: 280px;
+    margin-bottom: 0.25rem;
     overflow: hidden;
     padding: 0;
 
