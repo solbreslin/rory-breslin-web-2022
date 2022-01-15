@@ -185,6 +185,7 @@ $layout-icon-size: 36px;
   display: grid;
   grid-gap: 2rem;
   padding: 0 0 4rem;
+  position: relative;
 
   @include respond-to(mobile-l) {
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -194,25 +195,15 @@ $layout-icon-size: 36px;
     grid-gap: 4rem 2rem;
   }
 
-  figure {
-    height: 240px;
-    margin-bottom: 0.5rem;
-    overflow: hidden;
-    // For placeholder image
-    position: relative;
-
-    @include respond-to(tablet) {
-      height: 400px;
-      margin-bottom: 1rem;
-    }
+  a {
+    opacity: 1;
+    transition: opacity 0.2s linear;
   }
 
-  img {
-    height: 100%;
-    object-fit: cover;
-    transition: transform 4s;
-    width: 100%;
-    will-change: transform;
+  &.animating {
+    a {
+      opacity: 0;
+    }
   }
 }
 
@@ -235,18 +226,6 @@ $layout-icon-size: 36px;
     grid-gap: 0 1rem;
     grid-template-columns: 250px 1fr;
 
-    .listimage {
-      display: block;
-      grid-column: 1;
-      grid-row: 1 / -1;
-      position: sticky;
-      top: 59px; // get with JS
-
-      img {
-        position: absolute;
-      }
-    }
-
     a {
       grid-column: 2;
     }
@@ -255,18 +234,4 @@ $layout-icon-size: 36px;
 
 .map {
   display: block;
-}
-
-.placeholder {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  filter: blur(20px);
-  transition: 0.125s ease-out;
-}
-
-.listimage {
-  display: none;
 }

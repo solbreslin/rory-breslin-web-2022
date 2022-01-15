@@ -1,0 +1,16 @@
+@import "./../../styles/settings/all.scss";
+
+.listimage {
+  display: none;
+
+  @include respond-to(tablet) {
+    display: block;
+    grid-column: 1;
+    grid-row: 1 / -1;
+    position: sticky;
+
+    img {
+      position: absolute;
+    }
+  }
+}

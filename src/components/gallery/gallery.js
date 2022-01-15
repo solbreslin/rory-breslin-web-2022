@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
 import { isBrowser } from "./../../utils/index";
 import Icons from "./icons";
 import ChevronIcon from "./../chevron-icon";
+import GalleryImage from "./gallery-image";
+import GalleryListImages from "./gallery-list-images";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -28,18 +30,6 @@ const mapData = data => {
   return galleryData;
 };
 
-const setInitialImageLoadingState = len => {
-  const images = [];
-
-  for (let i = 0; i < len; i++) {
-    // 0 is 'NOT_LOADED'
-    // 1 is 'LOADED'
-    images.push(0);
-  }
-
-  return images;
-};
-
 const mapLocationData = (data, filter) => {
   const locationData = data
     .filter(d => d.frontmatter.location)
@@ -60,37 +50,6 @@ const mapLocationData = (data, filter) => {
   return locationData;
 };
 
-const buildImagePath = (path, query) => {
-  const parts = path.split("upload/");
-
-  return `${parts[0]}upload/${query}/${parts[1]}`;
-};
-
-const generateGalleryImagePath = path => {
-  // Eg: https://res.cloudinary.com/r-breslin/image/upload/v1584241866/r-breslin-cloudinary/WORK/MASKS/the-foyle/the-foyle_the-foyle-01_wekais.png
-  if (!path) {
-    console.error("Project has no images");
-  }
-
-  return buildImagePath(path, "q_50,f_auto");
-};
-
-const generatePlaceholderGalleryImagePath = path => {
-  if (!path) {
-    console.error("Project has no images");
-  }
-
-  return buildImagePath(path, "w_10,q_auto,f_auto");
-};
-
-const generateListImage = path => {
-  if (!path) {
-    console.error("Project has no images");
-  }
-
-  return buildImagePath(path, "c_fill,g_face,w_200,h_200,q_auto,f_auto");
-};
-
 const titleCase = str => str.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
 
 const filters = ["all", "portrait", "public", "masks", "exhibition"];
@@ -98,18 +57,17 @@ const layouts = ["grid", "list"];
 
 const Gallery = ({ category, layout, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
+  // UX improvement - instantly update toolbar on change
+  const [tempActiveFilter, setTempActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
-  const [imagesLoaded, setImagesLoaded] = useState([]);
   const [imageHovered, setImageHovered] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
-
-  const len = data.length;
+  const [filterIsChanging, setFilterIsChanging] = useState(false);
+  const [toolbarHeight, setToolbarHeight] = useState(0);
+  const toolbarRef = useRef(null);
 
   useEffect(() => {
-    // Only do this once!
-    setImagesLoaded(setInitialImageLoadingState(len));
-
     const filter = localStorage.getItem("rb-filter");
     const layout = localStorage.getItem("rb-layout");
 
@@ -120,6 +78,8 @@ const Gallery = ({ category, layout, data }) => {
     if (layout) {
       setActiveLayout(layout);
     }
+
+    getToolbarHeight();
   }, []);
 
   useEffect(() => {
@@ -172,21 +132,27 @@ const Gallery = ({ category, layout, data }) => {
     return window.removeEventListener("mousemove", handleListHover);
   }, []);
 
-  function onImageLoad(imageIndex) {
-    // All of this to change a value from false to true :0
-    const images = imagesLoaded.map((item, index) =>
-      imageIndex === index ? 1 : item
-    );
-    setImagesLoaded(images);
-  }
-
   const onFilterChange = filter => {
-    setActiveFilter(filter);
     setFiltersOpen(false);
+    setFilterIsChanging(true);
 
-    try {
-      localStorage.setItem("rb-filter", filter);
-    } catch (error) {}
+    // This is used to immediately update the toolbar so no lag
+    setTempActiveFilter(filter);
+
+    const animationTime = activeLayout === "grid" ? 200 : 0;
+    // Wrap in a timeout to allow animation
+    setTimeout(() => {
+      setActiveFilter(filter);
+      setTempActiveFilter(null);
+
+      try {
+        localStorage.setItem("rb-filter", filter);
+      } catch (error) {}
+    }, animationTime);
+
+    setTimeout(() => {
+      setFilterIsChanging(false);
+    }, animationTime * 2);
   };
 
   const onLayoutChange = layout => {
@@ -223,9 +189,15 @@ const Gallery = ({ category, layout, data }) => {
     window.removeEventListener("mousemove", handleListHover);
   }
 
+  function getToolbarHeight() {
+    if (toolbarRef && toolbarRef.current) {
+      setToolbarHeight(toolbarRef.current.offsetHeight);
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.toolbar}>
+      <div className={styles.toolbar} ref={toolbarRef}>
         <div className={styles.filterListWrapper}>
           <button onClick={() => setFiltersOpen(!filtersOpen)}>
             Filter: {activeFilter}
@@ -239,7 +211,10 @@ const Gallery = ({ category, layout, data }) => {
               <li
                 key={filter}
                 className={`${
-                  activeFilter === filter ? styles.activeFilter : ""
+                  (!tempActiveFilter && activeFilter === filter) ||
+                  tempActiveFilter === filter
+                    ? styles.activeFilter
+                    : ""
                 } ${styles.filterItem}`}
               >
                 <input
@@ -286,16 +261,24 @@ const Gallery = ({ category, layout, data }) => {
         <CustomMap data={locationData} />
       ) : (
         <div
-          className={
+          className={`${
             activeLayout === "grid"
               ? styles.grid
               : activeLayout === "list"
               ? styles.list
               : styles.map
-          }
+          } ${filterIsChanging ? styles.animating : ""}`}
           onMouseEnter={e => handleMouseEnter(e)}
           onMouseLeave={e => handleMouseLeave(e)}
         >
+          {activeLayout === "list" && (
+            <GalleryListImages
+              active={imageHovered}
+              data={galleryData}
+              filter={activeFilter}
+              offset={toolbarHeight}
+            />
+          )}
           {galleryData &&
             galleryData
               .filter(
@@ -306,46 +289,12 @@ const Gallery = ({ category, layout, data }) => {
               .map(({ frontmatter: item, path }, index) => (
                 <Link key={item.title} to={path} data-index={index}>
                   {activeLayout === "grid" && (
-                    <figure>
-                      <img
-                        src={generateGalleryImagePath(item.images[0])}
-                        alt={item.title}
-                        onLoad={() => onImageLoad(index)}
-                      />
-                      {!imagesLoaded[index] && (
-                        <img
-                          src={generatePlaceholderGalleryImagePath(
-                            item.images[0]
-                          )}
-                          alt={item.title}
-                          className={styles.placeholder}
-                        />
-                      )}
-                    </figure>
+                    <GalleryImage alt={item.title} url={item.images[0]} />
                   )}
                   <h3>{item.title}</h3>
                   {activeLayout === "list" && <span>{item.year}</span>}
                 </Link>
               ))}
-          <div className={styles.listimage}>
-            {galleryData &&
-              galleryData
-                .filter(
-                  item =>
-                    item.frontmatter.category === activeFilter ||
-                    activeFilter === "all"
-                )
-                .map(({ frontmatter: item }, index) => (
-                  <img
-                    src={generateListImage(item.images[0])}
-                    alt={item.title}
-                    key={item.title}
-                    style={{
-                      visibility: index == imageHovered ? "visible" : "hidden",
-                    }}
-                  />
-                ))}
-          </div>
         </div>
       )}
     </div>
