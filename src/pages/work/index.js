@@ -6,13 +6,12 @@ import Gallery from "../../components/gallery/gallery";
 import Seo from "../../components/seo";
 
 const WorkPage = ({ location, data }) => {
-  const activeCategory =
-    location && location.state ? location.state.category : null;
+  const filter = location && location.state ? location.state.filter : null;
 
   return (
     <Layout>
       <Seo title="Work" />
-      <Gallery category={activeCategory} data={data.allMarkdownRemark.nodes} />
+      <Gallery initialFilter={filter} data={data.allMarkdownRemark.nodes} />
     </Layout>
   );
 };

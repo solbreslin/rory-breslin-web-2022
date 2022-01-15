@@ -37,7 +37,7 @@ const WorkPreview = () => (
       <article key={category.path}>
         <Link
           to="work"
-          state={{ category: category.path }}
+          state={{ filter: category.path }}
           className={previewStyles.imageLink}
         >
           <figure>

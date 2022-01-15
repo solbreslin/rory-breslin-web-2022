@@ -15,14 +15,9 @@ const generateListImage = path => {
   return buildCloudinaryQuery(path, "c_fill,g_face,w_200,h_200,q_auto,f_auto");
 };
 
-const GalleryListImages = ({ data, active, filter, offset }) => {
+const GalleryListImages = ({ data, active, filter }) => {
   return (
-    <div
-      className={styles.listimage}
-      style={{
-        top: offset + "px",
-      }}
-    >
+    <div className={styles.listimage}>
       {data &&
         data
           .filter(

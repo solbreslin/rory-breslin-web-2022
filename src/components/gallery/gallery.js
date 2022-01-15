@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
 import { isBrowser } from "./../../utils/index";
-import Icons from "./icons";
-import ChevronIcon from "./../chevron-icon";
+
 import GalleryImage from "./gallery-image";
 import GalleryListImages from "./gallery-list-images";
+import GalleryToolbar from "./gallery-toolbar";
 
 // Filter out drafts and alphabetise on page load, not every render
 let galleryData;
@@ -50,47 +50,13 @@ const mapLocationData = (data, filter) => {
   return locationData;
 };
 
-const titleCase = str => str.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
-
-const filters = ["all", "portrait", "public", "masks", "exhibition"];
-const layouts = ["grid", "list"];
-
-const Gallery = ({ category, layout, data }) => {
+const Gallery = ({ initialFilter, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
   // UX improvement - instantly update toolbar on change
-  const [tempActiveFilter, setTempActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
   const [imageHovered, setImageHovered] = useState(0);
-  const [filtersOpen, setFiltersOpen] = useState(false);
   const [filterIsChanging, setFilterIsChanging] = useState(false);
-  const [toolbarHeight, setToolbarHeight] = useState(0);
-  const toolbarRef = useRef(null);
-
-  useEffect(() => {
-    const filter = localStorage.getItem("rb-filter");
-    const layout = localStorage.getItem("rb-layout");
-
-    if (filter) {
-      setActiveFilter(filter);
-    }
-
-    if (layout) {
-      setActiveLayout(layout);
-    }
-
-    getToolbarHeight();
-  }, []);
-
-  useEffect(() => {
-    if (category) {
-      setActiveFilter(category);
-    }
-
-    if (layout) {
-      setActiveLayout(layout);
-    }
-  }, [category, layout]);
 
   useEffect(() => {
     setImageHovered(imageHovered);
@@ -132,37 +98,6 @@ const Gallery = ({ category, layout, data }) => {
     return window.removeEventListener("mousemove", handleListHover);
   }, []);
 
-  const onFilterChange = filter => {
-    setFiltersOpen(false);
-    setFilterIsChanging(true);
-
-    // This is used to immediately update the toolbar so no lag
-    setTempActiveFilter(filter);
-
-    const animationTime = activeLayout === "grid" ? 200 : 0;
-    // Wrap in a timeout to allow animation
-    setTimeout(() => {
-      setActiveFilter(filter);
-      setTempActiveFilter(null);
-
-      try {
-        localStorage.setItem("rb-filter", filter);
-      } catch (error) {}
-    }, animationTime);
-
-    setTimeout(() => {
-      setFilterIsChanging(false);
-    }, animationTime * 2);
-  };
-
-  const onLayoutChange = layout => {
-    setActiveLayout(layout);
-
-    try {
-      localStorage.setItem("rb-layout", layout);
-    } catch (error) {}
-  };
-
   function handleListHover({ target }) {
     const el = target.closest("a");
 
@@ -189,74 +124,14 @@ const Gallery = ({ category, layout, data }) => {
     window.removeEventListener("mousemove", handleListHover);
   }
 
-  function getToolbarHeight() {
-    if (toolbarRef && toolbarRef.current) {
-      setToolbarHeight(toolbarRef.current.offsetHeight);
-    }
-  }
-
   return (
     <div className={styles.container}>
-      <div className={styles.toolbar} ref={toolbarRef}>
-        <div className={styles.filterListWrapper}>
-          <button onClick={() => setFiltersOpen(!filtersOpen)}>
-            Filter: {activeFilter}
-            <ChevronIcon direction={filtersOpen ? "up" : "down"} />
-          </button>
-          <h4 className="sr-only">Select a category</h4>
-          <ul
-            className={`${styles.filterList} ${filtersOpen ? styles.open : ""}`}
-          >
-            {filters.map(filter => (
-              <li
-                key={filter}
-                className={`${
-                  (!tempActiveFilter && activeFilter === filter) ||
-                  tempActiveFilter === filter
-                    ? styles.activeFilter
-                    : ""
-                } ${styles.filterItem}`}
-              >
-                <input
-                  className="input-hidden"
-                  id={filter}
-                  name="filters"
-                  type="radio"
-                  onChange={() => onFilterChange(filter)}
-                />
-                <label htmlFor={filter}>{filter}</label>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h4 className="sr-only">Select a layout</h4>
-          <ul className={styles.layoutList}>
-            {layouts.map(layout => (
-              <li
-                key={layout}
-                className={`${
-                  activeLayout === layout ? styles.activeLayout : ""
-                } ${styles.layoutItem}`}
-              >
-                <input
-                  className="input-hidden"
-                  id={layout}
-                  name="layouts"
-                  type="radio"
-                  onChange={() => onLayoutChange(layout)}
-                />
-                <label title={titleCase(layout)} htmlFor={layout}>
-                  <span className="sr-only">{layout}</span>
-                  <span className="icon">
-                    {Icons[layout] && Icons[layout]()}
-                  </span>
-                </label>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <GalleryToolbar
+        initialFilter={initialFilter}
+        emitFilter={setActiveFilter}
+        emitLayout={setActiveLayout}
+        emitFilterIsChanging={setFilterIsChanging}
+      />
       {activeLayout === "map" ? (
         <CustomMap data={locationData} />
       ) : (
@@ -276,7 +151,6 @@ const Gallery = ({ category, layout, data }) => {
               active={imageHovered}
               data={galleryData}
               filter={activeFilter}
-              offset={toolbarHeight}
             />
           )}
           {galleryData &&
