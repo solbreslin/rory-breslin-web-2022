@@ -43,11 +43,11 @@ const GalleryToolbar = ({
 
   useEffect(() => {
     emitFilter(activeFilter);
-  }, [activeFilter]);
+  }, [activeFilter, emitFilter]);
 
   useEffect(() => {
     emitLayout(activeLayout);
-  }, [activeLayout]);
+  }, [activeLayout, emitLayout]);
 
   const onFilterChange = filter => {
     setFiltersOpen(false);

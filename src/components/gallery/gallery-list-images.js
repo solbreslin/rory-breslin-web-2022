@@ -29,7 +29,8 @@ const GalleryListImages = ({ data, active, filter }) => {
               alt={item.title}
               key={item.title}
               style={{
-                visibility: index == active ? "visible" : "hidden",
+                visibility:
+                  index === parseInt(active, 10) ? "visible" : "hidden",
               }}
             />
           ))}

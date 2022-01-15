@@ -132,6 +132,7 @@ const Gallery = ({ initialFilter, data }) => {
         emitLayout={setActiveLayout}
         emitFilterIsChanging={setFilterIsChanging}
       />
+
       {activeLayout === "map" ? (
         <CustomMap data={locationData} />
       ) : (
@@ -145,6 +146,7 @@ const Gallery = ({ initialFilter, data }) => {
           } ${filterIsChanging ? styles.animating : ""}`}
           onMouseEnter={e => handleMouseEnter(e)}
           onMouseLeave={e => handleMouseLeave(e)}
+          role="presentation"
         >
           {activeLayout === "list" && (
             <GalleryListImages

@@ -12,13 +12,12 @@ const KeyCode = {
 };
 
 const useKeyPress = (targetKeyCode, callback) => {
-  function downHandler(e) {
-    if (e.which === targetKeyCode) {
-      callback();
-    }
-  }
-
   useEffect(() => {
+    function downHandler(e) {
+      if (e.which === targetKeyCode) {
+        callback();
+      }
+    }
     if (isBrowser()) {
       window.addEventListener("keydown", downHandler);
     }
@@ -28,13 +27,13 @@ const useKeyPress = (targetKeyCode, callback) => {
         window.removeEventListener("keydown", downHandler);
       }
     };
-  }, [targetKeyCode, downHandler]);
+  }, [targetKeyCode, callback]);
 };
 
 const ProjectPage = ({ data }) => {
   const [carouselIndex, setCarouselIndex] = useState(null);
   const { frontmatter: project } = data.markdownRemark;
-  console.log(data);
+
   const closeCarousel = () => {
     setCarouselIndex(null);
     isBrowser() && document.body.style.removeProperty("overflow");
