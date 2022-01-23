@@ -62,7 +62,9 @@ const ProjectPage = ({ data }) => {
   return (
     <Layout invert={true}>
       <section className={styles.container}>
-        {/* <Link to={"/work"}>Back</Link> */}
+        <Link to={"/work"}>
+          <ArrowIcon direction="left" /> Prev
+        </Link>
         <h1>{project.title}</h1>
         <h4>
           {project.material}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { PrevButton, NextButton } from "./embla-carousel-button";
+import CustomCursor from "./custom-cursor";
 
 const useKeyPress = (targetKeyCode, callback) => {
   function downHandler(e) {
@@ -67,6 +68,10 @@ export const EmblaCarousel = ({ visible, images, index }) => {
       <div className="embla-nav">
         <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />
         <NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
+        <CustomCursor
+          prevEnabled={prevBtnEnabled}
+          nextEnabled={nextBtnEnabled}
+        />
       </div>
     </div>
   );

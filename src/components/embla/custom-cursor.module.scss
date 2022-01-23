@@ -1,0 +1,14 @@
+.cursor {
+  border: 1px solid white;
+  border-width: 0 4px 4px 0;
+  cursor: none;
+  display: block;
+  height: 50px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transition: opacity 0.125s ease-out;
+  width: 50px;
+  z-index: 1000;
+}
