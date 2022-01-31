@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { graphql, Link } from "gatsby";
-import Layout from "../../components/layout";
-import ArrowIcon from "../../components/arrow-icon";
+import Layout from "../components/layout";
+import ArrowIcon from "../components/arrow-icon";
 
-import * as styles from "./work.module.scss";
-import { EmblaCarousel } from "../../components/embla/embla-carousel";
-import { isBrowser } from "../../utils";
+import * as styles from "./project-page.module.scss";
+import { EmblaCarousel } from "../components/embla/embla-carousel";
+import { isBrowser } from "../utils";
 
 const KeyCode = {
   ESCAPE: 27,
@@ -30,7 +30,7 @@ const useKeyPress = (targetKeyCode, callback) => {
   }, [targetKeyCode, callback]);
 };
 
-const ProjectPage = ({ data }) => {
+const ProjectPage = ({ data, pageContext }) => {
   const [carouselIndex, setCarouselIndex] = useState(null);
   const { frontmatter: project } = data.markdownRemark;
 
@@ -59,11 +59,17 @@ const ProjectPage = ({ data }) => {
 
   useKeyPress(KeyCode.ESCAPE, closeCarousel);
 
+  const filter = localStorage.getItem("rb-filter");
+  const nextPage =
+    filter && filter !== "all"
+      ? pageContext.nextPathInCategory
+      : pageContext.nextPath;
+
   return (
     <Layout invert={true}>
       <section className={styles.container}>
         <Link to={"/work"}>
-          <ArrowIcon direction="left" /> Prev
+          <ArrowIcon direction="left" /> All work
         </Link>
         <h1>{project.title}</h1>
         <h4>
@@ -86,12 +92,11 @@ const ProjectPage = ({ data }) => {
         ))}
       </section>
       <section className={`${styles.container} ${styles.nav}`}>
-        <Link to={"/"}>
-          <ArrowIcon direction="left" /> Prev
-        </Link>
-        <Link to={"/"}>
-          Next <ArrowIcon />
-        </Link>
+        {nextPage && (
+          <Link to={"/work/" + nextPage}>
+            Next <ArrowIcon />
+          </Link>
+        )}
       </section>
 
       {carouselIndex != null && (

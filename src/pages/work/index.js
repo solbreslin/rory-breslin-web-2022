@@ -33,9 +33,6 @@ export const workPageQuery = graphql`
           location
           isHorizontal
         }
-        path: gatsbyPath(
-          filePath: "/work/{MarkdownRemark.parent__(File)__name}"
-        )
       }
     }
   }

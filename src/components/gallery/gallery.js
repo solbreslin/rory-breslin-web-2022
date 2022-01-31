@@ -16,9 +16,27 @@ const filterDraftProjects = data => {
 };
 
 const sortAlphabetically = data => {
+  console.log("sorting");
   return data.sort((a, b) =>
     a.frontmatter.title.localeCompare(b.frontmatter.title)
   );
+};
+
+const formatPath = str => {
+  // Converting `title` property in project markdown file
+  // e.g. 'Samuel Beckett' -> samuel-beckett
+  const path = str.replace(/\s+/g, "-").toLowerCase();
+  return path;
+};
+
+const addPaths = data => {
+  return data.map(d => {
+    console.log(d);
+    return {
+      ...d,
+      path: formatPath(d.frontmatter.title),
+    };
+  });
 };
 
 const mapData = data => {
@@ -26,6 +44,7 @@ const mapData = data => {
 
   galleryData = filterDraftProjects(data);
   galleryData = sortAlphabetically(galleryData);
+  galleryData = addPaths(galleryData);
 
   return galleryData;
 };
