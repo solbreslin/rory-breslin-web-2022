@@ -16,7 +16,6 @@ const filterDraftProjects = data => {
 };
 
 const sortAlphabetically = data => {
-  console.log("sorting");
   return data.sort((a, b) =>
     a.frontmatter.title.localeCompare(b.frontmatter.title)
   );
@@ -31,7 +30,6 @@ const formatPath = str => {
 
 const addPaths = data => {
   return data.map(d => {
-    console.log(d);
     return {
       ...d,
       path: formatPath(d.frontmatter.title),

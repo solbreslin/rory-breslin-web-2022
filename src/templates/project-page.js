@@ -32,6 +32,7 @@ const useKeyPress = (targetKeyCode, callback) => {
 
 const ProjectPage = ({ data, pageContext }) => {
   const [carouselIndex, setCarouselIndex] = useState(null);
+  const [next, setNext] = useState(null);
   const { frontmatter: project } = data.markdownRemark;
 
   const closeCarousel = () => {
@@ -46,6 +47,28 @@ const ProjectPage = ({ data, pageContext }) => {
 
   useEffect(() => {
     document.body.classList.add("theme-dark");
+
+    const getNextPath = () => {
+      let filter = null;
+
+      if (isBrowser()) {
+        filter = localStorage.getItem("rb-filter");
+      }
+
+      if (filter) {
+        if (filter === "all") {
+          return pageContext.nextPath;
+        } else {
+          return pageContext.nextPathInCategory;
+        }
+      } else {
+        return pageContext.nextPathInCategory;
+      }
+    };
+
+    const nextPath = getNextPath();
+
+    setNext(nextPath);
   }, []);
 
   useEffect(() => {
@@ -58,12 +81,6 @@ const ProjectPage = ({ data, pageContext }) => {
   }, []);
 
   useKeyPress(KeyCode.ESCAPE, closeCarousel);
-
-  const filter = localStorage.getItem("rb-filter");
-  const nextPage =
-    filter && filter !== "all"
-      ? pageContext.nextPathInCategory
-      : pageContext.nextPath;
 
   return (
     <Layout invert={true}>
@@ -92,8 +109,8 @@ const ProjectPage = ({ data, pageContext }) => {
         ))}
       </section>
       <section className={`${styles.container} ${styles.nav}`}>
-        {nextPage && (
-          <Link to={"/work/" + nextPage}>
+        {next && (
+          <Link to={"/work/" + next}>
             Next <ArrowIcon />
           </Link>
         )}

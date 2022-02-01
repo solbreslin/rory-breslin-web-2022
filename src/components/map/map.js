@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { isBrowser } from "../../utils";
 
 export default class CustomMap extends Component {
   render() {
