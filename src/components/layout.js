@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
 
 import Header from "./../components/header/header";
 import Footer from "./../components/footer/footer";
 import "./layout.scss";
-import { isBrowser } from "../utils";
 
-const Layout = ({ children, invert }) => {
-  const [isIndex, setIsIndex] = useState(false);
-
-  useEffect(() => {
-    if (isBrowser()) {
-      const path = window.location.pathname;
-      if (path === "/") {
-        setIsIndex(true);
-      } else {
-        setIsIndex(false);
-      }
-    }
-  }, []);
+const Layout = ({ children, invert, index }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -36,7 +23,7 @@ const Layout = ({ children, invert }) => {
         siteTitle={data.site.siteMetadata?.title || `Title`}
         invert={invert}
       />
-      <main className={isIndex ? "is-index" : ""}>{children}</main>
+      <main className={index ? "is-index" : ""}>{children}</main>
       <Footer />
     </>
   );
