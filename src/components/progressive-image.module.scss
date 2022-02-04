@@ -1,21 +1,25 @@
-@import "./../../styles/settings/all.scss";
+@import "./../styles/settings/all.scss";
 
 $image-swap-speed: 0.5s;
 
 .figure {
-  height: 240px;
   margin-bottom: 0.5rem;
   overflow: hidden;
   // For placeholder image
   position: relative;
 
   @include respond-to(tablet) {
-    height: 400px;
     margin-bottom: 1rem;
   }
 
-  &.autoHeight {
-    height: auto !important;
+  &.carousel {
+    bottom: 0;
+    left: 0;
+    margin: 0 !important;
+    overflow: visible;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   &.loaded {

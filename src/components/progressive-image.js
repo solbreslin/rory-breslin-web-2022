@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import * as styles from "./gallery-image.module.scss";
+import React, { useState, useEffect } from "react";
+import * as styles from "./progressive-image.module.scss";
 
 // Eg: https://res.cloudinary.com/r-breslin/image/upload/v1584241866/r-breslin-cloudinary/WORK/MASKS/the-foyle/the-foyle_the-foyle-01_wekais.png
 
@@ -17,14 +17,24 @@ const getPlaceholderPath = path => {
   return buildCloudinaryQuery(path, "w_10,q_auto,f_auto");
 };
 
-const GalleryImage = ({ alt, url, autoHeight }) => {
+const ProgressiveImage = ({ alt, url, height, carousel }) => {
   const [loaded, setLoaded] = useState(false);
+  const [style, setStyle] = useState(null);
+
+  useEffect(() => {
+    if (height) {
+      setStyle({
+        height: height,
+      });
+    }
+  }, [height]);
 
   return (
     <figure
       className={`${loaded ? styles.loaded : ""} ${
-        autoHeight ? styles.autoHeight : ""
+        carousel ? styles.carousel : ""
       } ${styles.figure}`}
+      style={style}
     >
       <img
         className={styles.full}
@@ -41,4 +51,4 @@ const GalleryImage = ({ alt, url, autoHeight }) => {
   );
 };
 
-export default GalleryImage;
+export default ProgressiveImage;

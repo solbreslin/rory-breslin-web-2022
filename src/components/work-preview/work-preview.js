@@ -3,6 +3,8 @@ import * as React from "react";
 import { Link } from "gatsby";
 import * as previewStyles from "./work-preview.module.scss";
 
+import ProgressiveImage from "../progressive-image";
+
 const categories = [
   {
     image_url:
@@ -40,9 +42,11 @@ const WorkPreview = () => (
           state={{ filter: category.path }}
           className={previewStyles.imageLink}
         >
-          <figure>
-            <img src={category.image_url} alt={category.name} />
-          </figure>
+          <ProgressiveImage
+            url={category.image_url}
+            alt={category.name}
+            height={"70vh"}
+          />
           <h2>{category.name}</h2>
         </Link>
       </article>
