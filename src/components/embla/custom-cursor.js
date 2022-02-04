@@ -9,6 +9,7 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
   const [ww, setWw] = useState(0);
   const [disabled, setDisabled] = useState(false);
   const [hidden, setHidden] = useState(true);
+  const [styleStr, setStyleStr] = useState({});
 
   const closeButtonBoundaryX = 60;
   const closeButtonBoundaryY = 90;
@@ -35,6 +36,7 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
     let hasMoved = false;
 
     function mouseHandler({ clientX, clientY }) {
+      console.log(clientX, clientY);
       setX(clientX);
       setY(clientY);
 
@@ -43,8 +45,7 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
         hasMoved = true;
       }
 
-      setRight(clientX > ww / 2);
-
+      // Hide the custom cursor if the cursor is close to the close button
       if (
         clientX > ww - closeButtonBoundaryX &&
         clientY < closeButtonBoundaryY
@@ -74,6 +75,10 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
   }, [ww]);
 
   useEffect(() => {
+    setRight(x > ww / 2);
+  }, [x, ww]);
+
+  useEffect(() => {
     if (right) {
       if (!nextEnabled) {
         setDisabled(true);
@@ -89,19 +94,23 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
     }
   }, [prevEnabled, nextEnabled, right]);
 
-  return (
-    <span
-      className={styles.cursor}
-      style={{
-        transform: `translate3d(
-      ${x - (right ? 50 : 0)}px,
-      ${y - 25}px,
-      0
-    ) rotate(${right ? "-45deg" : "135deg"})`,
-        opacity: hidden ? 0 : disabled ? 0.4 : 1,
-      }}
-    ></span>
-  );
+  useEffect(() => {
+    const dX = right ? -50 : 0;
+    const dY = -25;
+    const angle = right ? "-45deg" : "135deg";
+
+    const transform = `translate3d(${x + dX}px, ${
+      y + dY
+    }px, 0) rotate(${angle})`;
+
+    console.log(transform);
+
+    const opacity = hidden ? 0 : disabled ? 0.4 : 1;
+
+    setStyleStr({ transform, opacity });
+  }, [right, hidden, disabled, x, y]);
+
+  return <span className={styles.cursor} style={styleStr}></span>;
 };
 
 export default CustomCursor;
