@@ -20,8 +20,12 @@
   figure {
     display: flex;
     height: 100%;
-    padding: 2rem;
+    padding: 2rem 1rem;
     width: 100%;
+
+    @include respond-to(tablet) {
+      padding: 2rem;
+    }
 
     img {
       max-height: 80vh;
@@ -62,4 +66,8 @@
   top: 1rem;
   left: 1rem;
   color: white;
+
+  @include respond-to(tablet) {
+    left: 2rem;
+  }
 }

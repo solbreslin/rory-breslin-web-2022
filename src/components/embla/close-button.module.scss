@@ -1,15 +1,21 @@
+@import "./../../styles/settings/all.scss";
+
 .button {
   border-radius: 9999px;
   cursor: pointer;
   display: grid;
   height: 48px;
-  right: 0.5rem;
+  right: 0;
   padding: 0.75rem;
   position: fixed;
   top: 0;
   transform: rotate(45deg);
   width: 48px;
   z-index: 10000;
+
+  @include respond-to(tablet) {
+    right: 0.5rem;
+  }
 
   &:before,
   &:after {
