@@ -10,7 +10,7 @@ export const PrevButton = ({ enabled, onClick }) => (
 );
 
 export const NextButton = ({ enabled, onClick }) => (
-  <button className="embla-next" onClick={onClick} readonly={!enabled}>
+  <button className="embla-next" onClick={onClick} readOnly={!enabled}>
     <span className="sr-only">Next</span>
   </button>
 );
