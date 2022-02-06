@@ -2,27 +2,49 @@ import React, { useEffect, useState } from "react";
 import { isBrowser } from "./../../utils/";
 import * as styles from "./custom-cursor.module.scss";
 
+const BREAKPOINT = 769;
+const Boundary = {
+  TOP: 40,
+  RIGHT: 20,
+  BOTTOM: 40,
+  LEFT: 20,
+  BUTTON_LEFT: 60,
+  BUTTON_BOTTOM: 80,
+};
+
+const showDefaultCursor = () => {
+  if (!isBrowser()) return;
+
+  document.documentElement.style.setProperty("--em-cursor", "default");
+};
+
+const hideDefaultCursor = () => {
+  if (!isBrowser()) return;
+
+  document.documentElement.style.setProperty("--em-cursor", "none");
+};
+
 const CustomCursor = ({ prevEnabled, nextEnabled }) => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [right, setRight] = useState(false);
   const [ww, setWw] = useState(0);
+  const [wh, setWh] = useState(0);
   const [disabled, setDisabled] = useState(false);
   const [hidden, setHidden] = useState(true);
   const [styleStr, setStyleStr] = useState({});
 
-  const closeButtonBoundaryX = 60;
-  const closeButtonBoundaryY = 90;
-
   useEffect(() => {
     if (isBrowser()) {
       setWw(window.innerWidth);
+      setWh(window.innerHeight);
     }
   }, []);
 
   useEffect(() => {
     function handleResize() {
       setWw(window.innerWidth);
+      setWh(window.innerHeight);
     }
 
     window.addEventListener("resize", handleResize);
@@ -30,13 +52,36 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [ww]);
+  }, [ww, wh]);
 
   useEffect(() => {
     let hasMoved = false;
 
+    function cursorIsOutsideBounds(x, y) {
+      const outsideTop = () => {
+        return y < Boundary.TOP;
+      };
+
+      const outsideBottom = () => {
+        return y > wh - Boundary.BOTTOM;
+      };
+
+      const outsideLeft = () => {
+        return x < Boundary.LEFT;
+      };
+
+      const outsideRight = () => {
+        return x > ww - Boundary.RIGHT;
+      };
+
+      return outsideTop() || outsideBottom() || outsideLeft() || outsideRight();
+    }
+
+    function cursorIsOverCloseButton(x, y) {
+      return y < Boundary.BUTTON_BOTTOM && x > ww - Boundary.BUTTON_LEFT;
+    }
+
     function mouseHandler({ clientX, clientY }) {
-      console.log(clientX, clientY);
       setX(clientX);
       setY(clientY);
 
@@ -45,25 +90,24 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
         hasMoved = true;
       }
 
-      // Hide the custom cursor if the cursor is close to the close button
+      // Hide the custom cursor if the cursor is close to the edge
       if (
-        clientX > ww - closeButtonBoundaryX &&
-        clientY < closeButtonBoundaryY
+        cursorIsOutsideBounds(clientX, clientY) ||
+        cursorIsOverCloseButton(clientX, clientY)
       ) {
         setHidden(true);
-        isBrowser() &&
-          document.documentElement.style.setProperty("--em-cursor", "default");
+        showDefaultCursor();
       } else {
         setHidden(false);
-        isBrowser() &&
-          document.documentElement.style.setProperty("--em-cursor", "none");
+        hideDefaultCursor();
       }
     }
 
-    if (ww > 800) {
+    if (ww > BREAKPOINT) {
       window.addEventListener("mousemove", mouseHandler);
     } else {
       setHidden(true);
+      showDefaultCursor();
     }
 
     return () => {
@@ -72,11 +116,11 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
       setX(0);
       setX(0);
     };
-  }, [ww]);
+  }, [ww, wh]);
 
   useEffect(() => {
     setRight(x > ww / 2);
-  }, [x, ww]);
+  }, [x, ww, wh]);
 
   useEffect(() => {
     if (right) {
@@ -102,8 +146,6 @@ const CustomCursor = ({ prevEnabled, nextEnabled }) => {
     const transform = `translate3d(${x + dX}px, ${
       y + dY
     }px, 0) rotate(${angle})`;
-
-    console.log(transform);
 
     const opacity = hidden ? 0 : disabled ? 0.4 : 1;
 
