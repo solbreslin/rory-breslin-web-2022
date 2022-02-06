@@ -1,57 +1,47 @@
 import * as React from "react";
 
 import { Link } from "gatsby";
-import * as previewStyles from "./work-preview.module.scss";
+import * as styles from "./work-preview.module.scss";
 
-import ProgressiveImage from "../progressive-image";
+import data from "./data";
 
-const categories = [
-  {
-    image_url:
-      "https://res.cloudinary.com/r-breslin/image/upload/v1588380563/r-breslin-cloudinary/HOMEPAGE/Boxes/public_k6unkl.jpg",
-    name: "Public art",
-    path: "public",
-  },
-  {
-    image_url:
-      "https://res.cloudinary.com/r-breslin/image/upload/v1588380529/r-breslin-cloudinary/HOMEPAGE/Boxes/portrait_zlgiad.jpg",
-    name: "Portrait",
-    path: "portrait",
-  },
-  {
-    image_url:
-      "https://res.cloudinary.com/r-breslin/image/upload/v1588380436/r-breslin-cloudinary/HOMEPAGE/Boxes/masks_xo0ojk.jpg",
-    name: "Masks",
-    path: "masks",
-  },
-  {
-    image_url:
-      "https://res.cloudinary.com/r-breslin/image/upload/v1588380274/r-breslin-cloudinary/HOMEPAGE/Boxes/exhibition_tnz3lz.jpg",
-    name: "Exhibition",
-    path: "exhibition",
-  },
-];
+const generateOptimisedPath = path => {
+  const parts = path.split("/upload/");
 
-const WorkPreview = () => (
-  <section className={previewStyles.section}>
-    <h1>Explore Work</h1>
-    {categories.map(category => (
-      <article key={category.path}>
-        <Link
-          to="work"
-          state={{ filter: category.path }}
-          className={previewStyles.imageLink}
-        >
-          <ProgressiveImage
-            url={category.image_url}
-            alt={category.name}
-            height={"70vh"}
-          />
-          <h2>{category.name}</h2>
-        </Link>
-      </article>
-    ))}
-  </section>
-);
+  return `${parts[0]}/upload/q_70,f_auto/${parts[1]}`;
+};
+
+const WorkPreview = () => {
+  const optimisedImages = data.map(({ images }) => {
+    const { feature, collection } = images;
+
+    return [
+      generateOptimisedPath(feature),
+      ...collection.map(c => generateOptimisedPath(c)),
+    ];
+  });
+
+  return (
+    <section className={styles.section}>
+      <h1>Explore Work</h1>
+      {data.map(({ name, path }, index) => (
+        <article key={path}>
+          <Link to="work" state={{ filter: path }} className={styles.imageLink}>
+            <div className={styles.images}>
+              {optimisedImages[index].map(url => {
+                return (
+                  <figure key={url}>
+                    <img src={url} alt={name} />
+                  </figure>
+                );
+              })}
+            </div>
+            <h2>{name}</h2>
+          </Link>
+        </article>
+      ))}
+    </section>
+  );
+};
 
 export default WorkPreview;
