@@ -1,0 +1,30 @@
+.button {
+  border-radius: 9999px;
+  cursor: pointer;
+  display: grid;
+  height: 48px;
+  right: 0.5rem;
+  padding: 0.75rem;
+  position: fixed;
+  top: 0;
+  transform: rotate(45deg);
+  width: 48px;
+  z-index: 10000;
+
+  &:before,
+  &:after {
+    background-color: hsl(0, 0%, 100%);
+    content: "";
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+    height: 2px;
+    margin: auto;
+    width: 100%;
+  }
+
+  &:after {
+    height: 100%;
+    width: 2px;
+  }
+}
