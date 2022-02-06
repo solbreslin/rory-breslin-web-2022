@@ -7,6 +7,7 @@ import * as styles from "./project-page.module.scss";
 import { EmblaCarousel } from "../components/embla/embla-carousel";
 import { isBrowser } from "../utils";
 import GalleryImage from "../components/gallery/gallery-image";
+import CloseButton from "../components/embla/close-button";
 
 const KeyCode = {
   ESCAPE: 27,
@@ -121,9 +122,7 @@ const ProjectPage = ({ data, pageContext }) => {
 
       {carouselIndex != null && (
         <>
-          <button className="close-button" onClick={() => closeCarousel()}>
-            <span className="sr-only">Close</span>
-          </button>
+          <CloseButton action={closeCarousel} />
           <EmblaCarousel
             visible={carouselIndex != null}
             images={project.images}
