@@ -73,6 +73,9 @@ export const EmblaCarousel = ({ visible, images, index }) => {
           nextEnabled={nextBtnEnabled}
         />
       </div>
+      <div class="embla-counter">
+        {selectedIndex + 1} / {images.length}
+      </div>
     </div>
   );
 };

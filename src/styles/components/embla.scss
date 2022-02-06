@@ -51,12 +51,15 @@
     width: 50vw;
     z-index: 4;
 
-    &[disabled] {
-      // pointer-events: none;
-    }
-
     &.embla-next {
       right: 0;
     }
   }
+}
+
+.embla-counter {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  color: white;
 }
