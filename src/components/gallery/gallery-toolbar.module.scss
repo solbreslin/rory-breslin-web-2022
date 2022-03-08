@@ -10,14 +10,22 @@ $layout-icon-size: 36px;
 
   @include respond-to($breakpoint) {
     align-items: center;
-    background: $body-bg-color;
+    background: var(--rb-bg-color);
+    border-bottom: 1px solid hsl(0, 0%, 20%);
     flex-direction: row;
     justify-content: space-between;
     margin: 0;
-    padding: 0.5rem 0;
+    padding: 0.5rem 0 0;
     position: sticky;
     top: 0;
     z-index: 1;
+  }
+
+  &.loading {
+    label {
+      border-color: hsl(0, 0%, 0%, 0);
+      color: white;
+    }
   }
 }
 
@@ -37,7 +45,7 @@ $layout-icon-size: 36px;
     color: inherit;
     cursor: pointer;
     display: flex;
-    font-size: var(--font-size-s1);
+    font-size: var(--rb-font-sizes1);
     justify-content: space-between;
     text-transform: uppercase;
     width: 100%;
@@ -109,8 +117,12 @@ $layout-icon-size: 36px;
     width: 100%;
 
     @include respond-to(tablet) {
-      border-radius: 2px;
-      padding: 0.6em 1em 0.5em;
+      border-bottom: 4px solid hsl(0, 0%, 0%, 0);
+      padding: 1rem 1rem 0.75em;
+
+      &:hover {
+        opacity: 0.85;
+      }
     }
   }
 }
@@ -143,8 +155,20 @@ $layout-icon-size: 36px;
     text-decoration: underline;
 
     @include respond-to(tablet) {
-      background-color: #9cb8a129;
+      color: #7499d8;
       text-decoration: none;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.activeFilter {
+  @include respond-to(tablet) {
+    label {
+      border-color: #7499d8;
     }
   }
 }

@@ -2,6 +2,7 @@
 
 .header {
   align-items: center;
+  background-color: var(--rb-bg-color);
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -22,19 +23,10 @@
     }
   }
 
-  &.invert {
-    h1 {
+  &.transparent {
+    background-color: initial;
+    a {
       color: white;
-
-      a {
-        opacity: 1;
-      }
-    }
-
-    @include respond-to(tablet) {
-      li a {
-        color: white;
-      }
     }
   }
 
@@ -48,13 +40,7 @@
 
     a {
       letter-spacing: 0.15em;
-      opacity: 0.7;
       padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
-      transition: opacity $transition-settings;
-
-      &:hover {
-        opacity: 1;
-      }
     }
   }
 
@@ -74,7 +60,7 @@
   }
 
   ul {
-    margin-bottom: var(--header-height);
+    margin-bottom: var(--rb-header-height);
   }
 
   li {
@@ -83,7 +69,7 @@
     a {
       color: white;
       flex: 1;
-      font-size: var(--font-size-5);
+      font-size: var(--rb-font-size5);
       letter-spacing: 0.05em;
       line-height: 2;
       padding: 0 1rem;
@@ -128,16 +114,18 @@
       line-height: 1;
 
       a {
-        color: $body-text-color;
         font-size: 0.875rem;
         letter-spacing: 0.075em;
         line-height: 1;
+        color: grey;
         padding: calc(#{$spacing-s} + 5px) $spacing-s $spacing-s;
+        text-decoration: none;
         text-transform: uppercase;
-        transition: opacity $transition-settings;
+        transition: opacity 125ms ease-out;
 
         &.current {
-          color: grey;
+          color: white;
+          text-decoration: none;
         }
       }
     }

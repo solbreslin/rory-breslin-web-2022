@@ -12,7 +12,7 @@ const generateListImage = path => {
     console.error("Project has no images");
   }
 
-  return buildCloudinaryQuery(path, "c_fill,g_face,w_250,h_200,q_auto,f_auto");
+  return buildCloudinaryQuery(path, "c_fill,g_face,w_400,h_360,q_auto,f_auto");
 };
 
 const GalleryListImages = ({ data, active, filter }) => {

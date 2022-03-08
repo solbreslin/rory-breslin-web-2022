@@ -1,6 +1,6 @@
 body {
-  background-color: $body-bg-color;
-  color: $body-text-color;
+  background-color: var(--rb-bg-color);
+  color: var(--rb-text-color);
   overflow-x: hidden;
   width: 100vw;
 
@@ -11,17 +11,16 @@ body {
 
 main {
   &.is-index {
-    padding-top: calc(115.625vw - var(--header-height));
+    padding-top: calc(115.625vw - var(--rb-header-height));
     // background-color: hsl(0, 0%, 5%);
 
     @include respond-to(tablet) {
-      padding-top: calc(100vh - var(--header-height));
+      padding-top: calc(100vh - var(--rb-header-height));
     }
   }
 }
 
 .container {
-  background: white;
   margin: 0 auto;
   max-width: 1600px;
   position: relative;

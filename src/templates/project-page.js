@@ -48,8 +48,6 @@ const ProjectPage = ({ data, pageContext }) => {
   };
 
   useEffect(() => {
-    document.body.classList.add("theme-dark");
-
     const getNextPath = () => {
       let filter = null;
 
@@ -77,7 +75,6 @@ const ProjectPage = ({ data, pageContext }) => {
     return () => {
       if (isBrowser()) {
         document.body.style.removeProperty("overflow");
-        document.body.classList.remove("theme-dark");
       }
     };
   }, []);
@@ -85,11 +82,11 @@ const ProjectPage = ({ data, pageContext }) => {
   useKeyPress(KeyCode.ESCAPE, closeCarousel);
 
   return (
-    <Layout invert={true}>
+    <Layout>
       <section className={styles.container}>
-        <Link to={"/work"}>
+        {/* <Link to={"/work"}>
           <ArrowIcon direction="left" /> All work
-        </Link>
+        </Link> */}
         <h1>{project.title}</h1>
         <h4>
           {project.material}

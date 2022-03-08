@@ -73,7 +73,11 @@ const Gallery = ({ initialFilter, data }) => {
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
   const [imageHovered, setImageHovered] = useState(0);
-  const [filterIsChanging, setFilterIsChanging] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [isLoading]);
 
   useEffect(() => {
     setImageHovered(imageHovered);
@@ -91,7 +95,7 @@ const Gallery = ({ initialFilter, data }) => {
     if (isBrowser()) {
       const headerHeightOffset = getComputedStyle(
         document.documentElement
-      ).getPropertyValue("--header-height");
+      ).getPropertyValue("--rb-header-height");
 
       let top = 0;
 
@@ -147,9 +151,8 @@ const Gallery = ({ initialFilter, data }) => {
         initialFilter={initialFilter}
         emitFilter={setActiveFilter}
         emitLayout={setActiveLayout}
-        emitFilterIsChanging={setFilterIsChanging}
+        isLoading={isLoading}
       />
-
       {activeLayout === "map" ? (
         <CustomMap data={locationData} />
       ) : (
@@ -160,7 +163,7 @@ const Gallery = ({ initialFilter, data }) => {
               : activeLayout === "list"
               ? styles.list
               : styles.map
-          } ${filterIsChanging ? styles.animating : ""}`}
+          } ${isLoading ? "" : styles.ready}`}
           onMouseEnter={e => handleMouseEnter(e)}
           onMouseLeave={e => handleMouseLeave(e)}
           role="presentation"

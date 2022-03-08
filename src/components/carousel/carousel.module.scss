@@ -30,7 +30,7 @@
       rgba(0, 0, 0, 0) 100%
     );
     content: "";
-    height: calc(2 * var(--header-height));
+    height: calc(2 * var(--rb-header-height));
     left: 0;
     opacity: 0.5;
     position: absolute;
@@ -69,6 +69,7 @@
   }
 
   img {
+    color: var(--rb-bg-color);
     height: 100%;
     object-fit: cover;
     width: 100%;
@@ -85,7 +86,7 @@
 
     @include respond-to(tablet) {
       bottom: 2rem;
-      font-size: var(--font-size-3);
+      font-size: var(--rb-font-size3);
       left: 2rem;
     }
 
@@ -117,7 +118,7 @@
 
   @include respond-to(tablet) {
     bottom: 2rem;
-    font-size: var(--font-size-3);
+    font-size: var(--rb-font-size3);
     right: 2rem;
   }
 

@@ -1,51 +1,22 @@
 @import "./../../styles/settings/all.scss";
 
-$image-swap-speed: 0.5s;
-
 .figure {
   height: 240px;
   margin-bottom: 0.5rem;
   overflow: hidden;
-  // For placeholder image
-  position: relative;
 
   @include respond-to(tablet) {
     height: 400px;
     margin-bottom: 1rem;
   }
 
-  &.autoHeight {
-    height: auto !important;
-  }
-
-  &.loaded {
-    .full {
-      opacity: 1;
-    }
-
-    .placeholder {
-      opacity: 0;
-    }
-  }
-
   img {
+    background-color: hsl(130, 21%, 15%);
+    color: hsl(130, 21%, 15%);
     height: 100%;
     object-fit: cover;
-    transition: transform 4s, opacity $image-swap-speed ease-out;
+    transition: transform 4s;
     width: 100%;
     will-change: transform;
   }
-}
-
-.full {
-  opacity: 0;
-}
-
-.placeholder {
-  bottom: 0;
-  filter: blur(20px);
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
 }

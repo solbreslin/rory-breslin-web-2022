@@ -20,7 +20,7 @@ const Header = props => {
       const height = headerEl.current.clientHeight;
 
       document.documentElement.style.setProperty(
-        "--header-height",
+        "--rb-header-height",
         `${height}px`
       );
     }
@@ -34,7 +34,7 @@ const Header = props => {
     <header
       className={`${headerStyles.header} ${
         navOpen ? headerStyles.active : ""
-      } ${props.invert ? headerStyles.invert : ""}`}
+      } ${props.transparent ? headerStyles.transparent : ""}`}
       ref={headerEl}
     >
       <h1>
@@ -46,12 +46,16 @@ const Header = props => {
       <BurgerButton
         navOpen={navOpen}
         updateParent={updateParent}
-        isInvert={props.invert}
+        isInvert={props.transparent}
       />
       <nav aria-labelledby="menu-label">
         <ul id="menu" className={navOpen ? "is-open" : ""}>
           <li>
-            <Link to="/work" activeClassName={headerStyles.current}>
+            <Link
+              to="/work"
+              partiallyActive={true}
+              activeClassName={headerStyles.current}
+            >
               Work
             </Link>
           </li>

@@ -26,22 +26,30 @@ $spacing-l: $scale-l * 1rem;
 
 $line-height: $ratio;
 
-$base-font-size-mobile: 20;
-$base-font-size: 16;
-
 $nav-breakpoint: tablet;
 
-$primary: hsl(215, 66%, 65%);
-$primary-light: lighten($primary, 55%);
-
-$body-bg-color-dark: #0b110c;
-$body-bg-color: white;
-$body-text-color: hsl(0, 0%, 20%);
-
-$transition-settings: 0.125s ease-out;
-
 :root {
-  --header-height: 64px; //Overriden in header component
-  --rb-bg-color-dark: #0b110c;
-  --rb-bg-color-light: #f4eff1;
+  --rb-header-height: 64px; //Overriden in header component
+
+  --rb-primary-color-h: 217;
+  --rb-primary-color-s: 51%;
+  --rb-primary-color-l: 45%;
+
+  --rb-bg-color: hsl(var(--rb-primary-color-h), var(--rb-primary-color-s), 5%);
+
+  --rb-text-color: hsl(
+    var(--rb-primary-color-h),
+    var(--rb-primary-color-s),
+    95%
+  );
+
+  --rb-font-sizes2: 0.64rem;
+  --rb-font-sizes1: 0.8rem;
+  --rb-font-size1: 1rem;
+  --rb-font-size2: 1.25rem;
+  --rb-font-size3: 1.563rem;
+  --rb-font-size4: 1.953rem;
+  --rb-font-size5: 2.441rem;
+
+  --rb-font-weight-bold: "Akkurat-Bold";
 }

@@ -13,11 +13,9 @@ const GalleryToolbar = ({
   initialFilter,
   emitFilter,
   emitLayout,
-  emitFilterIsChanging,
+  isLoading,
 }) => {
   const [activeFilter, setActiveFilter] = useState("all");
-  // UX improvement - instantly update toolbar on change
-  const [tempActiveFilter, setTempActiveFilter] = useState(null);
   const [activeLayout, setActiveLayout] = useState("grid");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const toolbarRef = useRef(null);
@@ -51,25 +49,11 @@ const GalleryToolbar = ({
 
   const onFilterChange = filter => {
     setFiltersOpen(false);
-    emitFilterIsChanging(true);
+    setActiveFilter(filter);
 
-    // This is used to immediately update the toolbar so no lag
-    setTempActiveFilter(filter);
-
-    const animationTime = activeLayout === "grid" ? 200 : 0;
-    // Wrap in a timeout to allow animation
-    setTimeout(() => {
-      setActiveFilter(filter);
-      setTempActiveFilter(null);
-
-      try {
-        localStorage.setItem("rb-filter", filter);
-      } catch (error) {}
-    }, animationTime);
-
-    setTimeout(() => {
-      emitFilterIsChanging(false);
-    }, animationTime * 2);
+    try {
+      localStorage.setItem("rb-filter", filter);
+    } catch (error) {}
   };
 
   const onLayoutChange = layout => {
@@ -94,7 +78,10 @@ const GalleryToolbar = ({
   }, []);
 
   return (
-    <div className={styles.toolbar} ref={toolbarRef}>
+    <div
+      className={`${styles.toolbar} ${isLoading ? styles.loading : ""}`}
+      ref={toolbarRef}
+    >
       <div className={styles.filterListWrapper}>
         <button onClick={() => setFiltersOpen(!filtersOpen)}>
           Filter: {activeFilter}
@@ -108,10 +95,7 @@ const GalleryToolbar = ({
             <li
               key={filter}
               className={`${
-                (!tempActiveFilter && activeFilter === filter) ||
-                tempActiveFilter === filter
-                  ? styles.activeFilter
-                  : ""
+                activeFilter === filter ? styles.activeFilter : ""
               } ${styles.filterItem}`}
             >
               <input

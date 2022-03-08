@@ -29,6 +29,7 @@ export const EmblaCarousel = ({ visible, images, index }) => {
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [scrollSnaps, setScrollSnaps] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
   const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
@@ -55,9 +56,18 @@ export const EmblaCarousel = ({ visible, images, index }) => {
   useKeyPress(37, scrollPrev);
   useKeyPress(39, scrollNext);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    });
+  }, [isLoading]);
+
   return (
     //https://github.com/davidcetinkaya/embla-carousel/issues/210
-    <div className="embla" ref={visible ? emblaRef : null}>
+    <div
+      className={`embla ${isLoading ? "" : "ready"}`}
+      ref={visible ? emblaRef : null}
+    >
       <div className="embla-container">
         {images.map((url, i) => (
           <figure key={url + i}>

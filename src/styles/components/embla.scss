@@ -4,8 +4,14 @@
   left: 0;
   overflow: hidden;
   position: fixed;
+  opacity: 0;
+  transition: opacity 200ms linear;
   top: 0;
   z-index: 1000;
+
+  &.ready {
+    opacity: 1;
+  }
 }
 
 .embla-container {

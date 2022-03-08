@@ -1,7 +1,7 @@
 @import "./../../styles/settings/all.scss";
 
 .section {
-  background-color: var(--rb-bg-color-light);
+  background-color: var(--rb-text-color);
   padding: 1rem;
 
   @include respond-to(tablet) {
@@ -12,7 +12,7 @@
     max-width: 60ch;
 
     @include respond-to(tablet) {
-      font-size: var(--font-size-2);
+      font-size: var(--rb-font-size2);
     }
   }
 }
