@@ -1,12 +1,14 @@
 @import "./../../styles/settings/all.scss";
 
 .section {
+  background-color: var(--rb-bg-color-dark);
   border-bottom: 1px solid hsl(0, 0%, 20%);
   padding: 2rem 1rem 2rem;
 
   h1 {
     @include font-bold;
     border-bottom: 1px solid grey;
+    color: white;
     display: none;
     font-size: var(--font-size-s1);
     letter-spacing: 0.1em;
@@ -49,9 +51,10 @@
 .imageLink {
   h2 {
     @include font-bold;
-    border-bottom: 2px solid rgba(0, 0, 0, 0);
+    border-bottom: 4px solid rgba(0, 0, 0, 0);
+    color: white;
     display: inline-flex;
-    font-size: var(--font-size-s1);
+    font-size: var(--font-size-5);
     justify-content: space-between;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -59,7 +62,7 @@
 
   &:hover {
     h2 {
-      border-bottom-color: black;
+      border-bottom-color: white;
     }
   }
 }

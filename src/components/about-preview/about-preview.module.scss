@@ -1,6 +1,7 @@
 @import "./../../styles/settings/all.scss";
 
 .section {
+  background-color: var(--rb-bg-color-light);
   padding: 1rem;
 
   @include respond-to(tablet) {

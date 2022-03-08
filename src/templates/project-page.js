@@ -6,7 +6,7 @@ import ArrowIcon from "../components/arrow-icon";
 import * as styles from "./project-page.module.scss";
 import { EmblaCarousel } from "../components/embla/embla-carousel";
 import { isBrowser } from "../utils";
-import GalleryImage from "../components/gallery/gallery-image";
+import ProjectImage from "./project-image";
 import CloseButton from "../components/embla/close-button";
 
 const KeyCode = {
@@ -104,11 +104,7 @@ const ProjectPage = ({ data, pageContext }) => {
             role="button"
             tabIndex="0"
           >
-            <GalleryImage
-              autoHeight={true}
-              url={project.images[i]}
-              alt={project.title}
-            />
+            <ProjectImage url={project.images[i]} alt={project.title} />
           </div>
         ))}
       </section>

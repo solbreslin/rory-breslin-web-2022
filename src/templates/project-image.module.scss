@@ -1,0 +1,43 @@
+@import "./../styles/settings/all.scss";
+
+$image-swap-speed: 0.5s;
+
+.figure {
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  // For placeholder image
+  position: relative;
+
+  &.loaded {
+    width: fit-content;
+
+    .full {
+      opacity: 1;
+    }
+
+    .placeholder {
+      opacity: 0;
+    }
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 4s, opacity $image-swap-speed ease-out;
+    width: 100%;
+    will-change: transform;
+  }
+}
+
+.full {
+  opacity: 0;
+}
+
+.placeholder {
+  bottom: 0;
+  filter: blur(20px);
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

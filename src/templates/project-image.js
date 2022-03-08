@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import * as styles from "./gallery-image.module.scss";
-import { getPath, getPlaceholderPath } from "../../utils";
+import * as styles from "./project-image.module.scss";
+import { getPlaceholderPath, getPath } from "../utils";
 
-const CLOUDINARY_FULL_QUERY = "w_600,c_limit,q_75,f_auto";
+const CLOUDINARY_FULL_QUERY = "q_100,f_auto";
 
-const GalleryImage = ({ alt, url }) => {
+const ProjectImage = ({ alt, url }) => {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -24,4 +24,4 @@ const GalleryImage = ({ alt, url }) => {
   );
 };
 
-export default GalleryImage;
+export default ProjectImage;
