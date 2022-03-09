@@ -40,7 +40,7 @@
 
     a {
       letter-spacing: 0.15em;
-      padding: calc(#{$spacing-s} + 3px) $spacing-s $spacing-s;
+      padding: calc(var(--rb-space-3) + 3px) var(--rb-space-3) var(--rb-space-3);
     }
   }
 
@@ -118,7 +118,8 @@
         letter-spacing: 0.075em;
         line-height: 1;
         color: grey;
-        padding: calc(#{$spacing-s} + 5px) $spacing-s $spacing-s;
+        padding: calc(var(--rb-space-3) + 5px) var(--rb-space-3)
+          var(--rb-space-3);
         text-decoration: none;
         text-transform: uppercase;
         transition: opacity 125ms ease-out;

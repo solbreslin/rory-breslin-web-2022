@@ -8,48 +8,37 @@ $breakpoints: (
   "full-hd": 1344px,
 );
 
-$ratio: 1.375;
-
-$scale: $ratio;
-$scale-m: $scale * $ratio;
-$scale-l: $scale-m * $ratio;
-$scale-s: math.div($scale, $ratio);
-$scale-xs: math.div($scale-s, $ratio);
-$scale-xxs: math.div($scale-xs, $ratio);
-
-$spacing-xxs: $scale-xxs * 1rem;
-$spacing-xs: $scale-xs * 1rem;
-$spacing-s: $scale-s * 1rem;
-$spacing: $scale * 1rem;
-$spacing-m: $scale-m * 1rem;
-$spacing-l: $scale-l * 1rem;
-
-$line-height: $ratio;
-
 $nav-breakpoint: tablet;
 
 :root {
   --rb-header-height: 64px; //Overriden in header component
 
-  --rb-primary-color-h: 217;
-  --rb-primary-color-s: 51%;
+  --rb-primary-color-hs: 217 51%;
   --rb-primary-color-l: 45%;
 
-  --rb-bg-color: hsl(var(--rb-primary-color-h), var(--rb-primary-color-s), 5%);
+  --rb-bg-color: hsl(var(--rb-primary-color-hs) 5%);
+  --rb-text-color: hsl(var(--rb-primary-color-hs) 95%);
 
-  --rb-text-color: hsl(
-    var(--rb-primary-color-h),
-    var(--rb-primary-color-s),
-    95%
-  );
+  --rb-font-size-0: 0.618rem;
+  --rb-font-size-1: 1rem;
+  --rb-font-size-2: 1.618rem;
+  --rb-font-size-3: 2.618rem;
+  --rb-font-size-4: 4.236rem;
 
-  --rb-font-sizes2: 0.64rem;
-  --rb-font-sizes1: 0.8rem;
-  --rb-font-size1: 1rem;
-  --rb-font-size2: 1.25rem;
-  --rb-font-size3: 1.563rem;
-  --rb-font-size4: 1.953rem;
-  --rb-font-size5: 2.441rem;
+  --rb-space-0: 0.236rem;
+  --rb-space-1: 0.382rem;
+  --rb-space-2: 0.618rem;
+  --rb-space-3: 1rem;
+  --rb-space-4: 1rem;
+  --rb-space-5: 1.618;
+  --rb-space-6: 2.618rem;
+  --rb-space-7: 4.236rem;
 
   --rb-font-weight-bold: "Akkurat-Bold";
+  --rb-line-height: 1.618;
+  --rb-letter-spacing: 0.15em;
+
+  --rb-transition-settings: 0.125s linear;
+
+  --rb-text-hover-opacity: 0.85;
 }

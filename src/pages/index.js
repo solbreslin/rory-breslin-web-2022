@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Layout from "../components/layout";
 import Seo from "../components/seo";
@@ -7,20 +7,40 @@ import WorkPreview from "../components/work-preview/work-preview";
 
 import AboutPreview from "../components/about-preview/about-preview";
 
+import { isBrowser } from "./../utils/index";
+
 const IndexPage = () => {
+  const [wh, setWh] = useState(0);
+
   useEffect(() => {
+    isBrowser() && setWh(window.innerHeight);
+  }, [wh]);
+
+  useEffect(() => {
+    /**
+     * Adds a scroll listener which updates a CSS variable
+     * This is used by the home page carousel component
+     */
     const onScroll = e => {
       const { scrollTop } = e.target.documentElement;
 
+      // Don't need to set the variable if the carousel is out of the viewport
+      if (scrollTop > wh) {
+        return;
+      }
+
       document.documentElement.style.setProperty("--scroll-y", scrollTop);
     };
-    window.addEventListener("scroll", onScroll);
+
+    isBrowser() && window.addEventListener("scroll", onScroll);
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      document.documentElement.style.setProperty("--scroll-y", 0);
+      if (isBrowser()) {
+        window.removeEventListener("scroll", onScroll);
+        document.documentElement.style.setProperty("--scroll-y", 0);
+      }
     };
-  }, []);
+  }, [wh]);
 
   return (
     <Layout transparentHeader={true} index={true}>

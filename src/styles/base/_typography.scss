@@ -6,7 +6,7 @@ body {
   font-family: Akkurat-Reg, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1em;
   font-style: normal;
-  line-height: $line-height;
+  line-height: var(--rb-line-height);
 }
 
 h1,
@@ -17,11 +17,6 @@ h5,
 h6 {
   font-size: 1rem;
   font-weight: normal;
-}
-
-b,
-strong {
-  font-weight: 500;
 }
 
 p {

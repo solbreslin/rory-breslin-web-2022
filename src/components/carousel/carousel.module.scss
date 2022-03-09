@@ -1,6 +1,10 @@
 @import "./../../styles/settings/all.scss";
 
 .carousel {
+  --text-color: black;
+  --text-offset: 1rem;
+  --text-size: var(--rb-font-size-1);
+
   bottom: 0;
   height: 115.625vw;
   left: 0;
@@ -11,6 +15,13 @@
   transform: translate3d(0, calc(var(--scroll-y) * -0.5px), 0);
   will-change: transform;
 
+  @include respond-to(tablet) {
+    --text-offset: 2rem;
+    --text-size: var(--rb-font-size-2);
+    height: 100vh;
+  }
+
+  // Dark background behind header
   &:before {
     // https://gist.github.com/matthewbeta/0ef11bd907b435f101e09cc6216ad66b
     background-image: linear-gradient(
@@ -39,8 +50,9 @@
     z-index: 1;
   }
 
+  // Dark overlay on carousel as page is scrolled
   &:after {
-    background: black;
+    background: var(--rb-bg-color);
     bottom: 0;
     content: "";
     left: 0;
@@ -49,82 +61,62 @@
     right: 0;
     top: 0;
   }
+}
 
-  @include respond-to(tablet) {
-    height: 100vh;
+.title {
+  @include font-bold;
+  bottom: var(--text-offset);
+  color: var(--text-color);
+  font-size: var(--text-size);
+  left: var(--text-offset);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+
+  &.isActive {
+    animation: FADE_IN_OUT 6s forwards 1s;
+    pointer-events: auto;
   }
 
-  div {
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: opacity 2s ease-out;
+  a {
+    color: inherit;
+  }
 
-    &.isActive {
-      opacity: 1;
-    }
+  &:hover a {
+    border-bottom: 2px solid;
+  }
+}
+
+.imageContainer {
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity 2s linear;
+
+  &.isActive {
+    opacity: 1;
   }
 
   img {
-    color: var(--rb-bg-color);
+    color: var(--rb-bg-color); // ALT text
     height: 100%;
     object-fit: cover;
     width: 100%;
-  }
-
-  h3 {
-    @include font-bold;
-    bottom: 1rem;
-    left: 1rem;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    z-index: 1;
-
-    @include respond-to(tablet) {
-      bottom: 2rem;
-      font-size: var(--rb-font-size3);
-      left: 2rem;
-    }
-
-    &.isActive {
-      animation: FADE_IN_OUT 6s forwards 1s;
-      pointer-events: auto;
-    }
-
-    &.isBright {
-      color: white;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    &:hover a {
-      text-decoration: underline;
-    }
   }
 }
 
 .counter {
   @include font-bold;
-  bottom: 1rem;
+  bottom: var(--text-offset);
+  color: var(--text-color);
+  font-size: var(--text-size);
   position: absolute;
-  right: 1rem;
+  right: var(--text-offset);
   transition: color 1s ease-out;
-
-  @include respond-to(tablet) {
-    bottom: 2rem;
-    font-size: var(--rb-font-size3);
-    right: 2rem;
-  }
-
-  &.isBright {
-    color: white;
-  }
 }
 
 // Tightly coupled to the `5000` transition speed set in the JS, and the animation timing above
