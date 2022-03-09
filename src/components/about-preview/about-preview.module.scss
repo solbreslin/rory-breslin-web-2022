@@ -1,18 +1,20 @@
 @import "./../../styles/settings/all.scss";
 
 .section {
-  background-color: var(--rb-text-color);
-  padding: 1rem;
-
-  @include respond-to(tablet) {
-    padding: 4rem 2rem;
-  }
+  background-color: var(--rb-image-color);
+  margin-top: var(--rb-space-7);
+  padding-bottom: var(--rb-space-7);
+  padding-top: var(--rb-space-7);
 
   p {
     max-width: 60ch;
 
     @include respond-to(tablet) {
       font-size: var(--rb-font-size2);
+    }
+
+    &:last-child {
+      margin: 0;
     }
   }
 }

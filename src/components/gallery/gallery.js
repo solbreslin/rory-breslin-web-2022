@@ -183,7 +183,12 @@ const Gallery = ({ initialFilter, data }) => {
                   activeFilter === "all"
               )
               .map(({ frontmatter: item, path }, index) => (
-                <Link key={item.title} to={path} data-index={index}>
+                <Link
+                  key={item.title}
+                  to={path}
+                  data-index={index}
+                  style={{ "--grid-span": item.isHorizontal ? "2" : "" }}
+                >
                   {activeLayout === "grid" && (
                     <GalleryImage alt={item.title} url={item.images[0]} />
                   )}

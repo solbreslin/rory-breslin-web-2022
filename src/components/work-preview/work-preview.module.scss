@@ -1,66 +1,64 @@
 @import "./../../styles/settings/all.scss";
 
 .section {
-  background-color: var(--rb-bg-color);
-  border-bottom: 1px solid hsl(0, 0%, 20%);
-  padding: 2rem 1rem 2rem;
+  --transition: 300ms linear;
+  --effect: brightness(0.4) saturate(50%);
 
-  h1 {
-    @include font-bold;
-    border-bottom: 1px solid grey;
-    color: white;
-    display: none;
-    font-size: var(--rb-font-sizes1);
-    letter-spacing: 0.1em;
-    margin: 1rem 0 2rem;
-    opacity: 0.7;
-    text-transform: uppercase;
-  }
+  background-color: var(--rb-bg-color);
 
   @include respond-to(tablet) {
-    // display: grid;
-    // grid-template-columns: 1fr 1fr;
-    // grid-gap: 2rem;
-    padding: 4rem 2rem 2rem;
+    padding-top: var(--rb-space-7);
+  }
 
-    h1 {
-      grid-column: 1 /-1;
-      margin: 0;
-      padding: 0;
-    }
+  h1 {
+    border-bottom: 1px solid var(--rb-line-color);
+    color: var(--rb-heading-color);
+    font-size: var(--rb-font-size-1);
+    letter-spacing: var(--rb-letter-spacing);
+    line-height: 1;
+    padding-bottom: 2px;
+    text-transform: uppercase;
 
-    .imageLink {
-      h2 {
-        padding-left: 0;
-        padding-right: 0;
-      }
+    @include respond-to(tablet) {
+      margin-bottom: 1rem;
     }
   }
 
   > article + article {
-    margin-top: 2rem;
-  }
+    margin-top: var(--rb-space-6);
 
-  @include respond-to(tablet) {
-    > article + article {
-      margin-top: 4rem;
+    @include respond-to(tablet) {
+      margin-top: var(--rb-space-8);
     }
   }
 }
 
 .imageLink {
+  display: block;
+  transition: var(--transition);
+
   h2 {
     @include font-bold;
-    border-bottom: 4px solid rgba(0, 0, 0, 0);
-    color: white;
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
     display: inline-flex;
-    font-size: var(--rb-font-size5);
-    justify-content: space-between;
-    letter-spacing: 0.05em;
+    font-size: var(--rb-font-size-2);
+    line-height: 1;
+    letter-spacing: var(--rb-letter-spacing);
     text-transform: uppercase;
+    transition: var(--transition);
+
+    &:not(.visible) {
+      filter: var(--effect);
+    }
   }
 
   &:hover {
+    --effect: initial;
+
+    .images {
+      --grid-gap: var(--rb-space-4);
+    }
+
     h2 {
       border-bottom-color: white;
     }
@@ -68,35 +66,37 @@
 }
 
 .images {
+  --grid-columns: 2fr 1fr 1fr;
+  --grid-gap: var(--rb-space-1);
+  --height: 200px;
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  grid-gap: 1rem;
-  grid-template-areas:
-    "feature small1"
-    "feature small2";
-  height: 200px;
-  margin-bottom: 0.5rem;
+  grid-template-columns: var(--grid-columns);
+  grid-gap: var(--grid-gap);
+  height: var(--height);
+  margin-bottom: var(--rb-space-2);
+  transition: var(--transition);
+
+  &:not(.visible) {
+    filter: var(--effect);
+  }
 
   @include respond-to(tablet) {
-    height: 400px;
+    --height: 400px;
   }
 
   @include respond-to(desktop) {
-    height: 480px;
+    --height: 480px;
   }
 
   figure {
     overflow: hidden;
-
-    &:first-child {
-      grid-area: feature;
-    }
   }
 
   img {
+    background-color: var(--rb-image-color);
+    color: var(--rb-image-color);
     height: 100%;
     object-fit: cover;
-    transition: transform 4s linear;
     width: 100%;
   }
 }

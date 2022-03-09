@@ -11,19 +11,29 @@ body {
 
 main {
   &.is-index {
-    padding-top: calc(115.625vw - var(--rb-header-height));
-    // background-color: hsl(0, 0%, 5%);
+    --padding-top: 115.625vw;
+
+    padding-top: calc(var(--padding-top) - var(--rb-header-height));
 
     @include respond-to(tablet) {
-      padding-top: calc(100vh - var(--rb-header-height));
+      --padding-top: 100vh;
     }
   }
 }
 
 .container {
-  margin: 0 auto;
-  max-width: 1600px;
+  background: var(--rb-bg-color);
   position: relative;
+}
+
+.section {
+  margin: 0 auto;
+  max-width: var(--rb-content-max-width);
+  padding: 1rem;
+
+  @include respond-to(tablet) {
+    padding: 2rem;
+  }
 }
 
 html,
@@ -31,4 +41,9 @@ body,
 #___gatsby,
 #gatsby-focus-wrapper {
   height: 100%;
+}
+
+::selection {
+  background-color: hsl(var(--rb-primary-color-hs) 60%);
+  color: black;
 }

@@ -18,6 +18,9 @@ $nav-breakpoint: tablet;
 
   --rb-bg-color: hsl(var(--rb-primary-color-hs) 5%);
   --rb-text-color: hsl(var(--rb-primary-color-hs) 95%);
+  --rb-image-color: hsl(var(--rb-primary-color-hs) 20%);
+  --rb-line-color: hsla(0 0% 100% / 0.2);
+  --rb-heading-color: hsla(0 0% 100% / 0.5);
 
   --rb-font-size-0: 0.618rem;
   --rb-font-size-1: 1rem;
@@ -33,12 +36,16 @@ $nav-breakpoint: tablet;
   --rb-space-5: 1.618;
   --rb-space-6: 2.618rem;
   --rb-space-7: 4.236rem;
+  --rb-space-8: 6.854rem;
+  --rb-space-9: 11.089rem;
 
   --rb-font-weight-bold: "Akkurat-Bold";
   --rb-line-height: 1.618;
-  --rb-letter-spacing: 0.15em;
+  --rb-letter-spacing: 0.1em;
 
   --rb-transition-settings: 0.125s linear;
 
   --rb-text-hover-opacity: 0.85;
+
+  --rb-content-max-width: 1600px;
 }
