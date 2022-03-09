@@ -8,68 +8,25 @@ import GalleryImage from "./gallery-image";
 import GalleryListImages from "./gallery-list-images";
 import GalleryToolbar from "./gallery-toolbar";
 
-// Filter out drafts and alphabetise on page load, not every render
+import {
+  filterDraftProjects,
+  sortAlphabetically,
+  addPaths,
+  mapLocationData,
+} from "./helpers";
+
+// Process data once, not on each render
 let galleryData;
 
-const filterDraftProjects = data => {
-  return data.filter(item => !item.frontmatter.draft);
-};
-
-const sortAlphabetically = data => {
-  return data.sort((a, b) =>
-    a.frontmatter.title.localeCompare(b.frontmatter.title)
-  );
-};
-
-const formatPath = str => {
-  // Converting `title` property in project markdown file
-  // e.g. 'Samuel Beckett' -> samuel-beckett
-  const path = str.replace(/\s+/g, "-").toLowerCase();
-  return path;
-};
-
-const addPaths = data => {
-  return data.map(d => {
-    return {
-      ...d,
-      path: formatPath(d.frontmatter.title),
-    };
+const scroll = top =>
+  window.scrollTo({
+    top,
+    left: 0,
+    behavior: "smooth",
   });
-};
-
-const mapData = data => {
-  if (galleryData) return galleryData;
-
-  galleryData = filterDraftProjects(data);
-  galleryData = sortAlphabetically(galleryData);
-  galleryData = addPaths(galleryData);
-
-  return galleryData;
-};
-
-const mapLocationData = (data, filter) => {
-  const locationData = data
-    .filter(d => d.frontmatter.location)
-    .map(d => {
-      let locationObject = JSON.parse(d.frontmatter.location);
-
-      return {
-        category: d.frontmatter.category,
-        title: d.frontmatter.title,
-        coords: locationObject.coordinates.reverse(),
-        image: d.frontmatter.images[0],
-      };
-    })
-    .filter(d => {
-      return d.category === filter || filter === "all" || !filter;
-    });
-
-  return locationData;
-};
 
 const Gallery = ({ initialFilter, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
-  // UX improvement - instantly update toolbar on change
   const [activeLayout, setActiveLayout] = useState("grid");
   const [locationData, setLocationData] = useState([]);
   const [imageHovered, setImageHovered] = useState(0);
@@ -84,8 +41,14 @@ const Gallery = ({ initialFilter, data }) => {
   }, [imageHovered]);
 
   useEffect(() => {
-    const galleryData = mapData(data);
+    if (galleryData) return galleryData;
 
+    galleryData = filterDraftProjects(data);
+    galleryData = sortAlphabetically(galleryData);
+    galleryData = addPaths(galleryData);
+  }, [data]);
+
+  useEffect(() => {
     if (galleryData) {
       setLocationData(mapLocationData(galleryData, activeFilter));
     }
@@ -93,31 +56,18 @@ const Gallery = ({ initialFilter, data }) => {
 
   useEffect(() => {
     if (isBrowser()) {
-      const headerHeightOffset = getComputedStyle(
+      const siteHeaderHeight = getComputedStyle(
         document.documentElement
       ).getPropertyValue("--rb-header-height");
 
-      let top = 0;
+      const top = siteHeaderHeight ? parseInt(siteHeaderHeight, 0) : 0;
 
-      if (headerHeightOffset) {
-        top = parseInt(headerHeightOffset, 0);
-      }
-
+      // Prevents scroll DOWN to `top` - we only want scroll back UP
       if (window.scrollY < top) return;
 
-      window.scrollTo({
-        top,
-        left: 0,
-        behavior: "smooth",
-      });
+      scroll(top);
     }
-  }, [activeFilter, activeLayout]);
-
-  useEffect(() => {
-    if (!isBrowser()) return;
-
-    return window.removeEventListener("mousemove", handleListHover);
-  }, []);
+  }, [activeFilter]);
 
   function handleListHover({ target }) {
     const el = target.closest("a");
@@ -145,6 +95,12 @@ const Gallery = ({ initialFilter, data }) => {
     window.removeEventListener("mousemove", handleListHover);
   }
 
+  useEffect(() => {
+    if (!isBrowser()) return;
+
+    return window.removeEventListener("mousemove", handleListHover);
+  }, []);
+
   return (
     <div className={styles.container}>
       <GalleryToolbar
@@ -163,7 +119,7 @@ const Gallery = ({ initialFilter, data }) => {
               : activeLayout === "list"
               ? styles.list
               : styles.map
-          } ${isLoading ? "" : styles.ready}`}
+          } ${!isLoading && styles.ready}`}
           onMouseEnter={e => handleMouseEnter(e)}
           onMouseLeave={e => handleMouseLeave(e)}
           role="presentation"

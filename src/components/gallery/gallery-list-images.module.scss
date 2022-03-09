@@ -1,6 +1,7 @@
 @import "./../../styles/settings/all.scss";
 
 .listimage {
+  --gallery-container-padding-top: var(--rb-space-2);
   display: none;
 
   @include respond-to(tablet) {
@@ -8,7 +9,7 @@
     grid-column: 1;
     grid-row: 1 / -1;
     position: sticky;
-    top: calc(var(--toolbarheight, 55) * 1px);
+    top: calc(var(--toolbar-height, 64) + var(--gallery-container-padding-top));
 
     img {
       position: absolute;

@@ -4,10 +4,10 @@ import * as styles from "./gallery-toolbar.module.scss";
 import Icons from "./icons";
 import ChevronIcon from "./../chevron-icon";
 
-const titleCase = str => str.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+import { titleCase, addToStorage } from "./helpers";
 
 const filters = ["all", "portrait", "public", "masks", "exhibition"];
-const layouts = ["grid", "list"];
+const layouts = ["grid", "list", "map"];
 
 const GalleryToolbar = ({
   initialFilter,
@@ -20,22 +20,33 @@ const GalleryToolbar = ({
   const [filtersOpen, setFiltersOpen] = useState(false);
   const toolbarRef = useRef(null);
 
+  const onFilterChange = filter => {
+    setFiltersOpen(false);
+    setActiveFilter(filter);
+    addToStorage("rb-filter", filter);
+  };
+
+  const onLayoutChange = layout => {
+    setActiveLayout(layout);
+    addToStorage("rb-layout", layout);
+  };
+
   useEffect(() => {
     const filter = localStorage.getItem("rb-filter");
     const layout = localStorage.getItem("rb-layout");
 
-    if (filter) {
+    if (initialFilter) {
+      // Filter comes from router state (click from home page)
+      // Need to store the new filter in localstorage etc
+      onFilterChange(initialFilter);
+    } else if (filter) {
+      // Filter comes from page load/refresh
+      // Already in storage
       setActiveFilter(filter);
     }
 
     if (layout) {
       setActiveLayout(layout);
-    }
-  }, [emitFilter, emitLayout]);
-
-  useEffect(() => {
-    if (initialFilter) {
-      setActiveFilter(initialFilter);
     }
   }, [initialFilter]);
 
@@ -47,34 +58,14 @@ const GalleryToolbar = ({
     emitLayout(activeLayout);
   }, [activeLayout, emitLayout]);
 
-  const onFilterChange = filter => {
-    setFiltersOpen(false);
-    setActiveFilter(filter);
-
-    try {
-      localStorage.setItem("rb-filter", filter);
-    } catch (error) {}
-  };
-
-  const onLayoutChange = layout => {
-    setActiveLayout(layout);
-
-    try {
-      localStorage.setItem("rb-layout", layout);
-    } catch (error) {}
-  };
-
   useEffect(() => {
-    const getToolbarHeight = () => {
-      if (toolbarRef && toolbarRef.current) {
-        document.documentElement.style.setProperty(
-          "--toolbar-height",
-          toolbarRef.current.offsetHeight
-        );
-      }
-    };
-
-    getToolbarHeight();
+    // Need the height of the toolbar to correctly position the list image box
+    if (toolbarRef && toolbarRef.current) {
+      document.documentElement.style.setProperty(
+        "--toolbar-height",
+        toolbarRef.current.offsetHeight + "px"
+      );
+    }
   }, []);
 
   return (

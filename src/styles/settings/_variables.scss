@@ -8,8 +8,6 @@ $breakpoints: (
   "full-hd": 1344px,
 );
 
-$nav-breakpoint: tablet;
-
 :root {
   --rb-header-height: 64px; //Overriden in header component
 
@@ -32,12 +30,11 @@ $nav-breakpoint: tablet;
   --rb-space-1: 0.382rem;
   --rb-space-2: 0.618rem;
   --rb-space-3: 1rem;
-  --rb-space-4: 1rem;
-  --rb-space-5: 1.618;
-  --rb-space-6: 2.618rem;
-  --rb-space-7: 4.236rem;
-  --rb-space-8: 6.854rem;
-  --rb-space-9: 11.089rem;
+  --rb-space-4: 1.618rem;
+  --rb-space-5: 2.618rem;
+  --rb-space-6: 4.236rem;
+  --rb-space-7: 6.854rem;
+  --rb-space-8: 11.089rem;
 
   --rb-font-weight-bold: "Akkurat-Bold";
   --rb-line-height: 1.618;
@@ -45,7 +42,7 @@ $nav-breakpoint: tablet;
 
   --rb-transition-settings: 0.125s linear;
 
-  --rb-text-hover-opacity: 0.85;
+  --rb-text-hover-opacity: 0.75;
 
   --rb-content-max-width: 1600px;
 }

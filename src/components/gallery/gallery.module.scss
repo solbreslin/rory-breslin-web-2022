@@ -4,11 +4,11 @@ $breakpoint: tablet;
 $layout-icon-size: 36px;
 
 .container {
-  padding: 0 1rem 1rem;
+  --padding-x: 1rem;
+  padding: 0 var(--padding-x) 1rem;
 
   @include respond-to($breakpoint) {
-    padding: 0 2rem 1rem;
-    position: relative;
+    --padding-x: 2rem;
   }
 }
 
@@ -20,6 +20,31 @@ $layout-icon-size: 36px;
   &.ready {
     opacity: 1;
   }
+}
+
+.grid {
+  display: grid;
+  grid-gap: var(--rb-space-5);
+  padding: var(--rb-space-2) 0 var(--rb-space-7);
+
+  @include respond-to(mobile-l) {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+
+  @include respond-to(tablet) {
+    grid-gap: var(--rb-space-6) var(--rb-space-1);
+  }
+
+  > * {
+    // Set inline in the template
+    grid-column: span var(--grid-span);
+  }
+
+  h3 {
+    border-bottom: 1px solid hsla(0, 0%, 0%, 0);
+    display: inline-flex;
+    transition: var(--rb-transition-settings);
+  }
 
   a {
     &:hover,
@@ -30,62 +55,52 @@ $layout-icon-size: 36px;
       }
 
       h3 {
-        border-bottom-color: hsl(0, 0%, 40%);
+        border-color: currentColor;
       }
     }
-  }
-}
-
-.grid {
-  display: grid;
-  grid-gap: 2rem;
-  padding: 1rem 0 4rem;
-  position: relative;
-
-  > * {
-    grid-column: span var(--grid-span);
-  }
-
-  @include respond-to(mobile-l) {
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  }
-
-  @include respond-to(tablet) {
-    grid-gap: 4rem 2rem;
-  }
-
-  h3 {
-    border-bottom: 1px solid hsla(0, 0%, 40%, 0);
-    display: inline-flex;
   }
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  padding: 1rem 0 0;
-
-  a {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem 0 0.65rem;
-
-    + a {
-      border-top: 1px solid hsl(0, 0%, 10%);
-    }
-
-    &:hover {
-      opacity: 0.75;
-    }
-  }
+  padding: var(--rb-space-2) 0 0;
 
   @include respond-to(tablet) {
     display: grid;
     grid-gap: 0 1rem;
     grid-template-columns: 400px 1fr;
+  }
 
-    a {
+  a {
+    display: flex;
+    line-height: 1;
+    justify-content: space-between;
+    padding: calc(var(--rb-space-3) + 4px) 0 var(--rb-space-3);
+
+    @include respond-to(tablet) {
       grid-column: 2;
+    }
+
+    + a {
+      border-top: 1px solid var(--rb-line-color);
+    }
+
+    &:first-of-type {
+      // Optical
+      padding-top: var(--rb-space-2);
+    }
+
+    h3,
+    span {
+      transition: opacity var(--rb-transition-settings);
+    }
+
+    &:hover {
+      h3,
+      span {
+        opacity: var(--rb-text-hover-opacity);
+      }
     }
   }
 }

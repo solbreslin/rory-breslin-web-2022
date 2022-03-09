@@ -9,7 +9,7 @@ const WorkPage = ({ location, data }) => {
   const filter = location && location.state ? location.state.filter : null;
 
   return (
-    <Layout invert={true}>
+    <Layout>
       <Seo title="Work" />
       <Gallery initialFilter={filter} data={data.allMarkdownRemark.nodes} />
     </Layout>
