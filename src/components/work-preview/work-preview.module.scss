@@ -5,6 +5,7 @@
   --effect: brightness(0.4) saturate(50%);
 
   background-color: var(--rb-bg-color);
+  padding-top: var(--rb-space-6);
 
   @include respond-to(tablet) {
     padding-top: var(--rb-space-7);
@@ -16,12 +17,9 @@
     font-size: var(--rb-font-size-1);
     letter-spacing: var(--rb-letter-spacing);
     line-height: 1;
+    margin-bottom: var(--rb-space-3);
     padding-bottom: 2px;
     text-transform: uppercase;
-
-    @include respond-to(tablet) {
-      margin-bottom: 1rem;
-    }
   }
 
   > article + article {
@@ -41,7 +39,7 @@
     @include font-bold;
     border-bottom: 3px solid rgba(0, 0, 0, 0);
     display: inline-flex;
-    font-size: var(--rb-font-size-2);
+    font-size: var(--rb-font-size-1);
     line-height: 1;
     letter-spacing: var(--rb-letter-spacing);
     text-transform: uppercase;
@@ -49,6 +47,10 @@
 
     &:not(.visible) {
       filter: var(--effect);
+    }
+
+    @include respond-to(tablet) {
+      font-size: var(--rb-font-size-2);
     }
   }
 
@@ -69,8 +71,8 @@
   --grid-columns: 2fr 1fr 1fr;
   --grid-gap: var(--rb-space-1);
   --height: 200px;
+
   display: grid;
-  grid-template-columns: var(--grid-columns);
   grid-gap: var(--grid-gap);
   height: var(--height);
   margin-bottom: var(--rb-space-2);
@@ -80,7 +82,16 @@
     filter: var(--effect);
   }
 
+  &.portrait {
+    height: 480px;
+  }
+
+  &.landscape {
+    height: 260px;
+  }
+
   @include respond-to(tablet) {
+    grid-template-columns: var(--grid-columns);
     --height: 400px;
   }
 
@@ -90,11 +101,19 @@
 
   figure {
     overflow: hidden;
+
+    &:not(:first-child) {
+      display: none;
+
+      @include respond-to(tablet) {
+        display: block;
+      }
+    }
   }
 
   img {
-    background-color: var(--rb-image-color);
-    color: var(--rb-image-color);
+    background-color: var(--rb-bg-color-blue);
+    color: var(--rb-bg-color-blue);
     height: 100%;
     object-fit: cover;
     width: 100%;

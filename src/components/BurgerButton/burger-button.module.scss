@@ -1,25 +1,30 @@
 @import "./../../styles/settings/all.scss";
 
 .button {
+  --button-size: 32px;
+  --line-width: 2px;
+  --transition-setting: 0.125s ease-out;
+  --transition-delay: 0.125s;
+
   align-items: center;
   cursor: pointer;
   display: flex;
-  height: 32px;
-  margin-right: 1rem;
+  height: var(--button-size);
+  margin-right: var(--rb-space-3);
   position: relative;
-  width: 32px;
-  z-index: 3;
+  width: var(--button-size);
+  z-index: 10001;
 
   &:before,
   &:after {
-    background: black;
+    background: white;
     content: "";
-    left: 2px;
-    height: 2px;
+    left: var(--line-width);
+    height: var(--line-width);
     position: absolute;
-    right: 2px;
-    transition: background-color 0.125s ease-out, transform 0.125s ease-out,
-      bottom 0.125s ease-out 0.125s;
+    right: var(--line-width);
+    transition: transform var(--transition-setting),
+      bottom var(--transition-setting) var(--transition-delay);
   }
 
   &:before {
@@ -32,13 +37,10 @@
 }
 
 .open {
-  color: white;
-
   &:before,
   &:after {
-    background: white;
-    transition: background-color 0.125s ease-out,
-      transform 0.125s ease-out 0.125s, bottom 0.125s ease-out;
+    transition: transform var(--transition-setting) var(--transition-delay),
+      bottom var(--transition-setting);
   }
 
   &:before {
@@ -49,13 +51,6 @@
   &:after {
     bottom: 16px;
     transform: rotate(-45deg);
-  }
-}
-
-.invert {
-  &:before,
-  &:after {
-    background: white;
   }
 }
 

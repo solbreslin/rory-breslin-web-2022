@@ -15,13 +15,14 @@ const WorkPreview = () => {
   return (
     <section className={`section ${styles.section}`}>
       <h1>Recent Work</h1>
-      {data.map(({ name, path, grid }, index) => (
+      {data.map(({ name, path, grid, orientation }, index) => (
         <WorkPreviewLink
           key={path}
           name={name}
           path={path}
           grid={grid}
           images={images[index]}
+          orientation={orientation}
         />
       ))}
     </section>

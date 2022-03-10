@@ -1,132 +1,108 @@
 @import "./../../styles/settings/all.scss";
 
 .header {
+  --menu-item-padding: calc(var(--rb-space-3) + 2px) var(--rb-space-3)
+    var(--rb-space-3);
+
   align-items: center;
-  background-color: var(--rb-bg-color);
   display: flex;
   justify-content: space-between;
   position: relative;
 
-  &.active {
-    &:before {
-      opacity: 1;
-    }
-
-    nav {
-      opacity: 1;
-      pointer-events: auto;
-      transform: none;
-    }
-
-    h1 {
-      color: white;
-    }
+  @include respond-to(tablet) {
+    padding: 0 var(--rb-space-3);
+    z-index: 3;
   }
+}
 
-  &.transparent {
-    background-color: initial;
-    a {
-      color: white;
-    }
-  }
+.brand {
+  --logo-letter-spacing: 0.15em;
+  @include font-bold;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1; // above home page carousel
 
-  h1 {
-    @include font-bold;
+  a {
     display: flex;
-    letter-spacing: 0.15em;
-    position: relative;
-    text-transform: uppercase;
-    z-index: 4;
+    letter-spacing: var(--logo-letter-spacing);
+    line-height: 1;
+    padding: var(--menu-item-padding);
+  }
+}
 
-    a {
-      letter-spacing: 0.15em;
-      padding: calc(var(--rb-space-3) + 3px) var(--rb-space-3) var(--rb-space-3);
-    }
+.nav {
+  background: var(--rb-bg-color-blue);
+  display: flex;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  padding-top: var(--rb-space-7);
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity var(--rb-transition-settings);
+  z-index: 10000;
+
+  @media screen and (max-height: 400px) {
+    padding-top: var(--rb-space-6);
   }
 
-  nav {
+  @include respond-to(tablet) {
     align-items: center;
-    background: #45567f;
-    display: flex;
-    height: 100%;
-    left: 0;
-    opacity: 0;
-    pointer-events: none;
-    position: fixed;
-    right: 0;
-    top: 0;
-    transition: opacity 0.3s cubic-bezier(0.59, 0.01, 0.28, 1);
-    z-index: 2;
+    background: initial;
+    height: auto;
+    max-width: initial;
+    opacity: 1;
+    padding-top: 0;
+    pointer-events: auto;
+    position: static;
+    transition: none;
+  }
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.index {
+    li a {
+      opacity: 1;
+    }
   }
 
   ul {
-    margin-bottom: var(--rb-header-height);
+    flex-grow: 1;
+
+    @include respond-to(tablet) {
+      display: flex;
+    }
   }
 
   li {
     display: flex;
 
     a {
-      color: white;
       flex: 1;
-      font-size: var(--rb-font-size5);
-      letter-spacing: 0.05em;
+      font-size: clamp(var(--rb-font-size-2), 6vh, var(--rb-font-size-4));
+      letter-spacing: var(--rb-letter-spacing);
       line-height: 2;
+      opacity: 0.5;
       padding: 0 1rem;
       text-transform: uppercase;
 
       &.current {
-        text-decoration: underline;
+        opacity: 1;
       }
-    }
-  }
 
-  @include respond-to(tablet) {
-    align-items: unset;
-    padding: 0 1rem;
-    z-index: 3;
-
-    button {
-      display: none;
-    }
-
-    nav {
-      background: inherit;
-      display: flex;
-      height: auto;
-      max-width: initial;
-      opacity: 1;
-      padding: 0;
-      pointer-events: auto;
-      position: static;
-      transition: none;
-      transform: none;
-      will-change: initial;
-    }
-
-    ul {
-      display: flex;
-      margin-bottom: 0;
-    }
-
-    li {
-      display: flex;
-      line-height: 1;
-
-      a {
-        font-size: 0.875rem;
-        letter-spacing: 0.075em;
+      @include respond-to(tablet) {
+        font-size: var(--rb-font-size-1);
+        letter-spacing: var(--rb-letter-spacing);
         line-height: 1;
-        color: grey;
-        padding: calc(var(--rb-space-3) + 5px) var(--rb-space-3)
-          var(--rb-space-3);
-        text-decoration: none;
-        text-transform: uppercase;
-        transition: opacity 125ms ease-out;
+        padding: var(--menu-item-padding);
 
         &.current {
           color: white;
-          text-decoration: none;
         }
       }
     }

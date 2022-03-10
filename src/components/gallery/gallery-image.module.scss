@@ -11,8 +11,8 @@
   }
 
   img {
-    background-color: hsl(130, 21%, 15%);
-    color: hsl(130, 21%, 15%);
+    background-color: var(--rb-bg-color-blue);
+    color: var(--rb-bg-color-blue);
     height: 100%;
     object-fit: cover;
     transition: transform 4s;

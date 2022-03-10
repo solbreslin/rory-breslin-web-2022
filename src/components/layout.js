@@ -6,7 +6,7 @@ import Header from "./../components/header/header";
 import Footer from "./../components/footer/footer";
 import "./layout.scss";
 
-const Layout = ({ children, transparentHeader, index }) => {
+const Layout = ({ children, index }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -21,7 +21,7 @@ const Layout = ({ children, transparentHeader, index }) => {
     <>
       <Header
         siteTitle={data.site.siteMetadata?.title || `Title`}
-        transparent={transparentHeader}
+        index={index}
       />
       <main className={index ? "is-index" : ""}>{children}</main>
       {/* <Footer /> */}

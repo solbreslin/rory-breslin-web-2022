@@ -8,6 +8,7 @@ const data = [
       "https://res.cloudinary.com/r-breslin/image/upload/v1583554596/r-breslin-cloudinary/WORK/PUBLIC/michael-davitt/michael-davitt_michael-davitt-04_tm3rgx.jpg",
     ],
     grid: "2fr 1fr 1fr",
+    orientation: "landscape",
   },
   {
     name: "Portrait",
@@ -18,6 +19,7 @@ const data = [
       "https://res.cloudinary.com/r-breslin/image/upload/v1584241549/r-breslin-cloudinary/WORK/PORTRAIT/wb-yeats/wb-yeats_wb-yeats-01_wdv6ao.jpg",
     ],
     grid: "1fr 2fr 1fr",
+    orientation: "portrait",
   },
   {
     name: "Masks",
@@ -29,6 +31,7 @@ const data = [
       "https://res.cloudinary.com/r-breslin/image/upload/v1584241829/r-breslin-cloudinary/WORK/MASKS/the-atlantic/the-atlantic_the-atlantic-02_kmha5o.jpg",
     ],
     grid: "1fr 1fr 1fr",
+    orientation: "portrait",
   },
   {
     name: "Exhibition",
@@ -39,6 +42,7 @@ const data = [
       "https://res.cloudinary.com/r-breslin/image/upload/v1581734959/r-breslin-cloudinary/WORK/EXHIBITION/dance-of-the-graeae/EXHIBITION_dance-of-the-graeae_dance-of-the-graeae-03_iiypfr.jpg",
     ],
     grid: "1fr 1fr 2fr",
+    orientation: "landscape",
   },
 ];
 

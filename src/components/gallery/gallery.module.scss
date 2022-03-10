@@ -24,7 +24,7 @@ $layout-icon-size: 36px;
 
 .grid {
   display: grid;
-  grid-gap: var(--rb-space-5);
+  grid-gap: var(--rb-space-5) var(--rb-space-1);
   padding: var(--rb-space-2) 0 var(--rb-space-7);
 
   @include respond-to(mobile-l) {
@@ -33,11 +33,11 @@ $layout-icon-size: 36px;
 
   @include respond-to(tablet) {
     grid-gap: var(--rb-space-6) var(--rb-space-1);
-  }
 
-  > * {
-    // Set inline in the template
-    grid-column: span var(--grid-span);
+    > * {
+      // Set inline in the template
+      grid-column: span var(--grid-span);
+    }
   }
 
   h3 {
