@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
-import { isBrowser } from "./../../utils/index";
+import { buildCloudinaryPath, isBrowser } from "./../../utils/index";
 
 import GalleryImage from "./gallery-image";
 import GalleryListImages from "./gallery-list-images";
@@ -17,6 +17,7 @@ import {
 
 // Process data once, not on each render
 let galleryData;
+let locationData;
 
 const scroll = top =>
   window.scrollTo({
@@ -28,7 +29,6 @@ const scroll = top =>
 const Gallery = ({ initialFilter, data }) => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
-  const [locationData, setLocationData] = useState([]);
   const [imageHovered, setImageHovered] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -46,13 +46,9 @@ const Gallery = ({ initialFilter, data }) => {
     galleryData = filterDraftProjects(data);
     galleryData = sortAlphabetically(galleryData);
     galleryData = addPaths(galleryData);
-  }, [data]);
 
-  useEffect(() => {
-    if (galleryData) {
-      setLocationData(mapLocationData(galleryData, activeFilter));
-    }
-  }, [data, activeFilter]);
+    locationData = mapLocationData(galleryData, buildCloudinaryPath);
+  }, [data]);
 
   useEffect(() => {
     if (isBrowser()) {
@@ -101,6 +97,18 @@ const Gallery = ({ initialFilter, data }) => {
     return window.removeEventListener("mousemove", handleListHover);
   }, []);
 
+  // https://etcoding.com/blog/2020/12/14/calling-a-function-in-a-child-or-sibling-component-in-react/
+  // the 'clear filters' button in `map.js` needs to call a method in `gallery-toolbar.js`
+  let clearFiltersReceiver = () => {};
+
+  const clearFiltersTrigger = () => {
+    clearFiltersReceiver && clearFiltersReceiver();
+  };
+
+  const clearFiltersReceiverCreator = handler => {
+    clearFiltersReceiver = handler;
+  };
+
   return (
     <div className={styles.container}>
       <GalleryToolbar
@@ -108,9 +116,18 @@ const Gallery = ({ initialFilter, data }) => {
         emitFilter={setActiveFilter}
         emitLayout={setActiveLayout}
         isLoading={isLoading}
+        clearFiltersReceiverCreator={clearFiltersReceiverCreator}
       />
       {activeLayout === "map" ? (
-        <CustomMap data={locationData} />
+        <CustomMap
+          data={
+            locationData &&
+            locationData.filter(d => {
+              return d.category === activeFilter || activeFilter === "all";
+            })
+          }
+          clearFilters={clearFiltersTrigger}
+        />
       ) : (
         <div
           className={`${

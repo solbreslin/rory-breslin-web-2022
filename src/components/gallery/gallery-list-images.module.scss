@@ -9,7 +9,9 @@
     grid-column: 1;
     grid-row: 1 / -1;
     position: sticky;
-    top: calc(var(--toolbar-height, 64) + var(--gallery-container-padding-top));
+    top: calc(
+      var(--rb-toolbar-height, 64) + var(--gallery-container-padding-top)
+    );
 
     img {
       position: absolute;

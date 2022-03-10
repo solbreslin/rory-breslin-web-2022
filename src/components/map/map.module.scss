@@ -1,0 +1,47 @@
+@import "./../../styles/settings/all.scss";
+
+.container {
+  height: calc(
+    100vh - var(--rb-header-height) - var(--rb-toolbar-height) -
+      var(--rb-space-3)
+  );
+  position: relative;
+}
+
+.empty {
+  align-items: center;
+  background-color: var(--rb-bg-color);
+  bottom: 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: var(--rb-transition-settings);
+  z-index: 1000;
+
+  &.visible {
+    opacity: 0.75;
+    pointer-events: auto;
+  }
+}
+
+.button {
+  border: 1px solid;
+  color: white;
+  cursor: pointer;
+  font-size: var(--rb-font-size-0);
+  letter-spacing: var(--rb-letter-spacing);
+  padding: var(--rb-space-0) var(--rb-space-2);
+  text-transform: uppercase;
+  transition: var(--rb-transition-settings);
+
+  &:hover {
+    background: hsl(0 0% 15%);
+  }
+}

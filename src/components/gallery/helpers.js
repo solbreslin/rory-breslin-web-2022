@@ -24,24 +24,23 @@ export const addPaths = data => {
   });
 };
 
-export const mapLocationData = (data, filter) => {
-  const locationData = data
+export const mapLocationData = (data, buildCloudinaryPath = () => {}) => {
+  const CLOUDINARY_QUERY = "c_fill,g_face,w_280,h_160,q_80,f_auto";
+
+  return data
     .filter(d => d.frontmatter.location)
     .map(d => {
-      let locationObject = JSON.parse(d.frontmatter.location);
+      const { location, category, title, images } = d.frontmatter;
+      const locationObject = JSON.parse(location);
 
       return {
-        category: d.frontmatter.category,
-        title: d.frontmatter.title,
+        category: category,
+        title: title,
         coords: locationObject.coordinates.reverse(),
-        image: d.frontmatter.images[0],
+        image: buildCloudinaryPath(images[0], CLOUDINARY_QUERY),
+        path: formatPath(title),
       };
-    })
-    .filter(d => {
-      return d.category === filter || filter === "all" || !filter;
     });
-
-  return locationData;
 };
 
 export const titleCase = str =>

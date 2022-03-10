@@ -14,13 +14,14 @@ const GalleryToolbar = ({
   emitFilter,
   emitLayout,
   isLoading,
+  clearFiltersReceiverCreator,
 }) => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const toolbarRef = useRef(null);
 
-  const onFilterChange = filter => {
+  const onFilterChange = (filter = "all") => {
     setFiltersOpen(false);
     setActiveFilter(filter);
     addToStorage("rb-filter", filter);
@@ -30,6 +31,8 @@ const GalleryToolbar = ({
     setActiveLayout(layout);
     addToStorage("rb-layout", layout);
   };
+
+  clearFiltersReceiverCreator(onFilterChange);
 
   useEffect(() => {
     const filter = localStorage.getItem("rb-filter");
@@ -62,7 +65,7 @@ const GalleryToolbar = ({
     // Need the height of the toolbar to correctly position the list image box
     if (toolbarRef && toolbarRef.current) {
       document.documentElement.style.setProperty(
-        "--toolbar-height",
+        "--rb-toolbar-height",
         toolbarRef.current.offsetHeight + "px"
       );
     }
@@ -95,6 +98,7 @@ const GalleryToolbar = ({
                 name="filters"
                 type="radio"
                 onChange={() => onFilterChange(filter)}
+                checked={filter === activeFilter ? true : false}
               />
               <label htmlFor={filter}>{filter}</label>
             </li>

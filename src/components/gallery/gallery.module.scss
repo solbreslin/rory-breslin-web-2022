@@ -5,7 +5,7 @@ $layout-icon-size: 36px;
 
 .container {
   --padding-x: 1rem;
-  padding: 0 var(--padding-x) 1rem;
+  padding: 0 var(--padding-x) var(--rb-space-3);
 
   @include respond-to($breakpoint) {
     --padding-x: 2rem;
