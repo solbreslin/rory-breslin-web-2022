@@ -6,13 +6,16 @@ import { isBrowser } from "../../utils";
 import * as styles from "./map.module.scss";
 import icon from "../../images/location-dot-solid.svg";
 
-const markerIcon = new L.Icon({
-  iconUrl: icon,
-  iconRetinaUrl: icon,
-  iconAnchor: [14, 32],
-  popupAnchor: [0, -28],
-  iconSize: [28, 32],
-});
+let markerIcon;
+if (isBrowser()) {
+  markerIcon = new L.Icon({
+    iconUrl: icon,
+    iconRetinaUrl: icon,
+    iconAnchor: [14, 32],
+    popupAnchor: [0, -28],
+    iconSize: [28, 32],
+  });
+}
 
 const MAP_CENTER = [53.331838, -7.700802];
 const MAP_ZOOM = 7;
@@ -39,7 +42,11 @@ const CustomMap = ({ data, clearFilters }) => {
         <TileLayer attribution={MAP_ATTRIBUTION} url={MAP_URL} />
         {!emptyMap &&
           data.map(({ coords, title, image, path }) => (
-            <Marker icon={markerIcon} position={coords} key={title}>
+            <Marker
+              icon={markerIcon ? markerIcon : null}
+              position={coords}
+              key={title}
+            >
               <Popup>
                 <Link to={path}>
                   <img src={image} alt={title} />
