@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "gatsby";
 import * as styles from "./header.module.scss";
 import BurgerButton from "../BurgerButton/burger-button";
+import { isBrowser } from "./../../utils";
+import debounce from "lodash.debounce";
 
 const Header = ({ siteTitle, index }) => {
   const [navOpen, setNavOpen] = useState(false);
+  const [ww, setWw] = useState(0);
   const headerEl = useRef(null);
 
   useEffect(() => {
@@ -16,7 +19,7 @@ const Header = ({ siteTitle, index }) => {
   }, [navOpen]);
 
   useEffect(() => {
-    if (document !== undefined) {
+    if (isBrowser()) {
       const height = headerEl.current.clientHeight;
 
       document.documentElement.style.setProperty(
@@ -24,6 +27,24 @@ const Header = ({ siteTitle, index }) => {
         `${height}px`
       );
     }
+  }, [ww]);
+
+  const debouncedResize = useCallback(
+    debounce(() => {
+      setWw(window.innerWidth);
+    }, 500)
+  );
+
+  useEffect(() => {
+    if (isBrowser()) {
+      setWw(window.innerWidth);
+
+      window.addEventListener("resize", debouncedResize);
+    }
+
+    return () => {
+      window.removeEventListener("resize", debouncedResize);
+    };
   }, []);
 
   const updateParent = () => {
@@ -33,7 +54,10 @@ const Header = ({ siteTitle, index }) => {
   return (
     <header className={styles.header} ref={headerEl}>
       <h1 className={styles.brand}>
-        <Link to="/">{siteTitle}</Link>
+        <Link to="/">
+          <span aria-hidden="true">RB</span>
+          <span className="sr-only">{siteTitle}</span>
+        </Link>
       </h1>
       <span hidden id="menu-label">
         Main menu

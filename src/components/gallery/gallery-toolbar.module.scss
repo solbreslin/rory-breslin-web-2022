@@ -85,6 +85,10 @@ $layout-icon-size: 36px;
 
 .layoutList {
   display: none;
+
+  @include respond-to(tablet) {
+    margin-right: -0.5em;
+  }
 }
 
 .filterList,

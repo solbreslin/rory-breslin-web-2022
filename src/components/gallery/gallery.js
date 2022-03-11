@@ -65,38 +65,6 @@ const Gallery = ({ initialFilter, data }) => {
     }
   }, [activeFilter]);
 
-  function handleListHover({ target }) {
-    const el = target.closest("a");
-
-    if (!el) return;
-
-    const index = el.dataset.index;
-
-    if (index || index === 0) {
-      setImageHovered(index);
-    }
-  }
-
-  function handleMouseEnter(e) {
-    e.stopPropagation();
-
-    if (activeLayout === "list") {
-      window.addEventListener("mousemove", handleListHover);
-    }
-  }
-
-  function handleMouseLeave(e) {
-    e.stopPropagation();
-
-    window.removeEventListener("mousemove", handleListHover);
-  }
-
-  useEffect(() => {
-    if (!isBrowser()) return;
-
-    return window.removeEventListener("mousemove", handleListHover);
-  }, []);
-
   // https://etcoding.com/blog/2020/12/14/calling-a-function-in-a-child-or-sibling-component-in-react/
   // the 'clear filters' button in `map.js` needs to call a method in `gallery-toolbar.js`
   let clearFiltersReceiver = () => {};
@@ -108,6 +76,16 @@ const Gallery = ({ initialFilter, data }) => {
   const clearFiltersReceiverCreator = handler => {
     clearFiltersReceiver = handler;
   };
+
+  function onListItemHover(e) {
+    if (!e || !e.target) return;
+
+    if (e.target.closest("a")) {
+      const i = e.target.dataset.index;
+
+      setImageHovered(i);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -137,8 +115,6 @@ const Gallery = ({ initialFilter, data }) => {
               ? styles.list
               : styles.map
           } ${!isLoading && styles.ready}`}
-          onMouseEnter={e => handleMouseEnter(e)}
-          onMouseLeave={e => handleMouseLeave(e)}
           role="presentation"
         >
           {activeLayout === "list" && (
@@ -161,6 +137,9 @@ const Gallery = ({ initialFilter, data }) => {
                   to={path}
                   data-index={index}
                   style={{ "--grid-span": item.isHorizontal ? "2" : "" }}
+                  onMouseEnter={
+                    activeLayout === "list" ? onListItemHover : undefined
+                  }
                 >
                   {activeLayout === "grid" && (
                     <GalleryImage alt={item.title} url={item.images[0]} />

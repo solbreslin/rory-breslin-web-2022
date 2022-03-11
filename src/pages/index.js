@@ -22,6 +22,8 @@ const IndexPage = () => {
      * This is used by the home page carousel component
      */
     const onScroll = e => {
+      if (!e || !e.target || !e.target.documentElement) return;
+
       const { scrollTop } = e.target.documentElement;
 
       // Don't need to set the variable if the carousel is out of the viewport

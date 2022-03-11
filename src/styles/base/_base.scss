@@ -29,7 +29,7 @@ main {
 .section {
   margin: 0 auto;
   max-width: var(--rb-content-max-width);
-  padding: 1rem;
+  padding: var(--rb-space-3);
 
   @include respond-to(tablet) {
     padding: 2rem;
@@ -44,6 +44,6 @@ body,
 }
 
 ::selection {
-  background-color: hsl(var(--rb-primary-color-hs) 60%);
-  color: black;
+  background-color: var(--rb-text-color);
+  color: hsl(var(--rb-primary-color-hs) 40%);
 }

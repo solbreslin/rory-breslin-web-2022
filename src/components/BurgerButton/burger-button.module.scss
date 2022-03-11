@@ -1,16 +1,16 @@
 @import "./../../styles/settings/all.scss";
 
 .button {
-  --button-size: 32px;
-  --line-width: 2px;
+  --button-size: 56px;
+  --line-height: 2px;
+  --line-width: 32px;
+  --line-edge-offset: calc((var(--button-size) - var(--line-width)) / 2);
   --transition-setting: 0.125s ease-out;
   --transition-delay: 0.125s;
 
-  align-items: center;
   cursor: pointer;
-  display: flex;
   height: var(--button-size);
-  margin-right: var(--rb-space-3);
+  margin-right: 8px;
   position: relative;
   width: var(--button-size);
   z-index: 10001;
@@ -19,20 +19,20 @@
   &:after {
     background: white;
     content: "";
-    left: var(--line-width);
-    height: var(--line-width);
+    left: var(--line-edge-offset);
+    height: var(--line-height);
     position: absolute;
-    right: var(--line-width);
+    right: var(--line-edge-offset);
     transition: transform var(--transition-setting),
       bottom var(--transition-setting) var(--transition-delay);
   }
 
   &:before {
-    bottom: 20px;
+    bottom: 30px;
   }
 
   &:after {
-    bottom: 12px;
+    bottom: 22px;
   }
 }
 
@@ -44,12 +44,12 @@
   }
 
   &:before {
-    bottom: 16px;
+    bottom: 26px;
     transform: rotate(45deg);
   }
 
   &:after {
-    bottom: 16px;
+    bottom: 26px;
     transform: rotate(-45deg);
   }
 }

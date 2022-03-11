@@ -5,7 +5,7 @@
   --effect: brightness(0.4) saturate(50%);
 
   background-color: var(--rb-bg-color);
-  padding-top: var(--rb-space-6);
+  padding-top: var(--rb-space-5);
 
   @include respond-to(tablet) {
     padding-top: var(--rb-space-7);
@@ -26,7 +26,7 @@
     margin-top: var(--rb-space-6);
 
     @include respond-to(tablet) {
-      margin-top: var(--rb-space-8);
+      margin-top: var(--rb-space-7);
     }
   }
 }
@@ -35,6 +35,20 @@
   display: block;
   transition: var(--transition);
 
+  @include respond-to(tablet) {
+    &:hover {
+      --effect: initial;
+
+      .images {
+        --grid-gap: var(--rb-space-4);
+      }
+
+      h2 {
+        border-bottom-color: white;
+      }
+    }
+  }
+
   h2 {
     @include font-bold;
     border-bottom: 3px solid rgba(0, 0, 0, 0);
@@ -42,6 +56,7 @@
     font-size: var(--rb-font-size-1);
     line-height: 1;
     letter-spacing: var(--rb-letter-spacing);
+    margin-bottom: var(--rb-space-2);
     text-transform: uppercase;
     transition: var(--transition);
 
@@ -51,18 +66,6 @@
 
     @include respond-to(tablet) {
       font-size: var(--rb-font-size-2);
-    }
-  }
-
-  &:hover {
-    --effect: initial;
-
-    .images {
-      --grid-gap: var(--rb-space-4);
-    }
-
-    h2 {
-      border-bottom-color: white;
     }
   }
 }
@@ -75,34 +78,59 @@
   display: grid;
   grid-gap: var(--grid-gap);
   height: var(--height);
-  margin-bottom: var(--rb-space-2);
   transition: var(--transition);
 
   &:not(.visible) {
     filter: var(--effect);
   }
 
-  &.portrait {
-    height: 480px;
-  }
-
-  &.landscape {
-    height: 260px;
+  @include respond-to(mobile-l) {
+    --height: 50vw;
+    grid-template-columns: var(--grid-columns-small);
+    max-height: 600px;
   }
 
   @include respond-to(tablet) {
     grid-template-columns: var(--grid-columns);
-    --height: 400px;
+    --height: 40vw;
   }
 
   @include respond-to(desktop) {
     --height: 480px;
   }
 
+  &.portrait {
+    height: 50vh;
+    min-height: 400px;
+
+    @include respond-to(mobile-l) {
+      height: var(--height);
+      min-height: initial;
+    }
+  }
+
+  &.landscape {
+    height: 25vh;
+    min-height: 240px;
+
+    @include respond-to(mobile-l) {
+      height: var(--height);
+      min-height: initial;
+    }
+  }
+
   figure {
     overflow: hidden;
 
-    &:not(:first-child) {
+    &:nth-child(2) {
+      display: none;
+
+      @include respond-to(mobile-l) {
+        display: block;
+      }
+    }
+
+    &:nth-child(3) {
       display: none;
 
       @include respond-to(tablet) {

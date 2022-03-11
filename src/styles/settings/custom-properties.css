@@ -1,0 +1,39 @@
+:root {
+  --rb-header-height: 64px;
+
+  --rb-primary-color-hs: 217 51%;
+  --rb-primary-color-l: 45%;
+
+  --rb-bg-color: hsl(var(--rb-primary-color-hs) 5%);
+  --rb-text-color: hsl(var(--rb-primary-color-hs) 95%);
+  --rb-bg-color-blue: hsl(var(--rb-primary-color-hs) 20%);
+  --rb-line-color: hsla(0 0% 100% / 0.2);
+  --rb-heading-color: hsla(0 0% 100% / 0.5);
+
+  --rb-font-size-0: 0.618rem;
+  --rb-font-size-1: 1rem;
+  --rb-font-size-2: 1.618rem;
+  --rb-font-size-3: 2.618rem;
+  --rb-font-size-4: 4.236rem;
+
+  --rb-space-0: 0.236rem;
+  --rb-space-1: 0.382rem;
+  --rb-space-2: 0.618rem;
+  --rb-space-3: 1rem;
+  --rb-space-4: 1.618rem;
+  --rb-space-5: 2.618rem;
+  --rb-space-6: 4.236rem;
+  --rb-space-7: 6.854rem;
+  --rb-space-8: 11.089rem;
+
+  --rb-font-family-normal: Akkurat-Reg;
+  --rb-font-family-bold: Akkurat-Bold;
+  --rb-line-height: 1.618;
+  --rb-letter-spacing: 0.1em;
+
+  --rb-transition-settings: 0.125s linear;
+
+  --rb-text-hover-opacity: 0.75;
+
+  --rb-content-max-width: 1600px;
+}

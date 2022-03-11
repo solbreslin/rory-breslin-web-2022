@@ -1,8 +1,8 @@
 @import "./../../styles/settings/all.scss";
 
 .header {
-  --menu-item-padding: calc(var(--rb-space-3) + 2px) var(--rb-space-3)
-    var(--rb-space-3);
+  --menu-item-padding: calc(var(--rb-space-2) + 2px) var(--rb-space-3)
+    var(--rb-space-2);
 
   align-items: center;
   display: flex;
@@ -10,28 +10,37 @@
   position: relative;
 
   @include respond-to(tablet) {
+    --menu-item-padding: calc(var(--rb-space-3) + 2px) var(--rb-space-3)
+      var(--rb-space-3);
     padding: 0 var(--rb-space-3);
     z-index: 3;
   }
 }
 
 .brand {
-  --logo-letter-spacing: 0.15em;
+  --logo-letter-spacing: -0.0125em;
+  --logo-font-size: 1.25rem;
   @include font-bold;
+  font-size: var(--logo-font-size);
+  letter-spacing: var(--logo-letter-spacing);
+  line-height: 1;
   position: relative;
   text-transform: uppercase;
   z-index: 1; // above home page carousel
 
+  @include respond-to(tablet) {
+    --logo-font-size: var(--rb-font-size-2);
+  }
+
   a {
+    color: hsl(var(--rb-primary-color-hs) 50%);
     display: flex;
-    letter-spacing: var(--logo-letter-spacing);
-    line-height: 1;
     padding: var(--menu-item-padding);
   }
 }
 
 .nav {
-  background: var(--rb-bg-color-blue);
+  background: hsl(var(--rb-primary-color-hs) 50%);
   display: flex;
   height: 100%;
   left: 0;
@@ -83,9 +92,10 @@
     display: flex;
 
     a {
+      --letter-spacing: 0.05em;
       flex: 1;
       font-size: clamp(var(--rb-font-size-2), 6vh, var(--rb-font-size-4));
-      letter-spacing: var(--rb-letter-spacing);
+      letter-spacing: var(--letter-spacing);
       line-height: 2;
       opacity: 0.5;
       padding: 0 1rem;
@@ -98,7 +108,6 @@
       @include respond-to(tablet) {
         font-size: var(--rb-font-size-1);
         letter-spacing: var(--rb-letter-spacing);
-        line-height: 1;
         padding: var(--menu-item-padding);
 
         &.current {

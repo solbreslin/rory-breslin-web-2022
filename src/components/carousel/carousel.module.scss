@@ -118,6 +118,10 @@
   position: absolute;
   right: var(--text-offset);
   transition: color 1s ease-out;
+
+  span {
+    padding: 0 2px;
+  }
 }
 
 // Tightly coupled to the `5000` transition speed set in the JS, and the animation timing above

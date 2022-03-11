@@ -14,13 +14,14 @@ const images = data.map(({ images }) => {
 const WorkPreview = () => {
   return (
     <section className={`section ${styles.section}`}>
-      <h1>Recent Work</h1>
-      {data.map(({ name, path, grid, orientation }, index) => (
+      <h1 className="sr-only">Recent Work</h1>
+      {data.map(({ name, path, grid, grid_small, orientation }, index) => (
         <WorkPreviewLink
           key={path}
           name={name}
           path={path}
           grid={grid}
+          gridSmall={grid_small}
           images={images[index]}
           orientation={orientation}
         />

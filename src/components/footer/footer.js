@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <>
       <footer className={footerStyles.footer}>
-        © {new Date().getFullYear()} Rory Breslin
+        <p>© {new Date().getFullYear()} Rory Breslin</p>
       </footer>
     </>
   );

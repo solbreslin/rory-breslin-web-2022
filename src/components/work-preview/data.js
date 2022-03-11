@@ -1,16 +1,5 @@
 const data = [
   {
-    name: "Public art",
-    path: "public",
-    images: [
-      "https://res.cloudinary.com/r-breslin/image/upload/v1583554582/r-breslin-cloudinary/WORK/PUBLIC/brian-boru/brian-boru_brian-boru-01_nb0exo.jpg",
-      "https://res.cloudinary.com/r-breslin/image/upload/v1583554568/r-breslin-cloudinary/WORK/PUBLIC/bellpeal/bellpeal_bellpeal-04_qigy0m.jpg",
-      "https://res.cloudinary.com/r-breslin/image/upload/v1583554596/r-breslin-cloudinary/WORK/PUBLIC/michael-davitt/michael-davitt_michael-davitt-04_tm3rgx.jpg",
-    ],
-    grid: "2fr 1fr 1fr",
-    orientation: "landscape",
-  },
-  {
     name: "Portrait",
     path: "portrait",
     images: [
@@ -18,9 +7,23 @@ const data = [
       "https://res.cloudinary.com/r-breslin/image/upload/v1584241512/r-breslin-cloudinary/WORK/PORTRAIT/michael-collins/michael-collins_michael-collins-01_pzwqgy.jpg",
       "https://res.cloudinary.com/r-breslin/image/upload/v1584241549/r-breslin-cloudinary/WORK/PORTRAIT/wb-yeats/wb-yeats_wb-yeats-01_wdv6ao.jpg",
     ],
+    grid_small: "1fr 2fr",
     grid: "1fr 2fr 1fr",
     orientation: "portrait",
   },
+  {
+    name: "Public art",
+    path: "public",
+    images: [
+      "https://res.cloudinary.com/r-breslin/image/upload/v1583554582/r-breslin-cloudinary/WORK/PUBLIC/brian-boru/brian-boru_brian-boru-01_nb0exo.jpg",
+      "https://res.cloudinary.com/r-breslin/image/upload/v1583554568/r-breslin-cloudinary/WORK/PUBLIC/bellpeal/bellpeal_bellpeal-04_qigy0m.jpg",
+      "https://res.cloudinary.com/r-breslin/image/upload/v1583554596/r-breslin-cloudinary/WORK/PUBLIC/michael-davitt/michael-davitt_michael-davitt-04_tm3rgx.jpg",
+    ],
+    grid_small: "2fr 1fr",
+    grid: "2fr 1fr 1fr",
+    orientation: "landscape",
+  },
+
   {
     name: "Masks",
     path: "masks",
@@ -30,6 +33,7 @@ const data = [
       "https://res.cloudinary.com/r-breslin/image/upload/v1584241912/r-breslin-cloudinary/WORK/MASKS/the-slaney/the-slaney_the-slaney-01_jv8bwy.jpg",
       "https://res.cloudinary.com/r-breslin/image/upload/v1584241829/r-breslin-cloudinary/WORK/MASKS/the-atlantic/the-atlantic_the-atlantic-02_kmha5o.jpg",
     ],
+    grid_small: "1fr 1fr",
     grid: "1fr 1fr 1fr",
     orientation: "portrait",
   },
@@ -41,6 +45,7 @@ const data = [
       "https://res.cloudinary.com/r-breslin/image/upload/v1581734970/r-breslin-cloudinary/WORK/EXHIBITION/la-petite-mort/EXHIBITION_la-petite-mort_la-petite-mort-02_g5ncze.jpg",
       "https://res.cloudinary.com/r-breslin/image/upload/v1581734959/r-breslin-cloudinary/WORK/EXHIBITION/dance-of-the-graeae/EXHIBITION_dance-of-the-graeae_dance-of-the-graeae-03_iiypfr.jpg",
     ],
+    grid_small: "1fr 1fr",
     grid: "1fr 1fr 2fr",
     orientation: "landscape",
   },

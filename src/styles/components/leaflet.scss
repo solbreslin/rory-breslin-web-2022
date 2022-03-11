@@ -13,7 +13,7 @@
       color: grey;
       font: inherit;
       font-size: 1.2rem;
-      font-family: var(--rb-font-weight-bold);
+      font-family: var(--rb-font-family-bold);
       line-height: 0.7rem;
       height: auto;
       opacity: 0;
@@ -51,7 +51,7 @@
   h4 {
     color: white;
     font: inherit;
-    font-family: var(--rb-font-weight-normal);
+    font-family: var(--rb-font-family-normal);
     font-size: var(--rb-font-size-1);
     padding: var(--rb-space-1);
   }
@@ -78,18 +78,19 @@
 .leaflet-touch {
   .leaflet-bar {
     border: none;
-    box-shadow: var(--rb-map-shadow);
+    box-shadow: none;
 
     a {
       background-color: var(--rb-bg-color);
+      box-shadow: var(--rb-map-shadow);
       border: none;
       border-radius: 0 !important;
       color: var(--rb-text-color);
       line-height: 28px;
       transition: var(--rb-transition-settings);
 
-      &:hover {
-        opacity: var(--rb-text-hover-opacity);
+      &:first-child {
+        margin-bottom: var(--rb-space-0);
       }
     }
   }

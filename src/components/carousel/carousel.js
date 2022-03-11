@@ -50,7 +50,7 @@ const Carousel = () => {
               : "",
           }}
         >
-          {active + 1} / {images.length}
+          {active + 1} <span>/</span> {images.length}
         </span>
       </>
     </div>

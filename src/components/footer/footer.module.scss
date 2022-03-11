@@ -1,7 +1,16 @@
+@import "./../../styles/settings/all.scss";
+
 .footer {
-  font-size: var(--rb-font-sizes2);
+  background: var(--rb-bg-color-blue);
+  font-size: var(--rb-font-size-0);
   line-height: 1;
-  padding: 1rem;
-  position: sticky;
-  top: 100vh;
+  padding: var(--rb-space-2);
+
+  @include respond-to(tablet) {
+    padding: var(--rb-space-3) 2rem;
+  }
+
+  p {
+    margin: 0;
+  }
 }
