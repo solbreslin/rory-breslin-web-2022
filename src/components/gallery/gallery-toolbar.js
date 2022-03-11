@@ -73,10 +73,10 @@ const GalleryToolbar = ({
 
   return (
     <div
-      className={`${styles.toolbar} ${isLoading ? styles.loading : ""}`}
+      className={`${styles.toolbarWrapper} ${isLoading ? styles.loading : ""}`}
       ref={toolbarRef}
     >
-      <div className={styles.filterListWrapper}>
+      <div className={styles.toolbar}>
         <button onClick={() => setFiltersOpen(!filtersOpen)}>
           Filter: {activeFilter}
           <ChevronIcon direction={filtersOpen ? "up" : "down"} />
@@ -104,9 +104,6 @@ const GalleryToolbar = ({
             </li>
           ))}
         </ul>
-      </div>
-
-      <div>
         <h4 className="sr-only">Select a layout</h4>
         <ul className={styles.layoutList}>
           {layouts.map(layout => (

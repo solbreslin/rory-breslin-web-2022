@@ -1,43 +1,12 @@
 @import "./../../styles/settings/all.scss";
 
-.container {
-  padding: 1rem;
+.heading {
+  font-size: var(--rb-font-size-3);
+  margin: var(--rb-space-4) 0 var(--rb-space-0);
+  padding: 0 1rem;
 
   @include respond-to(tablet) {
-    padding: 2rem;
+    font-size: var(--rb-font-size-3);
+    padding: 0 2rem;
   }
-
-  h1 {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: var(--rb-font-size3);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-
-    @include respond-to(tablet) {
-      font-size: var(--rb-font-size5);
-    }
-  }
-
-  h4 {
-    margin-bottom: 1rem;
-    opacity: 0.6;
-  }
-
-  div {
-    cursor: pointer;
-  }
-
-  div + div {
-    margin-top: 2rem;
-  }
-
-  img {
-    max-width: 100%;
-    width: auto;
-  }
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
 }

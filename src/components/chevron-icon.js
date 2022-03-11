@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChevronIcon = ({ direction }) => {
+const ChevronIcon = ({ direction, color }) => {
   return (
     <svg
       version="1.1"
@@ -14,7 +14,7 @@ const ChevronIcon = ({ direction }) => {
       <polyline
         points="1.41,1.41 7.41,7.41 13.41,1.41"
         fill="none"
-        stroke="black"
+        stroke={color ? color : "var(--rb-text-color)"}
         strokeWidth="2"
         strokeLinecap="square"
       ></polyline>

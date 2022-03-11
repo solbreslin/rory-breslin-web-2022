@@ -1,44 +1,35 @@
 @import "./../../styles/settings/all.scss";
 
-$breakpoint: tablet;
-$layout-icon-size: 36px;
-
-.toolbar {
-  display: flex;
-  margin-bottom: 1rem;
-  flex-direction: column;
-
-  @include respond-to($breakpoint) {
-    align-items: center;
-    background: var(--rb-bg-color);
+.toolbarWrapper {
+  @include respond-to(tablet) {
+    background-color: var(--rb-bg-color);
     border-bottom: 1px solid var(--rb-line-color);
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 0;
-    padding: var(--rb-space-2) 0 0;
     position: sticky;
     top: 0;
     z-index: 1;
   }
 
   &.loading {
-    // Prevent flash if localstorage updates filter
-    label {
-      border-color: hsl(0, 0%, 0%, 0);
-      color: white;
+    @include respond-to(tablet) {
+      // Prevent flash if localstorage updates filter
+      label {
+        border-color: hsl(0, 0%, 0%, 0);
+        color: var(--rb-text-color);
+      }
     }
   }
 }
 
-.filterListWrapper {
-  border: 1px solid grey;
+.toolbar {
+  align-items: center;
+  display: flex;
+  border: 1px solid var(--rb-line-color);
   border-width: 1px 0 1px 0;
-  padding: 0.5rem 0 0.4rem;
+  justify-content: space-between;
   position: relative;
 
   @include respond-to(tablet) {
     border: none;
-    padding: 0;
   }
 
   > button {
@@ -46,8 +37,10 @@ $layout-icon-size: 36px;
     color: inherit;
     cursor: pointer;
     display: flex;
-    font-size: var(--rb-font-sizes1);
+    font-size: var(--rb-font-size-1);
     justify-content: space-between;
+    letter-spacing: 0.05em;
+    padding: var(--rb-space-2) 0 calc(var(--rb-space-2) - 2px);
     text-transform: uppercase;
     width: 100%;
 
@@ -58,14 +51,22 @@ $layout-icon-size: 36px;
 }
 
 .filterList {
-  background: white;
+  background: var(--rb-bg-color);
   display: none;
-  padding: 0 0 0.5rem;
+  padding: 0 0 var(--rb-space-3);
   position: absolute;
   left: 0;
   right: 0;
+  opacity: 0.9;
   top: 100%;
   z-index: 1;
+
+  @include respond-to(tablet) {
+    background: initial;
+    display: flex;
+    padding: 0;
+    position: static;
+  }
 
   &.open {
     display: block;
@@ -74,38 +75,18 @@ $layout-icon-size: 36px;
       display: flex;
     }
   }
-
-  @include respond-to($breakpoint) {
-    background: hsla(0, 0%, 0%, 0);
-    display: flex;
-    padding: 0;
-    position: static;
-  }
 }
 
 .layoutList {
-  display: none;
-
   @include respond-to(tablet) {
-    margin-right: -0.5em;
-  }
-}
-
-.filterList,
-.layoutList {
-  @include respond-to($breakpoint) {
     display: flex;
+    margin-right: -0.5em;
   }
 }
 
 .filterItem,
 .layoutItem {
   display: flex;
-  transition: 50ms ease-in-out;
-
-  &:not(:last-child) {
-    margin-right: 0.5rem;
-  }
 
   input {
     opacity: 0;
@@ -116,31 +97,34 @@ $layout-icon-size: 36px;
   label {
     cursor: pointer;
     line-height: 1;
-    padding: 0.3em 0 0.2em;
+    padding: var(--rb-space-2) 0 calc(var(--rb-space-2) - 2px);
     text-transform: capitalize;
     user-select: none;
     width: 100%;
 
     @include respond-to(tablet) {
       border-bottom: 4px solid hsl(0, 0%, 0%, 0);
-      padding: 1rem 1rem 0.75em;
+      opacity: var(--rb-text-hover-opacity);
+      padding: var(--rb-space-3) var(--rb-space-3) var(--rb-space-2);
       transition: opacity var(--rb-transition-settings);
 
       &:hover {
-        opacity: var(--rb-text-hover-opacity);
+        opacity: 1;
       }
     }
   }
 }
 
 .layoutItem {
+  --icon-size: 36px;
+
   label {
     align-items: center;
     display: flex;
-    height: $layout-icon-size;
+    height: var(--icon-size);
     justify-content: center;
     padding: 0.5em;
-    width: $layout-icon-size;
+    width: var(--icon-size);
 
     svg {
       display: block;
@@ -158,12 +142,12 @@ $layout-icon-size: 36px;
 
 .activeFilter,
 .activeLayout {
-  label {
-    text-decoration: underline;
+  --accent-color: hsl(var(--rb-primary-color-hs) 50%);
 
-    @include respond-to(tablet) {
-      color: #7499d8;
-      text-decoration: none;
+  @include respond-to(tablet) {
+    label {
+      color: white;
+      opacity: 1;
 
       &:hover {
         opacity: 1;
@@ -173,9 +157,9 @@ $layout-icon-size: 36px;
 }
 
 .activeFilter {
-  @include respond-to(tablet) {
-    label {
-      border-color: #7499d8;
+  label {
+    @include respond-to(tablet) {
+      border-color: var(--accent-color);
     }
   }
 }
@@ -186,7 +170,7 @@ $layout-icon-size: 36px;
 
 .filterList,
 .layoutList {
-  @include respond-to($breakpoint) {
+  @include respond-to(tablet) {
     display: flex;
   }
 }
