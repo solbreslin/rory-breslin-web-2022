@@ -18,16 +18,17 @@ const GalleryToolbar = ({
 }) => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [activeLayout, setActiveLayout] = useState("grid");
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [toolbarOpen, setToolbarOpen] = useState(false);
   const toolbarRef = useRef(null);
 
   const onFilterChange = (filter = "all") => {
-    setFiltersOpen(false);
+    setToolbarOpen(false);
     setActiveFilter(filter);
     addToStorage("rb-filter", filter);
   };
 
   const onLayoutChange = layout => {
+    setToolbarOpen(false);
     setActiveLayout(layout);
     addToStorage("rb-layout", layout);
   };
@@ -76,15 +77,19 @@ const GalleryToolbar = ({
       className={`${styles.toolbarWrapper} ${isLoading ? styles.loading : ""}`}
       ref={toolbarRef}
     >
-      <div className={styles.toolbar}>
-        <button onClick={() => setFiltersOpen(!filtersOpen)}>
-          Filter: {activeFilter}
-          <ChevronIcon direction={filtersOpen ? "up" : "down"} />
-        </button>
+      <button
+        className={`${styles.toolbarToggle} ${
+          toolbarOpen ? styles.isActive : ""
+        }`}
+        onClick={() => setToolbarOpen(!toolbarOpen)}
+      >
+        <span className={styles.filterText}>Filter by</span>
+        <span className={styles.activeFilterText}>{activeFilter}</span>
+        <ChevronIcon direction={toolbarOpen ? "up" : "down"} />
+      </button>
+      <div className={`${styles.toolbar} ${toolbarOpen ? styles.open : ""}`}>
         <h4 className="sr-only">Select a category</h4>
-        <ul
-          className={`${styles.filterList} ${filtersOpen ? styles.open : ""}`}
-        >
+        <ul className={`${styles.filterList} `}>
           {filters.map(filter => (
             <li
               key={filter}

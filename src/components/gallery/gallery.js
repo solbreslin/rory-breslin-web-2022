@@ -78,6 +78,7 @@ const Gallery = ({ initialFilter, data }) => {
   };
 
   function onListItemHover(e) {
+    if (window.innerWidth < 768) return;
     if (!e || !e.target) return;
 
     if (e.target.closest("a")) {

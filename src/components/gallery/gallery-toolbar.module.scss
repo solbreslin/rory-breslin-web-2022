@@ -1,13 +1,10 @@
 @import "./../../styles/settings/all.scss";
 
 .toolbarWrapper {
-  @include respond-to(tablet) {
-    background-color: var(--rb-bg-color);
-    border-bottom: 1px solid var(--rb-line-color);
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
+  background-color: var(--rb-bg-color);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   &.loading {
     @include respond-to(tablet) {
@@ -20,66 +17,74 @@
   }
 }
 
-.toolbar {
+.toolbarToggle {
   align-items: center;
+  border-bottom: 1px solid var(--rb-line-color);
+  color: inherit;
+  cursor: pointer;
   display: flex;
-  border: 1px solid var(--rb-line-color);
-  border-width: 1px 0 1px 0;
+  font-size: var(--rb-font-size-1);
+  padding: var(--rb-space-2) 0 calc(var(--rb-space-2) - 2px);
+  //text-transform: uppercase;
+  width: 100%;
+
+  .filterText {
+    opacity: 0.6;
+    margin-right: var(--rb-space-2);
+  }
+
+  .activeFilterText {
+    text-transform: capitalize;
+  }
+
+  &.is-active {
+    border-color: hsla(0, 0%, 0%, 0);
+  }
+
+  svg {
+    margin-left: auto;
+  }
+
+  @include respond-to(tablet) {
+    display: none;
+  }
+}
+
+.toolbar {
+  border-bottom: 1px solid var(--rb-line-color);
+  display: none;
+  flex-direction: column;
   justify-content: space-between;
+  padding: var(--rb-space-1) 0 var(--rb-space-2);
+  padding-left: 80px; // Width of the words 'Filter by'
   position: relative;
 
   @include respond-to(tablet) {
-    border: none;
+    align-items: center;
+
+    display: flex;
+    flex-direction: row;
+    padding: 0;
   }
 
-  > button {
-    align-items: center;
-    color: inherit;
-    cursor: pointer;
+  &.open {
     display: flex;
-    font-size: var(--rb-font-size-1);
-    justify-content: space-between;
-    letter-spacing: 0.05em;
-    padding: var(--rb-space-2) 0 calc(var(--rb-space-2) - 2px);
-    text-transform: uppercase;
-    width: 100%;
-
-    @include respond-to(tablet) {
-      display: none;
-    }
   }
 }
 
 .filterList {
-  background: var(--rb-bg-color);
-  display: none;
-  padding: 0 0 var(--rb-space-3);
-  position: absolute;
-  left: 0;
-  right: 0;
-  opacity: 0.9;
-  top: 100%;
-  z-index: 1;
+  margin: 0 0 var(--rb-space-3);
 
   @include respond-to(tablet) {
-    background: initial;
     display: flex;
-    padding: 0;
-    position: static;
-  }
-
-  &.open {
-    display: block;
-
-    @include respond-to(tablet) {
-      display: flex;
-    }
+    margin: 0;
   }
 }
 
 .layoutList {
+  display: flex;
+
   @include respond-to(tablet) {
-    display: flex;
     margin-right: -0.5em;
   }
 }
@@ -98,13 +103,13 @@
     cursor: pointer;
     line-height: 1;
     padding: var(--rb-space-2) 0 calc(var(--rb-space-2) - 2px);
+    opacity: var(--rb-text-hover-opacity);
     text-transform: capitalize;
     user-select: none;
     width: 100%;
 
     @include respond-to(tablet) {
       border-bottom: 4px solid hsl(0, 0%, 0%, 0);
-      opacity: var(--rb-text-hover-opacity);
       padding: var(--rb-space-3) var(--rb-space-3) var(--rb-space-2);
       transition: opacity var(--rb-transition-settings);
 
@@ -117,6 +122,15 @@
 
 .layoutItem {
   --icon-size: 36px;
+  margin: 0 var(--rb-space-1);
+
+  &:first-of-type {
+    margin-left: -0.5em;
+
+    @include respond-to(tablet) {
+      margin-left: 0;
+    }
+  }
 
   label {
     align-items: center;
@@ -143,12 +157,11 @@
 .activeFilter,
 .activeLayout {
   --accent-color: hsl(var(--rb-primary-color-hs) 50%);
+  label {
+    color: white;
+    opacity: 1;
 
-  @include respond-to(tablet) {
-    label {
-      color: white;
-      opacity: 1;
-
+    @include respond-to(tablet) {
       &:hover {
         opacity: 1;
       }
@@ -161,16 +174,5 @@
     @include respond-to(tablet) {
       border-color: var(--accent-color);
     }
-  }
-}
-
-.layoutList {
-  display: none;
-}
-
-.filterList,
-.layoutList {
-  @include respond-to(tablet) {
-    display: flex;
   }
 }

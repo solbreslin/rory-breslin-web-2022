@@ -12,7 +12,10 @@ const WorkPreviewLink = ({
   images,
   orientation,
 }) => {
-  const { ref, inView, entry } = useInView({ threshold: 0.65 });
+  const { ref, inView } = useInView({
+    threshold: 0.65,
+    triggerOnce: true,
+  });
 
   return (
     <article ref={ref}>
