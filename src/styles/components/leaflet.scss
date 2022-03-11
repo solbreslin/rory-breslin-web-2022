@@ -10,87 +10,87 @@
 .leaflet-container {
   a {
     &.leaflet-popup-close-button {
-      color: grey;
-      font: inherit;
-      font-size: 1.2rem;
-      font-family: var(--rb-font-family-bold);
-      line-height: 0.7rem;
-      height: auto;
-      opacity: 0;
-      padding: 8px;
-      transition: var(--rb-transition-settings);
-      width: auto;
+      color: grey !important;
+      font: inherit !important;
+      font-size: 1.2rem !important;
+      font-family: var(--rb-font-family-bold) !important;
+      line-height: 0.7rem !important;
+      height: auto !important;
+      opacity: 0 !important;
+      padding: 8px !important;
+      transition: var(--rb-transition-settings) !important;
+      width: auto !important;
     }
   }
 }
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: var(--rb-bg-color);
-  box-shadow: var(--rb-map-shadow);
-  border-radius: 0;
-  padding: 0;
+  background: var(--rb-bg-color) !important;
+  box-shadow: var(--rb-map-shadow) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
 }
 
 .leaflet-popup-content {
-  margin: 0;
-  overflow: hidden;
+  margin: 0 !important;
+  overflow: hidden !important;
 
   a {
-    display: block;
-    width: 281px;
+    display: block !important;
+    width: 281px !important;
   }
 
   img {
-    background-color: var(--rb-bg-color-blue);
-    color: var(--rb-bg-color-blue);
-    height: 160px;
-    transform: scaleX(1.01);
+    background-color: var(--rb-bg-color-blue) !important;
+    color: var(--rb-bg-color-blue) !important;
+    height: 160px !important;
+    transform: scaleX(1.01) !important;
   }
 
   h4 {
-    color: white;
-    font: inherit;
-    font-family: var(--rb-font-family-normal);
-    font-size: var(--rb-font-size-1);
-    padding: var(--rb-space-1);
+    color: white !important;
+    font: inherit !important;
+    font-family: var(--rb-font-family-normal) !important;
+    font-size: var(--rb-font-size-1) !important;
+    padding: var(--rb-space-1) !important;
   }
 }
 
 // This is not the right way to do this, but...
 .leaflet-top {
-  bottom: 0;
-  top: auto;
+  bottom: 0 !important;
+  top: auto !important;
 
   .leaflet-control {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem !important;
   }
 }
 
 .leaflet-left {
-  left: 0;
+  left: 0 !important;
 
   .leaflet-control {
-    margin-left: 1rem;
+    margin-left: 1rem !important;
   }
 }
 
 .leaflet-touch {
   .leaflet-bar {
-    border: none;
-    box-shadow: none;
+    border: none !important;
+    box-shadow: none !important;
 
     a {
-      background-color: var(--rb-bg-color);
-      box-shadow: var(--rb-map-shadow);
-      border: none;
+      background-color: var(--rb-bg-color) !important;
+      box-shadow: var(--rb-map-shadow) !important;
+      border: none !important;
       border-radius: 0 !important;
-      color: var(--rb-text-color);
-      line-height: 28px;
-      transition: var(--rb-transition-settings);
+      color: var(--rb-text-color) !important;
+      line-height: 28px !important;
+      transition: var(--rb-transition-settings) !important;
 
       &:first-child {
-        margin-bottom: var(--rb-space-0);
+        margin-bottom: var(--rb-space-0) !important;
       }
     }
   }
