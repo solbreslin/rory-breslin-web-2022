@@ -5,7 +5,7 @@ $layout-icon-size: 36px;
 
 .container {
   --padding-x: 1rem;
-  padding: 0 var(--padding-x) var(--rb-space-3);
+  padding: 0 var(--padding-x) var(--rb-space-4);
 
   @include respond-to($breakpoint) {
     --padding-x: 2rem;
@@ -28,16 +28,15 @@ $layout-icon-size: 36px;
   padding: var(--rb-space-2) 0 var(--rb-space-7);
 
   @include respond-to(mobile-l) {
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  }
-
-  @include respond-to(tablet) {
-    grid-gap: var(--rb-space-6) var(--rb-space-1);
-
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
     > * {
       // Set inline in the template
       grid-column: span var(--grid-span);
     }
+  }
+
+  @include respond-to(tablet) {
+    grid-gap: var(--rb-space-6) var(--rb-space-1);
   }
 
   h3 {
@@ -103,8 +102,4 @@ $layout-icon-size: 36px;
       }
     }
   }
-}
-
-.map {
-  display: block;
 }

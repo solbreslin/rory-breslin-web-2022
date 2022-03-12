@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import CustomMap from "./../map/map";
 import * as styles from "./gallery.module.scss";
@@ -31,6 +31,7 @@ const Gallery = ({ initialFilter, data }) => {
   const [activeLayout, setActiveLayout] = useState("grid");
   const [imageHovered, setImageHovered] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const toolbarSentinalEl = useRef(null);
 
   useEffect(() => {
     setIsLoading(false);
@@ -52,16 +53,14 @@ const Gallery = ({ initialFilter, data }) => {
 
   useEffect(() => {
     if (isBrowser()) {
-      const siteHeaderHeight = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--rb-header-height");
+      if (toolbarSentinalEl && toolbarSentinalEl.current) {
+        const top = toolbarSentinalEl.current.offsetTop;
 
-      const top = siteHeaderHeight ? parseInt(siteHeaderHeight, 0) : 0;
+        // Prevents scroll DOWN to `top` - we only want scroll back UP
+        if (window.scrollY < top) return;
 
-      // Prevents scroll DOWN to `top` - we only want scroll back UP
-      if (window.scrollY < top) return;
-
-      scroll(top);
+        scroll(top);
+      }
     }
   }, [activeFilter]);
 
@@ -82,14 +81,15 @@ const Gallery = ({ initialFilter, data }) => {
     if (!e || !e.target) return;
 
     if (e.target.closest("a")) {
-      const i = e.target.dataset.index;
+      const i = e.target.closest("a").dataset.index;
 
       setImageHovered(i);
     }
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="js-gallery-container">
+      <div ref={toolbarSentinalEl}></div>
       <GalleryToolbar
         initialFilter={initialFilter}
         emitFilter={setActiveFilter}
@@ -107,24 +107,39 @@ const Gallery = ({ initialFilter, data }) => {
           }
           clearFilters={clearFiltersTrigger}
         />
-      ) : (
+      ) : activeLayout === "list" ? (
         <div
-          className={`${
-            activeLayout === "grid"
-              ? styles.grid
-              : activeLayout === "list"
-              ? styles.list
-              : styles.map
-          } ${!isLoading && styles.ready}`}
           role="presentation"
+          className={`${styles.list} ${!isLoading && styles.ready}`}
         >
-          {activeLayout === "list" && (
-            <GalleryListImages
-              active={imageHovered}
-              data={galleryData}
-              filter={activeFilter}
-            />
-          )}
+          <GalleryListImages
+            active={imageHovered}
+            data={galleryData}
+            filter={activeFilter}
+          />
+          <div>
+            {galleryData &&
+              galleryData
+                .filter(
+                  item =>
+                    item.frontmatter.category === activeFilter ||
+                    activeFilter === "all"
+                )
+                .map(({ frontmatter: item, path }, index) => (
+                  <Link
+                    key={item.title}
+                    to={path}
+                    data-index={index}
+                    onMouseEnter={onListItemHover}
+                  >
+                    <h3>{item.title}</h3>
+                    <span>{item.year}</span>
+                  </Link>
+                ))}
+          </div>
+        </div>
+      ) : (
+        <div className={`${styles.grid} ${!isLoading && styles.ready}`}>
           {galleryData &&
             galleryData
               .filter(
@@ -136,17 +151,14 @@ const Gallery = ({ initialFilter, data }) => {
                 <Link
                   key={item.title}
                   to={path}
-                  data-index={index}
                   style={{ "--grid-span": item.isHorizontal ? "2" : "" }}
-                  onMouseEnter={
-                    activeLayout === "list" ? onListItemHover : undefined
-                  }
                 >
-                  {activeLayout === "grid" && (
-                    <GalleryImage alt={item.title} url={item.images[0]} />
-                  )}
+                  <GalleryImage
+                    alt={item.title}
+                    url={item.images[0]}
+                    isHorizontal={item.isHorizontal}
+                  />
                   <h3>{item.title}</h3>
-                  {activeLayout === "list" && <span>{item.year}</span>}
                 </Link>
               ))}
         </div>

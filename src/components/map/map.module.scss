@@ -1,10 +1,6 @@
 @import "./../../styles/settings/all.scss";
 
 .container {
-  height: calc(
-    100vh - var(--rb-header-height) - var(--rb-toolbar-height) -
-      var(--rb-space-3)
-  );
   position: relative;
 }
 

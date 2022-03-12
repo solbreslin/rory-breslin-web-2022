@@ -6,15 +6,16 @@
 
   @include respond-to(tablet) {
     display: block;
-    grid-column: 1;
-    grid-row: 1 / -1;
-    position: sticky;
-    top: calc(
-      var(--rb-toolbar-height, 64) + var(--gallery-container-padding-top)
-    );
 
     img {
       position: absolute;
     }
+  }
+
+  > div {
+    position: sticky;
+    top: calc(
+      var(--rb-toolbar-height, 64) + var(--gallery-container-padding-top)
+    );
   }
 }

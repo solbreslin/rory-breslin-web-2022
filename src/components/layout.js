@@ -24,7 +24,7 @@ const Layout = ({ children, index }) => {
         index={index}
       />
       <main className={index ? "is-index" : ""}>{children}</main>
-      <Footer />
+      <Footer index={index} />
     </>
   );
 };

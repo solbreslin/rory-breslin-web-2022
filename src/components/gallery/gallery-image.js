@@ -4,9 +4,11 @@ import { getPath } from "../../utils";
 
 const CLOUDINARY_FULL_QUERY = "w_600,c_limit,q_75,f_auto";
 
-const GalleryImage = ({ alt, url }) => {
+const GalleryImage = ({ alt, url, isHorizontal }) => {
   return (
-    <figure className={`${styles.figure}`}>
+    <figure
+      className={`${styles.figure} ${isHorizontal ? styles.isLandscape : ""}`}
+    >
       <img src={getPath(url, CLOUDINARY_FULL_QUERY)} alt={alt} />
     </figure>
   );

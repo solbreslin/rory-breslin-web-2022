@@ -3,22 +3,27 @@
 .container {
   padding: 1rem;
 
+  // Prevent FOUC while images load
+  &:not(.nav) {
+    min-height: 100vh;
+  }
+
   @include respond-to(tablet) {
     padding: 2rem;
   }
 
   h1 {
-    font-size: var(--rb-font-size3);
+    font-size: var(--rb-font-size-2);
     line-height: 1;
-    margin-bottom: 0.5rem;
+    margin: var(--rb-space-4) 0 var(--rb-space-0);
 
     @include respond-to(tablet) {
-      font-size: var(--rb-font-size5);
+      font-size: var(--rb-font-size-3);
     }
   }
 
   h4 {
-    margin-bottom: 1rem;
+    margin-bottom: var(--rb-space-3);
     opacity: 0.6;
   }
 
@@ -39,5 +44,38 @@
 
 .nav {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  grid-gap: var(--rb-space-3);
+  margin: var(--rb-space-2) 0 var(--rb-space-6);
+
+  @include respond-to(mobile-l) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  a {
+    display: grid;
+    justify-self: flex-start;
+
+    &:first-child {
+      margin-bottom: var(--rb-space-3);
+
+      @include respond-to(mobile-l) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  svg {
+    margin-left: 1ch;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.nextProjectText {
+  opacity: 0.6;
+  text-decoration: none;
 }

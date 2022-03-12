@@ -13,22 +13,24 @@ const generateListImage = path => {
 const GalleryListImages = ({ data, active, filter }) => {
   return (
     <div className={styles.listimage}>
-      {data &&
-        data
-          .filter(
-            item => item.frontmatter.category === filter || filter === "all"
-          )
-          .map(({ frontmatter: item }, index) => (
-            <img
-              src={generateListImage(item.images[0])}
-              alt={item.title}
-              key={item.title}
-              style={{
-                visibility:
-                  index === parseInt(active, 10) ? "visible" : "hidden",
-              }}
-            />
-          ))}
+      <div>
+        {data &&
+          data
+            .filter(
+              item => item.frontmatter.category === filter || filter === "all"
+            )
+            .map(({ frontmatter: item }, index) => (
+              <img
+                src={generateListImage(item.images[0])}
+                alt={item.title}
+                key={item.title}
+                style={{
+                  visibility:
+                    index === parseInt(active, 10) ? "visible" : "hidden",
+                }}
+              />
+            ))}
+      </div>
     </div>
   );
 };

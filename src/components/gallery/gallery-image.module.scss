@@ -1,9 +1,22 @@
 @import "./../../styles/settings/all.scss";
 
 .figure {
-  height: 240px;
+  height: 50vh;
   margin-bottom: 0.5rem;
+  min-height: 400px;
+
   overflow: hidden;
+
+  &.isLandscape {
+    height: 25vh;
+    min-height: 240px;
+  }
+
+  @include respond-to(mobile-l) {
+    height: 400px !important;
+    min-height: initial !important;
+    margin-bottom: 1rem;
+  }
 
   @include respond-to(tablet) {
     height: 400px;

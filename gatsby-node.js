@@ -48,14 +48,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       id: edge.node.id,
       path: formatPath(edge.node.frontmatter.title),
       category: edge.node.frontmatter.category,
+      title: edge.node.frontmatter.title,
     };
   });
 
   paths = sortAlphabetically(paths);
 
-  paths.forEach((path, index) => {
+  paths.forEach((item, index) => {
     if (paths[index + 1]) {
-      path.nextPath = paths[index + 1].path;
+      item.next = {
+        path: paths[index + 1].path,
+        title: paths[index + 1].title,
+      };
     }
 
     // Find the next path that matches the current category
@@ -64,8 +68,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const next = paths[i];
 
       if (next) {
-        if (next.category === path.category) {
-          path.nextPathInCategory = next.path;
+        if (next.category === item.category) {
+          item.next.path_in_category = next.path;
+          item.next.title_in_category = next.title;
           break;
         }
       }
@@ -73,15 +78,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   });
 
   paths.forEach(p => {
-    const { id, path, nextPath, nextPathInCategory } = p;
+    const { id, path, next } = p;
 
     createPage({
       path: "work/" + path,
       component: projectPageTemplate,
       context: {
         id,
-        nextPath,
-        nextPathInCategory,
+        next,
       },
     });
   });

@@ -34,7 +34,7 @@ const useKeyPress = (targetKeyCode, callback) => {
 
 const ProjectPage = ({ data, pageContext }) => {
   const [carouselIndex, setCarouselIndex] = useState(null);
-  const [next, setNext] = useState(null);
+  const [next, setNext] = useState({});
   const { frontmatter: project } = data.markdownRemark;
 
   const closeCarousel = () => {
@@ -55,14 +55,33 @@ const ProjectPage = ({ data, pageContext }) => {
         filter = localStorage.getItem("rb-filter");
       }
 
-      if (filter) {
-        if (filter === "all") {
-          return pageContext.nextPath;
-        } else {
-          return pageContext.nextPathInCategory;
+      const { next } = pageContext;
+
+      // User lands on the page with no filter set (e.g. sent the link)
+      if (!filter) {
+        return {
+          path: next.path,
+          title: next.title,
+        };
+      }
+
+      // Filter set
+      if (filter && filter !== "all") {
+        // Check if there is a next item
+        if (next.path_in_category && next.title_in_category) {
+          return {
+            path: next.path_in_category,
+            title: next.title_in_category,
+          };
         }
-      } else {
-        return pageContext.nextPathInCategory;
+      }
+
+      // Filter set but set to 'all'
+      if (filter && filter === "all") {
+        return {
+          path: next.path,
+          title: next.title,
+        };
       }
     };
 
@@ -106,9 +125,16 @@ const ProjectPage = ({ data, pageContext }) => {
         ))}
       </section>
       <section className={`${styles.container} ${styles.nav}`}>
+        <Link to={"/work"} className={styles.underline}>
+          All projects
+        </Link>
         {next && (
-          <Link to={"/work/" + next}>
-            Next <ArrowIcon />
+          <Link to={"/work/" + next.path}>
+            <span className={styles.nextProjectText}>Next project</span>
+            <span>
+              <span className={styles.underline}>{next.title}</span>
+              <ArrowIcon />
+            </span>
           </Link>
         )}
       </section>
