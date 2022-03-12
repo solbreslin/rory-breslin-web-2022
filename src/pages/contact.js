@@ -7,7 +7,7 @@ const ContactPage = () => {
   return (
     <Layout>
       <section className={contactPageStyles.container}>
-        <p>Contact page works</p>
+        <p>...</p>
       </section>
     </Layout>
   );

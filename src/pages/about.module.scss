@@ -2,8 +2,8 @@
 
 .container {
   margin: 0 auto;
-  padding: 1rem;
-  width: var(--rb-content-max-width);
+  padding: var(--rb-space-5) 1rem var(--rb-space-6);
+  max-width: var(--rb-content-max-width);
 
   @include respond-to(tablet) {
     padding: 2rem;

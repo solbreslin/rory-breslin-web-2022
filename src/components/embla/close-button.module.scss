@@ -11,7 +11,7 @@
   top: 0;
   transform: rotate(45deg);
   width: 48px;
-  z-index: 10000;
+  z-index: 10003;
 
   @include respond-to(tablet) {
     right: 0.5rem;
